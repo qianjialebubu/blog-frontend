@@ -8,6 +8,7 @@ import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css';
 import './plugins/element.js'
+import '@/assets/css/prism.css'
 
 axios.defaults.baseURL = "http://127.0.0.1:8090"
 

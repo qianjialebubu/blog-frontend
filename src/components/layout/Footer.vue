@@ -85,6 +85,11 @@ export default {
         h4{
             color: white;
         }
+
+        .list .item{
+            line-height: 20px;
+        }
+
         .list .item:hover{
             color: white;
         }

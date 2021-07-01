@@ -37,31 +37,21 @@ export default {
                 },
                 {
                     id: 2,
-                    authName: '分类',
-                    path: 'type'
-                },
-                {
-                    id: 3,
-                    authName: '标签',
-                    path: 'tag'
-                },
-                {
-                    id: 4,
-                    authName: '归档',
+                    authName: '随笔',
                     path: 'archives'
                 },
                 {
-                    id: 5,
+                    id: 3,
                     authName: '项目',
                     path: 'project'
                 },
                 {
-                    id: 6,
+                    id: 4,
                     authName: '留言',
                     path: 'said'
                 },
                 {
-                    id: 7,
+                    id: 5,
                     authName: '关于我',
                     path: 'about'
                 },

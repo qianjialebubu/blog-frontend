@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../components/Login";
+import Login from "../components/admin/Login";
 import Welcome from "../views/Welcome";
 import Index from "../components/Index";
-import Type from "../components/Type";
-import Tag from "../components/Tag";
 import Archives from "../components/Archives";
 import About from "../components/About";
+import Blog from "../components/Blog";
+import Project from "../components/Project";
+import Message from "../components/Message";
 
 Vue.use(VueRouter)
 
@@ -21,10 +22,11 @@ const routes = [
         redirect:'/index',
         children: [
             {path: '/index', component: Index},
-            {path: '/type', component: Type},
-            {path: '/tag', component: Tag},
             {path: '/archives', component: Archives},
             {path: '/about', component: About},
+            {path: '/blogInfo', component: Blog},
+            {path: '/project',component: Project},
+            {path: '/message',component: Message}
         ]
     }
 ]

@@ -1,3 +1,4 @@
+
 html,body,#app{
     height: 100%;
     margin: 0;
@@ -5,12 +6,13 @@ html,body,#app{
     min-width: 1080px;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 .el-breadcrumb{
     margin-bottom: 15px;
     font-size: 12px;
-}
-.el-card{
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
 }
 
 .el-table{
@@ -32,3 +34,4 @@ html,body,#app{
 .ql-editor{
     min-height: 300px;
 }
+
