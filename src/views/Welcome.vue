@@ -19,5 +19,6 @@ export default {
 <style scoped lang="less">
     .el-main{
         background-color: #f5f6f7;
+        min-height: 450px;
     }
 </style>

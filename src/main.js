@@ -5,19 +5,30 @@ import store from './store'
 import Element from 'element-ui'
 import axios from 'axios'
 import './assets/css/global.css'
+import './assets/css/myStyle.css'
 import './assets/fonts/iconfont.css'
-import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css'
 import './plugins/element.js'
 import '@/assets/css/prism.css'
 
-axios.defaults.baseURL = "http://127.0.0.1:8090"
+// axios.interceptors.request.use(config => {
+//   config.headers.Authorization = window.sessionStorage.getItem('token')
+//   return config
+// })
 
-axios.interceptors.request.use(config => {
-  config.headers.Authorization = window.sessionStorage.getItem('token')
-  return config
-})
 
 Vue.prototype.$http = axios
+
+const blog = axios.create({ // 博客后台api地址
+  baseURL: 'http://localhost:8090'
+})
+
+const picture = axios.create({ // 图片服务器api地址
+  baseURL: 'http://hikari.top/pic_server'
+})
+
+Vue.prototype.$blog = blog
+Vue.prototype.$picture = picture
 
 Vue.config.productionTip = false
 Vue.use(Element)

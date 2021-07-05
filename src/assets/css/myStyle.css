@@ -1,0 +1,223 @@
+body{
+    background-image: url("https://www.cnblogs.com/skins/coffee/images/bg_body.gif");
+    /*background-image: url("../images/bg1.jpeg");*/
+    background-attachment: fixed;
+}
+.m-padded-mini {
+    padding: 0.2em;
+}
+
+.m-padded-tiny {
+    padding: 0.3em;
+}
+
+.m-padded-tb-mini {
+    /*1个em14个像素*/
+    /*semantic 中的样式本身就加了 important，因此，要覆盖必须加important*/
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+
+.m-padded-tb-tiny {
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.m-padded-tb-small {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.m-padded-tb {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.m-padded-tb-large {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+
+.m-padded-tb-big {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.m-padded-tb-huge {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+.m-padded-tb-massive {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
+}
+
+/*text*/
+.m-text {
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    line-height: 1.8 !important;
+}
+
+.m-text-thin {
+    font-weight: 300 !important;
+}
+
+.m-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.m-text-lined {
+    line-height: 1.8;
+}
+
+.m-text-large{
+    font-size: 1.5em;
+    letter-spacing: 2px;
+}
+
+.m-text-meddle{
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+
+.m-text-small{
+    font-size: 0.8em;
+}
+
+/*padding*/
+.m-padded-lr-responsive {
+    padding-left: 4em !important;
+    padding-right: 4em !important;
+}
+
+/*margin*/
+.m-margin-tb-tiny {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.m-margin-top-small {
+    margin-top: 0.5em !important;
+}
+
+.m-margin-top {
+    margin-top: 1em !important;
+}
+
+.m-margin-top-large {
+    margin-top: 2em !important;
+}
+
+.m-margin-tb-bottom-mini {
+    margin-bottom: 0.2em !important;
+}
+
+.m-margin-tb-bottom-small {
+    margin-bottom: 0.5em !important;
+}
+
+/*opacity*/
+.m-opacity-mini {
+    opacity: 0.8 !important;
+}
+
+.m-opacity-tiny {
+    opacity: 0.6 !important;
+}
+
+/*position*/
+.m-right-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+/*display*/
+.m-inline-block {
+    display: inline-block !important;
+}
+
+/*container*/
+.m-container {
+    max-width: 72em !important;
+    margin: auto !important;
+}
+
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+/*shadow*/
+.m-shadow-small {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/*position*/
+.m-fixed {
+    position: fixed !important;
+    z-index: 1 !important;
+}
+
+.m-right-bottom {
+    bottom: 0 !important;
+    right: 0 !important;
+}
+
+/*color*/
+.m-black {
+    color: #333333 !important;
+}
+
+.m-black:hover{
+    color: teal !important;
+}
+
+.m-mobile-show {
+    display: none !important;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/*简历*/
+/*引入字体文件*/
+@font-face {
+    font-family: 'webfont';
+    font-display: swap;
+    src: url('../fonts/titleFont/webfont.eot'); /* IE9 */
+    src: url('../fonts/titleFont/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/titleFont/webfont.woff2') format('woff2'),
+    url('../fonts/titleFont/webfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/titleFont/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/titleFont/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+
+.web-font {
+    font-family: "webfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+@media print, screen {
+    /* Using for the screen as well */
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+
+

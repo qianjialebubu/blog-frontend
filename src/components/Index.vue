@@ -2,7 +2,7 @@
     <el-container>
         <el-row :gutter="12">
             <el-col :span="16">
-                <el-card  class="left-item">
+                <el-card class="left-item">
                     <div slot="header" class="total">
                         <div class="title">
                             <i v-if="selected" class="el-icon-back" @click="updateBlogList"></i>
@@ -48,7 +48,7 @@
                 </el-pagination>
             </el-col>
             <el-col :span="8">
-                <el-card class="right-item" >
+                <el-card class="right-item">
                     <div slot="header" class="attributes">
 
                         <span>分类</span>
@@ -58,7 +58,8 @@
                             @click="selectType(type.id)"
                             :class="type.id === typeId? 'activeType':''">
                             <div style="display: flex;align-items: center">
-                                <el-image :src="type.pic_url" style="width: 28px;height: 28px; border-radius: 50%; margin-right: 10px"></el-image>
+                                <el-image :src="type.pic_url"
+                                          style="width: 28px;height: 28px; border-radius: 50%; margin-right: 10px"></el-image>
                                 {{type.name}}
                             </div>
                             <div>{{type.blogs.length}}</div>
@@ -71,7 +72,8 @@
                 </el-card>
                 <el-card class="right-item">
                     <div slot="header" class="attributes">
-                        <el-button style="float: right; padding: 3px 0; font-size: medium" type="text" @click="getFullTagList">more
+                        <el-button style="float: right; padding: 3px 0; font-size: medium" type="text"
+                                   @click="getFullTagList">more
                             <i class="el-icon-caret-right"></i></el-button>
                         <span>标签</span>
                     </div>
@@ -82,7 +84,7 @@
                             <div class="sjx-outer">
                                 <div class="sjx-inner"></div>
                             </div>
-                            <div class="tag" >
+                            <div class="tag">
                                 {{tag.name}}
                                 {{tag.blogs.length}}
                             </div>
@@ -97,9 +99,10 @@
                     <div slot="header" class="attributes">
                         <span>最新推荐</span>
                     </div>
-                        <div class="recommend-blog l-text" v-for="blog in recommendList" :key="blog.id" @click="getBlogInfo(blog.id)">
-                            <a >{{blog.title}}</a>
-                        </div>
+                    <div class="recommend-blog l-text" v-for="blog in recommendList" :key="blog.id"
+                         @click="getBlogInfo(blog.id)">
+                        <a>{{blog.title}}</a>
+                    </div>
                 </el-card>
             </el-col>
         </el-row>
@@ -120,9 +123,9 @@ export default {
             typeList: [],
             tagList: [],
             recommendList: [],
-            selectMethod:'全部博客',
-            typeId:-1,
-            tagId:-1,
+            selectMethod: '全部博客',
+            typeId: -1,
+            tagId: -1,
             selected: false,
             moreType: true,
             moreTag: true,
@@ -138,35 +141,35 @@ export default {
     methods: {
         // 获取推荐博客列表
         async getRecommendList() {
-            const {data: res} = await this.$http.get('/getRecommendBlogList')
-            console.log(res)
+            const {data: res} = await this.$blog.get('/getRecommendBlogList')
+            // console.log(res)
             this.recommendList = res.data
             this.total = res.total
         },
         // 获取博客类型列表
         async getTypeList() {
-            const {data: res} = await this.$http.get('/getTypeList')
-            console.log(res)
+            const {data: res} = await this.$blog.get('/getTypeList')
+            // console.log(res)
             this.typeList = res.data
         },
         // 获取博客标签列表
         async getTagList() {
-            const {data: res} = await this.$http.get('/getTagList')
-            console.log(res)
+            const {data: res} = await this.$blog.get('/getTagList')
+            // console.log(res)
             this.tagList = res.data
         },
         // 获取博客列表
         async getBlogList() {
-            const {data: res} = await this.$http.get('/getBlogList',{
+            const {data: res} = await this.$blog.get('/getBlogList', {
                 params: this.queryInfo
             })
-            console.log(res)
+            // console.log(res)
             this.blogList = res.data.content
             this.totalcount = res.data.totalElements
         },
         // 跳转到博客详情页
-        getBlogInfo(blogId){
-            this.$router.push({path:'/blogInfo',query:{id:blogId}});
+        getBlogInfo(blogId) {
+            this.$router.push({path: '/blogInfo', query: {id: blogId}});
         },
         // 修改当前页码
         handleCurrentChange(newSize) {
@@ -179,55 +182,55 @@ export default {
             this.getGoodsList()
         },
         // 按分类筛选博客
-        async selectType(id){
+        async selectType(id) {
             this.typeId = id
-            const {data: res} = await this.$http.get(`/types/${this.typeId}`)
+            const {data: res} = await this.$blog.get(`/types/${this.typeId}`)
             console.log(res)
             this.blogList = res.data.content
             this.totalcount = res.data.totalElements
-            this.selectMethod = '分类: '+this.typeList.find( item => item.id === this.typeId).name
+            this.selectMethod = '分类: ' + this.typeList.find(item => item.id === this.typeId).name
             this.selected = true
         },
         // 按标签筛选博客
-        async selectTag(id){
-            this.tagId= id
-            const {data: res} = await this.$http.get(`/tags/${this.tagId}`)
+        async selectTag(id) {
+            this.tagId = id
+            const {data: res} = await this.$blog.get(`/tags/${this.tagId}`)
             this.blogList = res.data.content
             this.totalcount = res.data.totalElements
-            this.selectMethod = '标签: '+this.tagList.find(item => item.id === this.tagId).name
+            this.selectMethod = '标签: ' + this.tagList.find(item => item.id === this.tagId).name
             this.selected = true
         },
         // 更新博客列表
-        updateBlogList(){
+        updateBlogList() {
             this.selected = false
             this.typeId = -1
             this.tagId = -1
             this.getBlogList()
         },
         // 得到所有的分类
-        async getFullTypeList(){
-            const {data: res} = await this.$http.get('/getFullTypeList')
-            console.log(res)
+        async getFullTypeList() {
+            const {data: res} = await this.$blog.get('/getFullTypeList')
+            // console.log(res)
             this.typeList = res.data
         },
         // 得到所有的标签
-        async getFullTagList(){
-            const {data: res} = await this.$http.get('/getFullTagList')
-            console.log(res)
+        async getFullTagList() {
+            const {data: res} = await this.$blog.get('/getFullTagList')
+            // console.log(res)
             this.tagList = res.data
         },
-        async dealType(){
-            if (this.moreType){
+        async dealType() {
+            if (this.moreType) {
                 await this.getFullTypeList()
-            }else {
+            } else {
                 await this.getTypeList()
             }
             this.moreType = !this.moreType
         },
-        async dealTag(){
-            if (this.moreTag){
+        async dealTag() {
+            if (this.moreTag) {
                 await this.getFullTagList()
-            }else {
+            } else {
                 await this.getTagList()
             }
             this.moreTag = !this.moreTag
@@ -238,7 +241,7 @@ export default {
 
 <style scoped lang="less">
 
-    ul{
+    ul {
         padding-left: 10px;
         padding-right: 10px;
         margin-bottom: 0;
@@ -252,12 +255,12 @@ export default {
         padding-right: 20px;
     }
 
-    .el-card /deep/  .el-card__header {
+    .el-card /deep/ .el-card__header {
         background-color: rgba(179, 216, 255, 0.3);
         border-radius: 15px 15px 0 0;
     }
 
-    .el-card /deep/  .el-card__body {
+    .el-card /deep/ .el-card__body {
         padding: 0;
         margin: 0;
     }
@@ -268,7 +271,7 @@ export default {
         box-shadow: 0 2px 12px 0 rgba(0 0 0 0.2) !important;
     }
 
-    .el-pagination{
+    .el-pagination {
         display: flex;
         justify-content: center;
         padding-bottom: 20px;
@@ -280,18 +283,22 @@ export default {
 
         .right-item {
             margin-bottom: 20px;
-            li:first-child{
+
+            li:first-child {
                 border-top: 1px solid rgba(179, 216, 255, 0.5);
             }
-            li{
+
+            li {
                 border-bottom: 1px solid rgba(179, 216, 255, 0.5);
             }
-            .more{
+
+            .more {
                 text-align: center;
                 color: #3a8ee6;
                 padding: 8px;
             }
-            .blog-type:hover,.activeType  {
+
+            .blog-type:hover, .activeType {
                 background-color: rgba(58, 142, 230, 0.3);
                 cursor: pointer;
             }
@@ -346,11 +353,12 @@ export default {
             }
 
             .tag-item:hover, .activeTag {
-                .tag{
+                .tag {
                     color: white;
                     background-color: #409eff;
                     cursor: pointer;
                 }
+
                 .sjx-inner {
                     border-right: 6px solid #409eff;
                 }
@@ -394,15 +402,18 @@ export default {
             align-items: center;
             font-size: larger;
             font-weight: bold;
-            .title{
+
+            .title {
                 display: flex;
                 align-items: center;
-                .el-icon-back{
+
+                .el-icon-back {
                     font-weight: bolder;
                     color: #3a8ee6;
                     margin-right: 10px;
                 }
-                .el-icon-back:hover{
+
+                .el-icon-back:hover {
                     cursor: pointer;
                 }
             }
@@ -424,10 +435,11 @@ export default {
         .blog-content {
             padding: 10px;
             height: auto;
-            border-bottom: 1px solid rgba(34,36,38,.15);
+            border-bottom: 1px solid rgba(34, 36, 38, .15);
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             .el-image {
                 border-radius: 5px;
                 height: 130px;
@@ -477,6 +489,7 @@ export default {
         }
 
         /*text*/
+
         .m-text {
             font-weight: 300 !important;
             letter-spacing: 1px !important;

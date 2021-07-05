@@ -134,10 +134,12 @@ import Prism from '../plugins/prism'
 export default {
     data() {
         return {
-            blog: '',
+            blog: {
+                user:{}
+            },
             blogId: 0,
-            wechart:   require('../assets/images/weixinzhifu.png'),
-            alipay:   require('../assets/images/zhifubao.jpg')
+            wechart:  'http://hikari.top/images/weixinzhifu.png',
+            alipay:   'http://hikari.top/images/zhifubao.jpg',
         }
     },
     created() {
@@ -146,14 +148,15 @@ export default {
     methods: {
         async getBlogInfomation() {
             console.log(this.$route.params.id)
-            const {data: res} = await this.$http.get(`/blog/${this.$route.query.id}`)
+            const {data: res} = await this.$blog.get(`/blog/${this.$route.query.id}`)
             this.blog = res.data
             this.blogId = this.$route.params.id
-            this.timer = setTimeout(() => {
-                Prism.highlightAll() // 这里加定时器让它后执行，不然没效果
-            }, 0)
-        }
-    }
+            setTimeout(()=>{
+                    Prism.highlightAll()
+                },0)
+        },
+    },
+
 }
 </script>
 

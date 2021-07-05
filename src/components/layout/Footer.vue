@@ -51,8 +51,7 @@ export default {
     },
     methods: {
         async getfooterList() {
-            const {data: res} = await this.$http.get('/footer/newblog')
-            console.log(res)
+            const {data: res} = await this.$blog.get('/footer/newblog')
             this.footerList = res.data
         }
     }
