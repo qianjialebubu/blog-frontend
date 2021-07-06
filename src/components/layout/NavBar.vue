@@ -13,23 +13,22 @@
                 </template>
             </el-menu-item>
         </el-menu>
-        <div class="search_input">
+        <div class="search_input" >
             <el-input
-                    @input="searchBlog"
-                    @focus="searching = true"
+                    @focus="checkInput"
+                    @blur="searching = false"
                     class="search"
                     placeholder="请输入内容"
                     prefix-icon="el-icon-search"
                     v-model="queryInfo.query"
-                    size="mini"
-                    style="width: 200px">
+                    size="mini">
             </el-input>
-            <el-card v-if="searching" class="search_content">
-                <div class="search-blog m-text-small" v-for="blog in searchList" :key="blog.id"
+            <ul v-if="searching" >
+                <li class="search-blog" v-for="blog in searchList" :key="blog.id"
                      @click="getBlogInfo(blog.id)">
                     <a>{{blog.title}}</a>
-                </div>
-            </el-card>
+                </li>
+            </ul>
         </div>
 
         <el-button v-if="login===false" @click="loginDialogFormVisible = true" size="mini" round type="primary" plain>
@@ -64,6 +63,7 @@ export default {
         return {
             queryInfo: {
                 query: '',
+                timer: null
             },
             searchList: [],
             searching: false,
@@ -118,7 +118,7 @@ export default {
                 username: [
                     // 必填，提示消息，鼠标焦点消失时触发
                     {required: true, message: "请输入用户名", trigger: "blur"},
-                    {min: 3, max: 10, message: "长度在3-10个字符之间"}
+                    {min: 2, max: 10, message: "长度在2-10个字符之间"}
                 ],
                 // 验证密码是否合法
                 password: [
@@ -127,6 +127,18 @@ export default {
                 ]
             }
         };
+    },
+    watch: {
+        'queryInfo.query':{
+            handler(value){
+                if (this.timer){
+                    clearTimeout(this.timer)
+                }
+                this.timer = setTimeout(() => {
+                    this.searchBlog()
+                },300)
+            }
+        }
     },
     methods: {
         resetLoginForm() {
@@ -143,14 +155,27 @@ export default {
                 this.$router.push("home")
             })
         },
+
+        checkInput(){
+            this.searching = this.queryInfo.query !== '';
+        },
+
         async searchBlog() {
-            if (this.search === '') return
+            if (this.queryInfo.query === '') {
+                this.searching = false
+                return
+            }
             const {data: res} = await this.$blog.get('/search', {
                 params: this.queryInfo
             })
             console.log(res.data.content)
             this.searchList = res.data.content.slice(0,5)
+            if(this.searchList.length !== 0){
+                console.log(this.searchList)
+                this.searching = true
+            }
         },
+
         // 跳转到博客详情页
         getBlogInfo(blogId) {
             this.$router.push({path: '/blogInfo', query: {id: blogId}});
@@ -163,33 +188,56 @@ export default {
 
     .search input.el-input__inner {
         background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
+        /*border-radius: 20px;*/
         color: #cccccc;
     }
 </style>
 
 <style scoped lang="less">
-    .el-card /deep/ .el-card__body {
-        padding: 0;
-        margin: 0;
+    .el-header{
+        position: sticky;
+        top: 0;
+        z-index: 9999;
     }
-
-    .el-card {
-        border: none;
-    }
-
 
     .search_input {
         position: relative;
+        box-sizing: border-box;
     }
 
-    .search_content {
+
+    .search_input ul{
         position: absolute;
-        top: 35px;
-        z-index: 100;
-        width: 200px;
-        opacity: 0.9;
+        top: 30px;
+        width: 100%;
+        border: 1px solid #e5e9ef;
+        margin-top: 1px;
+        background: #fff;
+        z-index: 99999;
+        border-radius: 2px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.16);
+        padding: 10px 0;
+        font-size: 14px;
+        box-sizing: border-box;
     }
+
+    .search_input ul li{
+        padding: 0 16px;
+        height: 32px;
+        line-height: 32px;
+        cursor: pointer;
+        word-wrap: break-word;
+        word-break: break-all;
+        display: block;
+        color: #222;
+        position: relative;
+        /*transition: .2 ease;*/
+    }
+
+    .search_input ul li:hover{
+        background-color: #e8f3ff;
+    }
+
 
     .search-blog {
         overflow: hidden;
@@ -199,18 +247,6 @@ export default {
         -webkit-box-orient: vertical;
         padding-left: 20px;
         padding-right: 20px;
-
-        a {
-            border-bottom: 1px solid rgba(34, 36, 38, .15);
-            line-height: 40px;
-            display: block;
-            text-decoration: none;
-            color: black;
-        }
-
-        a:hover {
-            color: #3a8ee6;
-        }
     }
 
     .el-header {
