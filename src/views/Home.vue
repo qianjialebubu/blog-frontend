@@ -2,8 +2,8 @@
     <el-container class="container">
         <el-header>
             <div>
-                <img src="../assets/logo.png" alt />
-                <span>电商后台管理系统</span>
+                <img src="http://hikari.top/images/2f1d7252-5684-40a3-8803-414c9340331d.png" alt />
+                <span>博客后台管理系统</span>
             </div>
             <el-button type="info" size="mini" @click="logout">退出</el-button>
         </el-header>
@@ -17,23 +17,23 @@
                         class="el-menu-vertical-demo" unique-opened :collapse="isCollapse"
                         :collapse-transition="false" router background-color="#333744" text-color="#fff" active-text-color="#409FFF" >
                     <!--            一级菜单-->
-                    <el-submenu :index="item.id+''"  v-for="item in menulist" :key="item.id">
+                    <el-menu-item :index="item.path"  v-for="item in menulist" :key="item.id">
                         <template slot="title">
                             <!--                图标-->
-                            <i :class="iconsObj[item.id]"></i>
+<!--                            <i :class="iconsObj[item.id]"></i>-->
                             <!--                文本-->
                             <span>{{item.authName}}</span>
                         </template>
-                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id"
-                                      @click="saveNavState('/'+subItem.path)">
-                            <template slot="title">
-                                <!--                图标-->
-                                <i class="el-icon-menu"></i>
-                                <!--                文本-->
-                                <span>{{subItem.authName}}</span>
-                            </template>
-                        </el-menu-item>
-                    </el-submenu>
+<!--                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id"-->
+<!--                                      @click="saveNavState('/'+subItem.path)">-->
+<!--                            <template slot="title">-->
+<!--                                &lt;!&ndash;                图标&ndash;&gt;-->
+<!--                                <i class="el-icon-menu"></i>-->
+<!--                                &lt;!&ndash;                文本&ndash;&gt;-->
+<!--                                <span>{{subItem.authName}}</span>-->
+<!--                            </template>-->
+<!--                        </el-menu-item>-->
+                    </el-menu-item>
                 </el-menu>
             </el-aside>
             <el-main>
@@ -47,7 +47,13 @@
 export default {
     data(){
         return {
-            menulist: [],
+            menulist: [
+                {id: 1, path: '/blogs',authName:'博客管理'},
+                {id: 3, path: '/blog-input',authName:'博客发表'},
+                {id: 4, path: '/types',authName:'分类管理'},
+                {id: 5, path: '/tags',authName:'标签管理'},
+                {id: 2, path: '/users',authName:'用户管理'},
+            ],
             iconsObj:{
                 '125': 'iconfont icon-user',
                 '103': 'iconfont icon-tijikongjian',
@@ -61,7 +67,7 @@ export default {
         }
     },
     created(){
-        this.getMenuList()
+        // this.getMenuList()
         this.activePath = window.sessionStorage.getItem('activePath')
     },
     methods: {
@@ -69,11 +75,11 @@ export default {
             window.sessionStorage.clear()
             this.$router.push('/login')
         },
-        async getMenuList() {
-            const {data: res} = await this.$http.get('menus')
-            if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-            this.menulist = res.data
-        },
+        // async getMenuList() {
+        //     const {data: res} = await this.$http.get('menus')
+        //     if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+        //     this.menulist = res.data
+        // },
         toggleCollapse(){
             this.isCollapse = !this.isCollapse
         },
@@ -88,8 +94,8 @@ export default {
 
 <style lang="less" scoped>
     .el-header {
-        background-color: #373f41;
-        color: #fff;
+        background-color: #545c64;
+        color: #ffd04b;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -107,7 +113,7 @@ export default {
     }
 
     .el-aside {
-        background-color: #333744;
+        background-color: #545c64;
         /*默认有边框，会使右边对不齐，要去掉边框*/
         .el-menu {
             border: none;
@@ -125,7 +131,7 @@ export default {
     }
 
     .toggle-button{
-        background-color: #4A5064;
+        background-color:  #545c64;
         line-height: 20px;
         font-size: 10px;
         color: #fff;

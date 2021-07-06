@@ -49,7 +49,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="resetLoginForm">取消</el-button>
-                <el-button type="primary" @click="login">登录</el-button>
+                <el-button type="primary" @click="userLogin">登录</el-button>
             </div>
         </el-dialog>
     </el-header>
@@ -150,10 +150,11 @@ export default {
             this.$refs.loginFormRef.resetFields()
             this.loginDialogFormVisible = false
         },
-        login() {
+        userLogin() {
             this.$refs.loginFormRef.validate(async valid => {
                 if (!valid) return;
-                const {data: res} = await this.$http.post('login', this.loginForm);
+                this.loginForm.password = this.$md5(this.loginForm.password )
+                const {data: res} = await this.$blog.post('/login', this.loginForm);
                 if (res.meta.status !== 200) return this.$message.error("登录失败")
                 this.$message.success("登录成功")
                 window.sessionStorage.setItem("token", res.data.token);
