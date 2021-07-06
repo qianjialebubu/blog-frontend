@@ -135,11 +135,7 @@
                 </div>
             </div>
         </div>
-        <transition name="fade">
-            <p id="back-top" @click="scollTo(0)" v-if="showRocket">
-                <span></span>
-            </p>
-        </transition>
+
         <div class="footer">
             <p class="m-text-small m-text-spaced m-padded-tiny">
                 走到生命的哪一个阶段,都该喜欢那一段时光,完成那一阶段该完成的职责,顺生而行,<br>
@@ -297,37 +293,19 @@ export default {
             scrollTop: 0
         }
     },
-    mounted(){
-        window.addEventListener('scroll', this.getScroll);
-    },
-    destroyed(){
-        window.removeEventListener('scroll', this.getScroll);
-    },
-    computed: {
-        showRocket: function() {
-            return this.scrollTop > 100
-        }
-    },
+
     methods: {
         // 选择选项卡展示的信息
         selectTab(id){
             this.tabActiveId = id
         },
-        // 每次屏幕滚动时为scrollTop赋新值
-        getScroll(){
-            this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        },
+
         // 发表评论
         publish() {
             let comment = {}
             comment.name = this.formData.name
             comment.content = this.formData.content
             this.commentList.unshift(comment)
-        },
-
-        // 实现平滑滚动到固定位置
-        scollTo(offset) {
-            window.scrollTo({top: offset, behavior: 'smooth'})
         },
 
         // 实现平滑滚动

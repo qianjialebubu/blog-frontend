@@ -1,6 +1,6 @@
 <template>
     <!--导航-->
-    <el-header>
+    <el-header :class="{'navActive':scrollFlag}">
         <h2 class="logo">Hikari</h2>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
                  background-color="#545c64" router text-color="#fff" active-text-color="#ffd04b">
@@ -65,6 +65,7 @@ export default {
                 query: '',
                 timer: null
             },
+            scrollFlag:false,
             searchList: [],
             searching: false,
             activeIndex: '1',
@@ -139,6 +140,10 @@ export default {
                 },300)
             }
         }
+
+    },
+    mounted(){
+        window.addEventListener('scroll',this.handleScroll)
     },
     methods: {
         resetLoginForm() {
@@ -168,10 +173,10 @@ export default {
             const {data: res} = await this.$blog.get('/search', {
                 params: this.queryInfo
             })
-            console.log(res.data.content)
+            // console.log(res.data.content)
             this.searchList = res.data.content.slice(0,5)
             if(this.searchList.length !== 0){
-                console.log(this.searchList)
+                // console.log(this.searchList)
                 this.searching = true
             }
         },
@@ -180,6 +185,12 @@ export default {
         getBlogInfo(blogId) {
             this.$router.push({path: '/blogInfo', query: {id: blogId}});
         },
+
+        handleScroll(){
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            // console.log(scrollTop)
+            this.scrollFlag = !!scrollTop;
+        }
     }
 }
 </script>
@@ -194,6 +205,11 @@ export default {
 </style>
 
 <style scoped lang="less">
+
+    .navActive{
+        opacity: 0.5;
+    }
+
     .el-header{
         position: sticky;
         top: 0;
