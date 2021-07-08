@@ -12,10 +12,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './plugins/element.js'
 import '@/assets/css/prism.css'
 import 'mavon-editor/dist/css/index.css'
-import md5 from 'js-md5';
+import * as echarts from 'echarts'
+import md5 from 'js-md5'
+
 
 Vue.prototype.$md5 = md5;
 Vue.prototype.$http = axios
+Vue.prototype.$echarts = echarts
 
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
@@ -32,6 +35,7 @@ const picture = axios.create({ // 图片服务器api地址
 
 Vue.prototype.$blog = blog
 Vue.prototype.$picture = picture
+Vue.prototype.$user = null
 
 Vue.config.productionTip = false
 Vue.use(Element)
@@ -43,6 +47,14 @@ Vue.filter('dataFormat',function (originVal) {
   const m = (dt.getMonth() + 1 + '').padStart(2,'0')
   const d = (dt.getDate() + 1 + '').padStart(2,'0')
   return `${y}-${m}-${d}`
+})
+
+Vue.filter('dataFormat2',function (originVal) {
+  const dt = new Date(originVal)
+  const y = dt.getFullYear()
+  const m = (dt.getMonth() + 1 + '').padStart(2,'0')
+  const d = (dt.getDate() + 1 + '').padStart(2,'0')
+  return `${y}-${m}`
 })
 
 new Vue({

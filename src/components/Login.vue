@@ -68,6 +68,8 @@ export default {
                 if (res.code !== 200) return this.$message.error("登录失败")
                 this.$message.success("登录成功")
                 window.sessionStorage.setItem("token", res.data.token);
+                window.sessionStorage.setItem("user",JSON.stringify(res.data.user))
+                console.log(JSON.stringify(res.data.user))
                 this.$router.push("admin")
             })
         }

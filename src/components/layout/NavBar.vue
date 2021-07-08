@@ -34,7 +34,7 @@
         <el-button v-if="login===false" @click="loginDialogFormVisible = true" size="mini" round type="primary" plain>
             点击登录
         </el-button>
-        <el-dialog class="login_dialog" title="请登录" :visible.sync="loginDialogFormVisible" width="400px">
+        <el-dialog class="login_dialog" title="请登录" :visible.sync="loginDialogFormVisible" width="400px" center>
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
                 <!--        用户名-->
                 <el-form-item prop="username">

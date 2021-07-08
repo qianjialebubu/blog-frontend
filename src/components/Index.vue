@@ -139,6 +139,14 @@ export default {
         this.getRecommendList()
     },
     methods: {
+
+        compare(property) {
+            return function (a, b) {
+                let value1 = a[property].length;
+                let value2 = b[property].length;
+                return value2 - value1;
+            }
+        },
         // 获取推荐博客列表
         async getRecommendList() {
             const {data: res} = await this.$blog.get('/getRecommendBlogList')
@@ -210,14 +218,13 @@ export default {
         // 得到所有的分类
         async getFullTypeList() {
             const {data: res} = await this.$blog.get('/getFullTypeList')
-            // console.log(res)
-            this.typeList = res.data
+            this.typeList = res.data.sort(this.compare('blogs'))
         },
         // 得到所有的标签
         async getFullTagList() {
             const {data: res} = await this.$blog.get('/getFullTagList')
-            // console.log(res)
-            this.tagList = res.data
+            // console.log(res.data)
+            this.tagList = res.data.sort(this.compare('blogs'))
         },
         async dealType() {
             if (this.moreType) {

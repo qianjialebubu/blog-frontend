@@ -14,6 +14,8 @@ import Blog_input from "../components/admin/Blog_input";
 import Tags from "../components/admin/Tags";
 import Types from "../components/admin/Types";
 import Users from "../components/admin/Users";
+import AdminIndex from "../components/admin/AdminIndex";
+import BlogChart from "../components/admin/charts/BlogChart";
 
 Vue.use(VueRouter)
 
@@ -38,8 +40,9 @@ const routes = [
     {
         path: '/admin',
         component: Home,
-        redirect: '/blogs',
+        redirect: '/admin-index',
         children: [
+            {path: '/admin-index', component: AdminIndex},
             {path: '/blogs', component: Blogs},
             {path: '/blog-input', component: Blog_input},
             {path: '/users', component: Users},
