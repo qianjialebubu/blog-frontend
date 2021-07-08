@@ -125,6 +125,7 @@ export default {
         color: #304156;
         text-align: center;
         line-height: 200px;
+        min-height: 100vh;
         /*默认有边框，会使右边对不齐，要去掉边框*/
 
         .el-menu {
