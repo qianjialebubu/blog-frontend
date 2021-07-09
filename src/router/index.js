@@ -15,7 +15,7 @@ import Tags from "../components/admin/Tags";
 import Types from "../components/admin/Types";
 import Users from "../components/admin/Users";
 import AdminIndex from "../components/admin/AdminIndex";
-import BlogChart from "../components/admin/charts/BlogChart";
+import Comments from "../components/admin/Comments";
 
 Vue.use(VueRouter)
 
@@ -40,14 +40,26 @@ const routes = [
     {
         path: '/admin',
         component: Home,
-        redirect: '/admin-index',
+
+        // 挂载路由导航守卫
+        beforeEnter: (to, from, next) => {
+            // to 将要访问的路径
+            // from 代表从哪个路径跳转而来
+            // next 是一个函数，表示放行
+            // next() 放行  next('login') 强制跳转
+            const tokenStr = window.sessionStorage.getItem('token')
+            if (!tokenStr) return next('/login')
+            next()
+        },
+        redirect: '/admin/index',
         children: [
-            {path: '/admin-index', component: AdminIndex},
-            {path: '/blogs', component: Blogs},
-            {path: '/blog-input', component: Blog_input},
-            {path: '/users', component: Users},
-            {path: '/types', component: Types},
-            {path: '/tags', component: Tags},
+            {path: '/admin/index', component: AdminIndex},
+            {path: '/admin/blogs', component: Blogs},
+            {path: '/admin/blog-input', component: Blog_input},
+            {path: '/admin/users', component: Users},
+            {path: '/admin/types', component: Types},
+            {path: '/admin/tags', component: Tags},
+            {path: '/admin/comments', component: Comments},
         ]
     }
 ]
@@ -56,18 +68,5 @@ const router = new VueRouter({
     routes
 })
 
-// 挂载路由导航守卫
-router.beforeEach((to, from, next) => {
-    // to 将要访问的路径
-    // from 代表从哪个路径跳转而来
-    // next 是一个函数，表示放行
-    // next() 放行  next('login') 强制跳转
-    if (to.path === '/admin/login') return next();
-    if (to.path === '/admin/blogs') {
-        const tokenStr = window.sessionStorage.getItem('token')
-        if (!tokenStr) return next('/admin/login')
-    }
-    next()
-})
 
 export default router

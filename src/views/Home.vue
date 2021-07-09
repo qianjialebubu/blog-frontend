@@ -10,15 +10,6 @@
                 <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
                     <i :class="iconsObj[item.id]"></i>
                     <span>{{item.authName}}</span>
-                    <!--                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id"-->
-                    <!--                                      @click="saveNavState('/'+subItem.path)">-->
-                    <!--                            <template slot="title">-->
-                    <!--                                &lt;!&ndash;                图标&ndash;&gt;-->
-                    <!--                                <i class="el-icon-menu"></i>-->
-                    <!--                                &lt;!&ndash;                文本&ndash;&gt;-->
-                    <!--                                <span>{{subItem.authName}}</span>-->
-                    <!--                            </template>-->
-                    <!--                        </el-menu-item>-->
                 </el-menu-item>
             </el-menu>
         </el-aside>
@@ -46,12 +37,13 @@ export default {
     data() {
         return {
             menulist: [
-                {id: 0, path: '/admin-index', authName: '后台首页'},
-                {id: 1, path: '/blogs', authName: '博客管理'},
-                {id: 2, path: '/users', authName: '个人中心'},
-                {id: 3, path: '/blog-input', authName: '博客发表'},
-                {id: 4, path: '/types', authName: '分类管理'},
-                {id: 5, path: '/tags', authName: '标签管理'},
+                {id: 0, path: '/admin/index', authName: '后台首页'},
+                {id: 1, path: '/admin/blogs', authName: '博客管理'},
+                {id: 2, path: '/admin/users', authName: '个人中心'},
+                {id: 3, path: '/admin/blog-input', authName: '撰写博客'},
+                {id: 4, path: '/admin/types', authName: '分类管理'},
+                {id: 5, path: '/admin/tags', authName: '标签管理'},
+                {id: 6, path: '/admin/comments', authName: '评论管理'},
             ],
             iconsObj: {
                 '0': 'el-icon-s-home',
@@ -59,7 +51,8 @@ export default {
                 '2': 'iconfont icon-tijikongjian',
                 '3': 'iconfont icon-shangpin',
                 '4': 'iconfont icon-danju',
-                '5': 'iconfont icon-user'
+                '5': 'iconfont icon-user',
+                '6': 'iconfont icon-user'
             },
             isCollapse: false,
             // 被激活的动态地址

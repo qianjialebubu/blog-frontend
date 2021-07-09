@@ -49,6 +49,19 @@ Vue.filter('dataFormat',function (originVal) {
   return `${y}-${m}-${d}`
 })
 
+
+Vue.filter('dataFormat3',function (originVal) {
+  const dt = new Date(originVal)
+  let usedTime = new Date() - dt
+  let days = Math.floor(usedTime / (24 * 3600 * 1000)); // 计算出天数
+  let leavel = usedTime % (24 * 3600 * 1000); // 计算天数后剩余的时间
+  let hours = Math.floor(leavel / (3600 * 1000)); // 计算剩余的小时数
+  let leavel2 = leavel % (3600 * 1000); // 计算剩余小时后剩余的毫秒数
+  let minutes = Math.floor(leavel2 / (60 * 1000)); // 计算剩余的分钟数
+  return days + '天' + hours + '时' + minutes + '分';
+})
+
+
 Vue.filter('dataFormat2',function (originVal) {
   const dt = new Date(originVal)
   const y = dt.getFullYear()
