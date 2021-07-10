@@ -140,7 +140,6 @@ export default {
                 },300)
             }
         }
-
     },
     mounted(){
         window.addEventListener('scroll',this.handleScroll)

@@ -64,16 +64,9 @@ export default {
             }
         },
         // 根据id编辑标签
-        async editTagById(id) {
-            const {data: res} = await this.$blog.get(`/admin/tags/${id}/delete`)
-            // console.log(res)
-            if (res.code === 200) {
-                this.createTagDialogFormVisible = false
-                await this.getFullTagList()
-                return this.$message.success(res.message)
-            } else {
-                return this.$message.error(res.message)
-            }
+        editTagById(id) {
+            this.tag.id = id
+            this.createTagDialogFormVisible = true
         },
         // 创建新标签
         createTag() {
@@ -88,10 +81,13 @@ export default {
                 // console.log(res)
                 if (res.code === 200) {
                     this.createTagDialogFormVisible = false
+                    this.tag.id = null
+                    this.$refs.createTagFormRef.resetFields()
                     await this.getFullTagList()
                     return this.$message.success(res.message)
                 } else {
                     this.createTagDialogFormVisible = false
+                    this.$refs.createTagFormRef.resetFields()
                     return this.$message.error(res.message)
                 }
             })

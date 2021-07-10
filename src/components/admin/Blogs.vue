@@ -9,8 +9,8 @@
             <div class="el-card__header" style="text-align: left;padding: 0;">
                 <h1 style="margin: 0;">博客管理</h1>
             </div>
-            <el-input style="width: 200px;margin-right: 20px;margin-top: 10px" placeholder="标题"></el-input>
-            <el-select v-model="type" @change="selectBlogByType" placeholder="分类" style="margin-right: 20px">
+            <el-input style="width: 200px;margin-right: 20px;margin-top: 10px" placeholder="标题" v-model="queryInfo.title"></el-input>
+            <el-select v-model="type" @change="selectType " placeholder="分类" style="margin-right: 20px">
                 <el-option
                         v-for="item in typeList"
                         :key="item.id"
@@ -18,7 +18,8 @@
                         :value="item.name">
                 </el-option>
             </el-select>
-            <el-button type="primary">搜索</el-button>
+            <el-button @click="clearSearh">清除</el-button>
+            <el-button type="primary" @click="getBlogList">搜索</el-button>
             <el-table :data="blogList" border stripe @expand-change="getCommentList">
                 <el-table-column type="expand">
                     <template slot-scope="scope">
@@ -119,8 +120,8 @@
                     background
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :page-size="queryInfo.pagesize"
-                    :current-page="queryInfo.pagenum"
+                    :page-size="pagesize"
+                    :current-page="pagenum"
                     layout="total, prev, pager, next, jumper"
                     :total="totalcount">
             </el-pagination>
@@ -148,18 +149,17 @@ export default {
     data() {
         return {
             queryInfo: {
-                query: '',
-                pagenum: 1,
-                pagesize: 8
+                title: '',
+                typeId:null
             },
+            pagenum: 1,
+            pagesize: 8,
             blogList: [],
             totalcount: 0,
             editing: false,
             commentList: [],
             typeList: [],
-            typeId: 0,
-            editTypeForm: {
-            },
+            editTypeForm: {},
             editTypeDialogFormVisible: false,
             editTypeFormRules: {
                 type: [
@@ -178,18 +178,21 @@ export default {
     methods: {
         // 修改当前页码
         handleCurrentChange(newSize) {
-            this.queryInfo.pagenum = newSize
+            this.pagenum = newSize
             this.getBlogList()
         },
         // 修改当前页大小
         handleSizeChange(newSize) {
-            this.queryInfo.pagesize = newSize
+            this.pagesize = newSize
             this.getGoodsList()
         },
         // 获取博客列表
         async getBlogList() {
-            const {data: res} = await this.$blog.get('/admin/getBlogList', {
-                params: this.queryInfo
+            const {data: res} = await this.$blog.post('/admin/getBlogList', {
+                title: this.queryInfo.title,
+                typeId:this.queryInfo.typeId,
+                pagenum: this.pagenum,
+                pagesize: this.pagesize,
             })
             res.data.content.forEach(item => {
                 // 控制文本框的显示与隐藏
@@ -251,11 +254,7 @@ export default {
             const {data: res} = await this.$blog.get('/admin/getFullTypeList')
             this.typeList = res.data
         },
-        // 根据分类搜索博客
-        selectBlogByType() {
-            console.log(this.typeId)
-            this.blogList = this.typeList.find(item => item.name === this.type).blogs
-        },
+
         // 修改博客分类
         async changeBlogType(blog) {
             this.editTypeDialogFormVisible = true
@@ -310,7 +309,17 @@ export default {
             row.tagIds = row.tags.map(item => {return item.id}).toString().replace(/\[|]/g, '');
             console.log(row)
         },
-
+        // 选择类型
+        selectType(){
+            this.queryInfo.typeId =  this.typeList.find(item => item.name === this.type).id
+        },
+        // 清空搜索内容
+        clearSearh(){
+            this.queryInfo.typeId = null
+            this.queryInfo.title = ''
+            this.type = ''
+            this.getBlogList()
+        }
     }
 }
 </script>
