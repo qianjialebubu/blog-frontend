@@ -9,7 +9,8 @@
             <div class="el-card__header" style="text-align: left;padding: 0;">
                 <h1 style="margin: 0;">博客管理</h1>
             </div>
-            <el-input style="width: 200px;margin-right: 20px;margin-top: 10px" placeholder="标题" v-model="queryInfo.title"></el-input>
+            <el-input style="width: 200px;margin-right: 20px;margin-top: 10px" placeholder="标题"
+                      v-model="queryInfo.title"></el-input>
             <el-select v-model="type" @change="selectType " placeholder="分类" style="margin-right: 20px">
                 <el-option
                         v-for="item in typeList"
@@ -72,7 +73,11 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="标题" prop="title"></el-table-column>
+                <el-table-column label="标题" prop="title">
+                    <template slot-scope="scope">
+                        <p @click="getBlogInfo(scope.row.id)" class="change-type">{{scope.row.title}}</p>
+                    </template>
+                </el-table-column>
                 <el-table-column label="分类" prop="type.name" width="110px">
                     <template slot-scope="scope">
                         <div @click="changeBlogType(scope.row)" class="change-type">{{scope.row.type.name}}
@@ -81,12 +86,16 @@
                 </el-table-column>
                 <el-table-column label="标签" prop="tags" width="250px">
                     <template slot-scope="scope">
-                        <el-tag  size="medium" v-for="(tag, i) in scope.row.tags" :key="i" closable @close="handleClose(i,scope.row)">{{tag.name}}
+                        <el-tag size="medium" v-for="(tag, i) in scope.row.tags" :key="i" closable
+                                @close="handleClose(i,scope.row)">{{tag.name}}
                         </el-tag>
-                        <el-input size="small" style="width: 100px;"  class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput"
-                                  @keyup.enter.native="handleInputConfirm(scope.row)" @blur="handleInputConfirm(scope.row)">
+                        <el-input size="small" style="width: 100px;" class="input-new-tag" v-if="scope.row.inputVisible"
+                                  v-model="scope.row.inputValue" ref="saveTagInput"
+                                  @keyup.enter.native="handleInputConfirm(scope.row)"
+                                  @blur="handleInputConfirm(scope.row)">
                         </el-input>
-                        <el-button  v-else size="mini"  class="button-new-tag" @click="showInput(scope.row)">+ New Tag</el-button>
+                        <el-button v-else size="mini" class="button-new-tag" @click="showInput(scope.row)">+ New Tag
+                        </el-button>
                     </template>
                 </el-table-column>
                 <el-table-column label="阅读量" prop="views" width="70px"></el-table-column>
@@ -125,7 +134,7 @@
                     layout="total, prev, pager, next, jumper"
                     :total="totalcount">
             </el-pagination>
-            <el-dialog class="publish_dialog" title="发布文章" :visible.sync="editTypeDialogFormVisible">
+            <el-dialog class="publish_dialog" title="修改文章分类" :visible.sync="editTypeDialogFormVisible">
                 <el-form style="text-align: left" ref="editTypeFormRef" :model="editTypeForm" :rules="editTypeFormRules"
                          class="edit_type_form">
                     <el-form-item label="文章分类" prop="type">
@@ -150,7 +159,7 @@ export default {
         return {
             queryInfo: {
                 title: '',
-                typeId:null
+                typeId: null
             },
             pagenum: 1,
             pagesize: 8,
@@ -159,23 +168,31 @@ export default {
             editing: false,
             commentList: [],
             typeList: [],
-            editTypeForm: {},
+            tagList: [],
+            editTypeForm: {
+                typeId: null
+            },
             editTypeDialogFormVisible: false,
             editTypeFormRules: {
                 type: [
                     {required: true, message: '请选择类型', trigger: 'blur'}
                 ],
             },
-            type:'',
-            inputValue:'',
-            inputVisible:false,
+            type: '',
+            inputValue: '',
+            inputVisible: false,
         }
     },
     created() {
         this.getBlogList()
         this.getFullTypeList()
+        this.getFullTagList()
     },
     methods: {
+        // 跳转到博客详情页
+        getBlogInfo(blogId) {
+            this.$router.push({path: '/blogInfo', query: {id: blogId}});
+        },
         // 修改当前页码
         handleCurrentChange(newSize) {
             this.pagenum = newSize
@@ -190,7 +207,7 @@ export default {
         async getBlogList() {
             const {data: res} = await this.$blog.post('/admin/getBlogList', {
                 title: this.queryInfo.title,
-                typeId:this.queryInfo.typeId,
+                typeId: this.queryInfo.typeId,
                 pagenum: this.pagenum,
                 pagesize: this.pagesize,
             })
@@ -203,7 +220,7 @@ export default {
             })
             this.blogList = res.data.content
             this.totalcount = res.data.totalElements
-            console.log(this.blogList)
+            // console.log(this.blogList)
         },
         // 删除博客
         async removeBlogById(id) {
@@ -254,22 +271,28 @@ export default {
             const {data: res} = await this.$blog.get('/admin/getFullTypeList')
             this.typeList = res.data
         },
-
+        // 得到所有的标签
+        async getFullTagList() {
+            const {data: res} = await this.$blog.get('/admin/getFullTagList')
+            this.tagList = res.data
+        },
         // 修改博客分类
         async changeBlogType(blog) {
             this.editTypeDialogFormVisible = true
             this.editTypeForm.blog = blog
         },
-        backPage(){
+        // 点击取消按钮
+        backPage() {
             this.$refs.editTypeFormRef.resetFields()
             this.editTypeDialogFormVisible = false
         },
         // 提交类型修改
-        async changeTypeSubmit(){
+        async changeTypeSubmit() {
             let blog = this.editTypeForm.blog
             blog.type = this.typeList.find(item => item.id === this.editTypeForm.typeId)
-            const {data: res} = await this.$blog.post('/admin/types', {
-                type:type
+            console.log(blog)
+            const {data: res} = await this.$blog.post('/admin/blogs', {
+                blog: blog
             })
             if (res.code === 200) {
                 this.editTypeDialogFormVisible = false
@@ -280,7 +303,7 @@ export default {
             }
         },
         // 点击按钮,展示文本输入框
-        showInput(row){
+        showInput(row) {
             row.inputVisible = true
             //   让输入框自动获取焦点
             // $nextTick方法的作用：当页面元素被重新渲染之后，才会至指定回调函数中的代码
@@ -289,32 +312,97 @@ export default {
             })
         },
         // 文本框失去焦点,或按下了Enter都会触发
-        handleInputConfirm(row){
+        async handleInputConfirm(row) {
             // 输入的内容为空时，清空
             if (row.inputValue.trim().length === 0) {
                 row.inputValue = ''
                 row.inputVisible = false
                 return
             }
-
-            row.tags.push({name: row.inputValue.trim()})
-            row.inputValue = ''
-            row.inputVisible = false
-            // 提交数据库，保存修改
-
+            const newTag = this.tagList.find(item => item.name === row.inputValue.trim())
+            if (newTag !== undefined) {
+                row.tags.push(newTag)
+                row.tagIds = row.tags.map(item => {
+                    return item.id
+                }).toString().replace(/\[|]/g, '');
+                console.log(row)
+                const res = await this.uploadBlog(row)
+                if (res === true) {
+                    row.inputValue = ''
+                    row.inputVisible = false
+                    return this.$message.success('修改博客标签成功！')
+                } else {
+                    this.$message.error('修改博客标签失败！')
+                }
+            } else {
+                const res1 = await this.createTag(row.inputValue.trim())
+                if (res1 === null) {
+                    this.$message.error('修改博客标签失败！')
+                } else {
+                    row.tags.push(res1)
+                    row.tagIds = row.tags.map(item => {
+                        return item.id
+                    }).toString().replace(/\[|]/g, '');
+                    const res2 = await this.uploadBlog(row)
+                    if (res2 === true) {
+                        row.inputValue = ''
+                        row.inputVisible = false
+                        return this.$message.success('修改博客标签成功！')
+                    } else {
+                        this.$message.error('修改博客标签失败！')
+                    }
+                }
+            }
         },
+        // 创建新标签
+        async createTag(newTag) {
+            const {data: res} = await this.$blog.post('/admin/tags', {
+                tag: {name: newTag}
+            })
+            if (res.code !== 200) {
+                return null
+            } else  {
+                return res.data
+            }
+        },
+        async uploadBlog(inputBlog) {
+            // 提交数据库，保存修改
+            const {data: res} = await this.$blog.post('/admin/blogs', {
+                blog: inputBlog
+            })
+            // console.log(res)
+            return res.code === 200;
+        },
+
         // 删除对应的参数可选项
-        handleClose (i,row) {
+        async handleClose(i, row) {
+            let tag = row.tags[i]
+            console.log(tag)
             row.tags.splice(i, 1)
-            row.tagIds = row.tags.map(item => {return item.id}).toString().replace(/\[|]/g, '');
-            console.log(row)
+            row.tagIds = row.tags.map(item => {
+                return item.id
+            }).toString().replace(/\[|]/g, '');
+            const res = await this.uploadBlog(row)
+            if (res===true){
+                const res2 = await this.dealDeletedTag(tag)
+                if (res2 === true){
+                    return this.$message.success('修改博客标签成功！')
+                } else {
+                    this.$message.error('修改博客标签失败！')
+                }
+            }
+        },
+        // 删除博客标签后将多余标签级联删除
+        async dealDeletedTag(tag){
+            const {data: res} = await this.$blog.get(`/admin/dealDeletedTag/${tag.id}`)
+            return res.code === 200
         },
         // 选择类型
-        selectType(){
-            this.queryInfo.typeId =  this.typeList.find(item => item.name === this.type).id
+        selectType() {
+            this.queryInfo.typeId = this.typeList.find(item => item.name === this.type).id
         },
         // 清空搜索内容
-        clearSearh(){
+        clearSearh() {
             this.queryInfo.typeId = null
             this.queryInfo.title = ''
             this.type = ''

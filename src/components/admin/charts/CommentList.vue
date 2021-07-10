@@ -41,6 +41,7 @@ export default {
         params: id
       })
     }
+
   }
 }
 </script>

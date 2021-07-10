@@ -73,7 +73,6 @@ export default {
             this.$refs.createTagFormRef.validate(async valid => {
                 if (!valid) return
                 this.tag.name = this.createTagForm.name
-                this.tag.pic_url = this.dialogImageUrl
                 console.log(this.tag)
                 const {data: res} = await this.$blog.post('/admin/tags', {
                     tag: this.tag

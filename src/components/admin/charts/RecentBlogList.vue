@@ -2,7 +2,9 @@
   <el-table :data="list" style="width: 100%;padding-top: 15px;height: 450px;">
     <el-table-column label="最新博客" min-width="180">
       <template slot-scope="scope">
-        {{ scope.row.title  }}
+        <p class="title" @click="getBlogInfo(scope.row.id)">
+            {{ scope.row.title  }}
+        </p>
       </template>
     </el-table-column>
     <el-table-column label="类型" width="100" align="center">
@@ -51,6 +53,16 @@ export default {
         this.list = res.data.slice(0,5)
         this.total = res.total
       },
+      // 跳转到博客详情页
+      getBlogInfo(blogId) {
+          this.$router.push({path: '/blogInfo', query: {id: blogId}});
+      },
   }
 }
 </script>
+<style scoped lang="less">
+    .title:hover{
+        color: #3a8ee6;
+        cursor: pointer;
+    }
+</style>

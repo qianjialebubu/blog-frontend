@@ -54,7 +54,7 @@
         </el-row>
         <el-row :gutter="8">
             <el-col :xs="{span: 24}" :sm="{span: 24}" :md="{span: 12}" :lg="{span: 12}" :xl="{span: 12}" style="padding-right:8px;margin-bottom:30px;">
-                <transaction-table />
+                <recent-blog-list />
             </el-col>
             <el-col :xs="{span: 24}" :sm="{span: 12}" :md="{span: 6}" :lg="{span: 6}" :xl="{span: 6}" style="margin-bottom:30px;">
                 <comment-list />
@@ -71,13 +71,13 @@ import BlogChart from "./charts/BlogChart";
 import TagChart from "./charts/TagChart";
 import TypeChart from "./charts/TypeChart";
 import VisitChart from "./charts/VisitChart";
-import TransactionTable from "./charts/TransactionTable";
+import RecentBlogList from "./charts/RecentBlogList";
 import CommentList from "./charts/CommentList";
 import BoxCard from "./charts/BoxCard";
 
 export default {
     components: {
-        BlogChart,TagChart,TypeChart,VisitChart,TransactionTable,CommentList,BoxCard
+        BlogChart,TagChart,TypeChart,VisitChart,RecentBlogList,CommentList,BoxCard
     },
     data() {
         return {
