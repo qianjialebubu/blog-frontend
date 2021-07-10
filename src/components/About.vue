@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="animate__animated animate__fadeIn box">
         <nav class="header">
             <div class="container title">
                 <i class="web-font">Hikari</i>

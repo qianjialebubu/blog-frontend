@@ -41,17 +41,17 @@
                     width="300"
                     trigger="hover"
                     content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-                    <div class="give-money">
-                        <div class="give-money-item">
-                            <el-image :src="wechart" title="微信支付"></el-image>
-                            <p>微信</p>
-                        </div>
-                        <div class="give-money-item">
-                            <el-image :src="alipay" title="支付宝支付"></el-image>
-                            <p>支付宝</p>
-                        </div>
+                <div class="give-money">
+                    <div class="give-money-item">
+                        <el-image :src="wechart" title="微信支付"></el-image>
+                        <p>微信</p>
                     </div>
-                    <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>
+                    <div class="give-money-item">
+                        <el-image :src="alipay" title="支付宝支付"></el-image>
+                        <p>支付宝</p>
+                    </div>
+                </div>
+                <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>
             </el-popover>
 
             <div class="author">
@@ -101,28 +101,14 @@
                     </div>
                 </div>
             </el-card>
-            <el-form class="commmet-reply">
+            <el-form class="commmet-reply" :model="comment">
                 <el-form-item>
-                    <el-input type="textarea" class="write-commmet" :rows="6">
+                    <el-input v-model="comment.content" type="textarea" class="write-commmet" :rows="6">
                     </el-input>
                 </el-form-item>
-                <el-form-item class="auth-info">
-                    <el-input
-                            class="item name"
-                            placeholder="姓名"
-                            prefix-icon="el-icon-search"
-                            style="width: 200px">
-                    </el-input>
-                    <el-input
-                            class="item email"
-                            placeholder="邮箱"
-                            prefix-icon="el-icon-search"
-                            style="width: 200px">
-                    </el-input>
-                    <el-button prefix-icon="el-icon-submit" type="primary" class="item" >
-                        <i class="el-icon-edit"></i> 提交
-                    </el-button>
-                </el-form-item>
+                <el-button prefix-icon="el-icon-submit" type="primary" class="item">
+                    <i class="el-icon-edit"></i> 提交
+                </el-button>
             </el-form>
         </el-card>
     </el-container>
@@ -135,11 +121,14 @@ export default {
     data() {
         return {
             blog: {
-                user:{}
+                user: {}
             },
             blogId: 0,
-            wechart:  'http://hikari.top/images/weixinzhifu.png',
-            alipay:   'http://hikari.top/images/zhifubao.jpg',
+            wechart: 'http://hikari.top/images/weixinzhifu.png',
+            alipay: 'http://hikari.top/images/zhifubao.jpg',
+            comment:{
+                content:''
+            }
         }
     },
     created() {
@@ -151,9 +140,9 @@ export default {
             const {data: res} = await this.$blog.get(`/blog/${this.$route.query.id}`)
             this.blog = res.data
             this.blogId = this.$route.params.id
-            setTimeout(()=>{
-                    Prism.highlightAll()
-                },0)
+            setTimeout(() => {
+                Prism.highlightAll()
+            }, 0)
         },
     },
 
@@ -185,49 +174,56 @@ export default {
         padding-bottom: 100px;
         text-align: center;
         font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
-        .blog-pic{
+
+        .blog-pic {
             border-radius: 8px;
         }
     }
 
-    hr.style-one{
+    hr.style-one {
         width: 100%;
         background-image: linear-gradient(to right, rgba(64, 158, 255, 0), rgba(64, 158, 255, 0.75), rgba(64, 158, 255, 0));
     }
 
-    .commmet-reply{
+    .commmet-reply {
         position: relative;
-        .auth-info{
+
+        .auth-info {
             position: absolute;
             left: 0;
         }
-        .item{
+
+        .item {
             margin-right: 20px;
         }
     }
-    .zanshang{
+
+    .zanshang {
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    .give-money{
+
+    .give-money {
         display: flex;
         justify-content: space-around;
         align-items: center;
         border: 1px solid #409eff;
         border-radius: 10px;
-        .give-money-item{
+
+        .give-money-item {
             border-radius: 10px;
             padding: 10px;
             width: 50%;
             text-align: center;
-            .el-image{
+
+            .el-image {
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 margin-left: 5px;
                 margin-right: 5px;
             }
 
-            p{
+            p {
                 font-size: smaller;
                 font-weight: bold;
                 color: #3a8ee6;
@@ -300,43 +296,52 @@ export default {
         border: 1px solid rgba(34, 36, 38, .15);
         border-top: 2px solid #409EFF;
         text-align: left;
-        .comment{
+
+        .comment {
             border-top: 1px solid #ccc;
             padding-top: 20px;
             display: flex;
             align-items: flex-start;
             font-size: 12px;
-            .avatar{
+
+            .avatar {
                 margin-right: 15px;
                 margin-top: 5px;
             }
-            .comment-title{
+
+            .comment-title {
                 color: black;
                 display: flex;
-                .comment-author{
+
+                .comment-author {
                     font-weight: bold;
-                    span{
+
+                    span {
                         padding-right: 5px;
                     }
                 }
-                .comment-data{
-                    color: rgba(0,0,0,.5);
+
+                .comment-data {
+                    color: rgba(0, 0, 0, .5);
                 }
             }
-            .reply{
-                color: rgba(0,0,0,.5);
+
+            .reply {
+                color: rgba(0, 0, 0, .5);
             }
-            .reply:hover{
-                color: rgba(0,0,0,1);
+
+            .reply:hover {
+                color: rgba(0, 0, 0, 1);
                 cursor: pointer;
             }
 
-            .comment-content{
+            .comment-content {
                 font-size: 14px;
                 letter-spacing: 2px;
                 font-family: "微软雅黑", Arial, sans-serif;
             }
         }
+
         .header {
             font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
             font-weight: 700;
@@ -346,8 +351,8 @@ export default {
 
     }
 
-    .write-commmet{
-        margin-top:20px;
+    .write-commmet {
+        margin-top: 20px;
     }
 
     .blog-pic {

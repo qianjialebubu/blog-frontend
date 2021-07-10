@@ -1,8 +1,8 @@
 <template>
     <el-container>
         <el-row :gutter="12">
-            <el-col :span="16">
-                <el-card class="left-item">
+            <el-col :xs="24" :sm="16">
+                <el-card class="animate__animated animate__fadeInLeft left-item">
                     <div slot="header" class="total">
                         <div class="title">
                             <i v-if="selected" class="el-icon-back" @click="updateBlogList"></i>
@@ -10,32 +10,35 @@
                         </div>
                         <span>共 <span style="color: #3a8ee6; font-size: 20px">{{totalcount}}</span> 篇</span>
                     </div>
-                    <div class="blog-content" v-for="blog in blogList" :key="blog.id" @click="getBlogInfo(blog.id)">
-                        <el-col :span="16">
-                            <h3>{{blog.title}}</h3>
-                            <p class="m-text description">{{blog.description}}</p>
-                            <div class="blog-info">
-                                <div class="user-info">
-                                    <el-avatar size="small" :src="blog.user.avatar"></el-avatar>
-                                    <a href="#" class="header">{{blog.user.nickname}}</a>
-                                </div>
-                                <div class="blog-date">
-                                    <i class="el-icon-date"></i>
-                                    <span>{{blog.createTime | dataFormat}}</span>
-                                </div>
-                                <div>
-                                    <i class="el-icon-view"></i>
-                                    <span>{{blog.views}}</span>
-                                </div>
-                                <div class="blog-type">
-                                    <el-tag effect="plain">{{blog.type.name}}</el-tag>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
+                    <el-row :gutter="20" v-for="blog in blogList" :key="blog.id"
+                             shadow="never" class="animate__animated animate__fadeInLeft blog-content" >
+                        <el-col class="img" :xs="24" :sm="8">
                             <el-image :src="blog.firstPicture"></el-image>
                         </el-col>
-                    </div>
+                        <el-col  :xs="24" :sm="16">
+                                <div @click="getBlogInfo(blog.id)">
+                                    <h3  >{{blog.title}}</h3>
+                                    <p class="m-text description">{{blog.description}}</p>
+                                    <div class="blog-info">
+                                        <div class="user-info">
+                                            <el-avatar size="small" :src="blog.user.avatar"></el-avatar>
+                                            <a href="#" class="header">{{blog.user.nickname}}</a>
+                                        </div>
+                                        <div class="blog-date">
+                                            <i class="el-icon-date"></i>
+                                            <span>{{blog.createTime | dataFormat}}</span>
+                                        </div>
+                                        <div>
+                                            <i class="el-icon-view"></i>
+                                            <span>{{blog.views}}</span>
+                                        </div>
+                                        <div class="blog-type">
+                                            <el-tag effect="plain">{{blog.type.name}}</el-tag>
+                                        </div>
+                                    </div>
+                                </div>
+                            </el-col>
+                    </el-row>
                 </el-card>
                 <el-pagination
                         background
@@ -47,14 +50,13 @@
                         :total="totalcount">
                 </el-pagination>
             </el-col>
-            <el-col :span="8">
-                <el-card class="right-item">
+            <el-col :xs="24" :sm="8">
+                <el-card class="animate__animated animate__fadeInUp right-item">
                     <div slot="header" class="attributes">
-
                         <span>分类</span>
                     </div>
                     <ul>
-                        <li class="blog-type" v-for="type in typeList" :key="type.id"
+                        <li class="animate__animated animate__fadeInUp blog-type" v-for="type in typeList" :key="type.id"
                             @click="selectType(type.id)"
                             :class="type.id === typeId? 'activeType':''">
                             <div style="display: flex;align-items: center">
@@ -70,15 +72,12 @@
                         <i v-else class="el-icon-arrow-up"></i>
                     </div>
                 </el-card>
-                <el-card class="right-item">
+                <el-card class="animate__animated animate__fadeInUp right-item">
                     <div slot="header" class="attributes">
-                        <el-button style="float: right; padding: 3px 0; font-size: medium" type="text"
-                                   @click="getFullTagList">more
-                            <i class="el-icon-caret-right"></i></el-button>
                         <span>标签</span>
                     </div>
                     <div class="tags">
-                        <div class="tag-item" v-for="tag in tagList"
+                        <div class="animate__animated animate__fadeInUp tag-item" v-for="tag in tagList"
                              @click="selectTag(tag.id)"
                              :class="tag.id === tagId? 'activeTag':''">
                             <div class="sjx-outer">
@@ -95,11 +94,11 @@
                         <i v-else class="el-icon-arrow-up"></i>
                     </div>
                 </el-card>
-                <el-card class="right-item">
+                <el-card class="animate__animated animate__fadeInUp right-item">
                     <div slot="header" class="attributes">
                         <span>最新推荐</span>
                     </div>
-                    <div class="recommend-blog l-text" v-for="blog in recommendList" :key="blog.id"
+                    <div class="animate__animated animate__fadeInUp recommend-blog l-text" v-for="blog in recommendList" :key="blog.id"
                          @click="getBlogInfo(blog.id)">
                         <a>{{blog.title}}</a>
                     </div>
@@ -168,7 +167,7 @@ export default {
         },
         // 获取博客列表
         async getBlogList() {
-            const {data: res} = await this.$blog.get('/getBlogList', {
+            const {data: res} = await this.$blog.get('/blogs', {
                 params: this.queryInfo
             })
             // console.log(res)
@@ -177,6 +176,7 @@ export default {
         },
         // 跳转到博客详情页
         getBlogInfo(blogId) {
+            console.log(blogId.id)
             this.$router.push({path: '/blogInfo', query: {id: blogId}});
         },
         // 修改当前页码
@@ -248,6 +248,10 @@ export default {
 
 <style scoped lang="less">
 
+    body{
+        min-width: 200px;
+    }
+
     ul {
         padding-left: 10px;
         padding-right: 10px;
@@ -260,6 +264,7 @@ export default {
         border-radius: 0;
         padding-left: 20px;
         padding-right: 20px;
+        transition: .2s;
     }
 
     .el-card /deep/ .el-card__header {
@@ -270,6 +275,7 @@ export default {
     .el-card /deep/ .el-card__body {
         padding: 0;
         margin: 0;
+        transition: .2s;
     }
 
     .el-card /deep/ {
@@ -287,6 +293,7 @@ export default {
     .el-container {
         margin: auto;
         width: 80%;
+        max-width: 1000px;
 
         .right-item {
             margin-bottom: 20px;
@@ -303,6 +310,10 @@ export default {
                 text-align: center;
                 color: #3a8ee6;
                 padding: 8px;
+            }
+            .more:hover {
+                cursor: pointer;
+                color: #3a8ee6;
             }
 
             .blog-type:hover, .activeType {
@@ -339,6 +350,7 @@ export default {
                 box-sizing: border-box;
                 white-space: nowrap;
                 border: 1px solid #409eff;
+                transition: .2s;
             }
 
             .sjx-outer {
@@ -348,6 +360,7 @@ export default {
                 border-bottom: 6px solid transparent;
                 border-right: 6px solid #409eff;
                 position: relative;
+                transition: .2s;
             }
 
             .sjx-inner {
@@ -357,6 +370,7 @@ export default {
                 top: -6px;
                 left: 1px;
                 position: absolute;
+                transition: .2s;
             }
 
             .tag-item:hover, .activeTag {
@@ -443,13 +457,11 @@ export default {
             padding: 10px;
             height: auto;
             border-bottom: 1px solid rgba(34, 36, 38, .15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
+            transition: .3s;
             .el-image {
                 border-radius: 5px;
-                height: 130px;
+                box-sizing: border-box;
+                flex-shrink: 0;
             }
 
             .blog-info {
@@ -488,7 +500,7 @@ export default {
         }
 
         .description {
-            overflow: hidden;
+            /*overflow: hidden;*/
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -509,6 +521,12 @@ export default {
             letter-spacing: 1px !important;
             line-height: 1.8 !important;
             font-size: 15px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .el-container {
+            width: 100%;
         }
     }
 

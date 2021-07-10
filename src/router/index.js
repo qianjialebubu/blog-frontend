@@ -40,7 +40,6 @@ const routes = [
     {
         path: '/admin',
         component: Home,
-
         // 挂载路由导航守卫
         beforeEnter: (to, from, next) => {
             // to 将要访问的路径
@@ -48,6 +47,7 @@ const routes = [
             // next 是一个函数，表示放行
             // next() 放行  next('login') 强制跳转
             const tokenStr = window.sessionStorage.getItem('token')
+            console.log(tokenStr)
             if (!tokenStr) return next('/login')
             next()
         },

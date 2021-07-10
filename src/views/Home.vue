@@ -20,9 +20,12 @@
                 <div>
                     <span>博客后台管理系统</span>
                 </div>
-                <div>
-                    <el-avatar :src="userInfo.avatar"/>
-                    <el-button type="info" size="mini" plain @click="logout" style="margin-left: 5px">注销</el-button>
+                <div class="loginInfo">
+                    <el-avatar :src="userInfo.avatar"></el-avatar>
+                    <div class="user-option">
+                        <h3 class="web-font nickname">{{userInfo.nickname}}</h3>
+                        <p class="logout" @click="logout">退出登录</p>
+                    </div>
                 </div>
             </el-header>
             <el-main>
@@ -57,14 +60,16 @@ export default {
             isCollapse: false,
             // 被激活的动态地址
             activePath: '',
-            userInfo:{}
+            userInfo: {
+                avatar: ''
+            }
         }
     },
     created() {
         // this.getMenuList()
         this.activePath = window.sessionStorage.getItem('activePath')
         this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-        console.log(this.userInfo)
+        console.log("进入管理界面" + this.userInfo)
     },
     methods: {
         logout() {
@@ -148,5 +153,66 @@ export default {
         letter-spacing: 0.2em;
         cursor: pointer;
     }
+
+    .loginInfo {
+        flex-shrink: 0;
+        color: white;
+        height: 60px;
+        border: none;
+        width: 120px;
+        position: relative;
+
+        .el-avatar {
+            width: 36px;
+            height: 36px;
+            margin: 0 auto;
+            z-index: 3000;
+        }
+
+        .user-option {
+            position: absolute;
+            top: 60px;
+            width: 150px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 14px;
+            text-align: center;
+            line-height: 30px;
+            background-color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            color: #333;
+            box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%);
+            border: 1px solid #eee;
+            border-radius: 5px;
+            z-index: 2000;
+        }
+
+        .logout {
+            margin: 10px auto;
+            padding: 0;
+            width: 100%;
+        }
+
+        .logout:hover {
+            background-color: #eee;
+        }
+    }
+
+    .loginInfo:hover {
+        cursor: pointer;
+
+        .el-avatar {
+            transform: translate(0, 50%) scale(1.5);
+            transition: .3s;
+        }
+
+        .user-option {
+            visibility: visible;
+            opacity: 1;
+            transition: .4s;
+        }
+    }
+
 
 </style>

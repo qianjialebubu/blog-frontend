@@ -55,10 +55,6 @@ export default {
         scollTo(offset) {
             window.scrollTo({top: offset, behavior: 'smooth'})
         },
-        // 实现元素透明度渐变效果
-        startMove(opTarget) {
-            clearInterval(this.timer)
-        }
     }
 }
 </script>
@@ -109,6 +105,6 @@ export default {
 
     .el-main {
         background-color: #f5f6f7;
-        min-height: 450px;
     }
+
 </style>
