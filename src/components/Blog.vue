@@ -16,7 +16,7 @@
                 </div>
             </div>
             <el-image class="blog-pic" :src="blog.firstPicture"></el-image>
-            <hr class="style-one"/>
+            <hr />
             <h2 class="blog-title header">{{blog.title}}
                 <el-tag effect="plain" type="warning" style="font-weight: bold; font-size: small; margin-left: 20px">
                     {{blog.flag}}
@@ -34,26 +34,26 @@
                     </div>
                 </div>
             </div>
-
-            <el-popover
-                    placement="bottom"
-                    title=""
-                    width="300"
-                    trigger="hover"
-                    content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-                <div class="give-money">
-                    <div class="give-money-item">
-                        <el-image :src="wechart" title="微信支付"></el-image>
-                        <p>微信</p>
+            <div class="appreciate">
+                <el-popover
+                        placement="bottom"
+                        title=""
+                        width="300"
+                        trigger="hover"
+                        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                    <div class="give-money">
+                        <div class="give-money-item">
+                            <el-image :src="wechart" title="微信支付"></el-image>
+                            <p>微信</p>
+                        </div>
+                        <div class="give-money-item">
+                            <el-image :src="alipay" title="支付宝支付"></el-image>
+                            <p>支付宝</p>
+                        </div>
                     </div>
-                    <div class="give-money-item">
-                        <el-image :src="alipay" title="支付宝支付"></el-image>
-                        <p>支付宝</p>
-                    </div>
-                </div>
-                <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>
-            </el-popover>
-
+                    <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>
+                </el-popover>
+            </div>
             <div class="author">
                 <ul>
                     <li>作者 {{blog.user.nickname}}</li>
@@ -106,9 +106,11 @@
                     <el-input v-model="comment.content" type="textarea" class="write-commmet" :rows="6">
                     </el-input>
                 </el-form-item>
-                <el-button prefix-icon="el-icon-submit" type="primary" class="item">
-                    <i class="el-icon-edit"></i> 提交
-                </el-button>
+                <div class="submit">
+                    <el-button prefix-icon="el-icon-submit" type="primary" class="item">
+                        <i class="el-icon-edit"></i> 提交
+                    </el-button>
+                </div>
             </el-form>
         </el-card>
     </el-container>
@@ -126,8 +128,8 @@ export default {
             blogId: 0,
             wechart: 'http://hikari.top/images/weixinzhifu.png',
             alipay: 'http://hikari.top/images/zhifubao.jpg',
-            comment:{
-                content:''
+            comment: {
+                content: ''
             }
         }
     },
@@ -150,15 +152,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-    @import '../assets/css/typo.css';
-    @import '../assets/css/me.css';
-    @import '../assets/css/animate.css';
 
-    .el-container {
-        margin: 20px auto;
-        width: 70%;
-        display: block;
-    }
 
     .el-card {
         width: 100%;
@@ -172,7 +166,7 @@ export default {
         border-radius: 10px 10px 0 0;
         position: relative;
         padding-bottom: 100px;
-        text-align: center;
+        /*text-align: center;*/
         font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
 
         .blog-pic {
@@ -192,15 +186,14 @@ export default {
             position: absolute;
             left: 0;
         }
-
-        .item {
-            margin-right: 20px;
+        .submit{
+            text-align: center;
         }
+
     }
 
-    .zanshang {
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .appreciate {
+        text-align: center;
     }
 
     .give-money {
@@ -390,6 +383,18 @@ export default {
                 color: #3a8ee6;
                 font-weight: bold;
             }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .tags{
+            margin-left: 0;
+        }
+        hr {
+            display: none;
+        }
+        .comment-content {
+            font-size: 12px !important;
         }
     }
 </style>

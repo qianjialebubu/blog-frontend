@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 .typo p{
-  font-size: 16px;
+  /*font-size: 16px;*/
   font-weight: 300;
   line-height: 1.8;
-  text-align: justify;
+  text-align: left;
 }
 
 /* 要注意表单元素并不继承父级 font 的问题 */
@@ -258,12 +258,12 @@
 
 .typo ol, .typo-ol {
   list-style: decimal;
-  margin-left: 1.9em;
+  /*margin-left: 1.9em;*/
 }
 
 .typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
   margin-bottom: 0.8em;
-  margin-left: 2em;
+  /*margin-left: 2em;*/
 }
 
 .typo li ul, .typo-ul ul, .typo-ol ul {

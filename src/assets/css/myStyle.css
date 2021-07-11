@@ -183,7 +183,7 @@ body{
 }
 
 .description {
-    overflow: hidden;
+    /*overflow: hidden;*/
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -211,13 +211,13 @@ body{
     -moz-osx-font-smoothing: grayscale;
 }
 
-
 @media print, screen {
     /* Using for the screen as well */
     body {
         -webkit-print-color-adjust: exact;
     }
 }
+
 
 
 

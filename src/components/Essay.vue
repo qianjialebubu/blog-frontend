@@ -34,11 +34,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-    .el-container{
-        width: 80%;
-        margin: auto;
-        align-items: center;
-    }
+
     .el-timeline{
         width: 80%;
         margin-left: 40px;

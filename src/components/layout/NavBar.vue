@@ -28,8 +28,8 @@
             </el-menu>
         </div>
 
-        <div class="menu-expend">
-            <i class="el-icon-menu" @click="menuExpend"></i>
+        <div class="menu-expend"  @click="menuExpend">
+            <i class="el-icon-menu"></i>
         </div>
         <div class="search_input">
             <el-input
@@ -254,8 +254,9 @@ export default {
         },
         // 展开菜单栏
         menuExpend() {
+            console.log("展开")
             this.menuHiddenVisiable = !this.menuHiddenVisiable
-            if (this.menuHiddenVisiable == true){
+            if (this.menuHiddenVisiable === true){
                 this.headerBottom = 280
             } else {
                 this.headerBottom = 0
@@ -333,6 +334,7 @@ export default {
     }
 
     .el-header {
+        width: 100%;
         position: sticky;
         top: 0;
         z-index: 9999;
@@ -457,7 +459,7 @@ export default {
 
     @media screen and (max-width: 1000px) {
         .search_input {
-            opacity: 0;
+            visibility: hidden;
         }
     }
 

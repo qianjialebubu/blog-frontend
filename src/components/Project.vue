@@ -41,14 +41,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-    .el-container {
-        width: 90%;
-        margin: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-    }
 
     .el-card {
         width: 80%;

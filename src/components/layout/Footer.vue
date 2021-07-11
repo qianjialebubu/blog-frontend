@@ -1,12 +1,12 @@
 <template>
     <div class="footer-wrap">
         <!--    center aligned居中-->
-        <el-row class="footer-info">
-            <el-col :span="4">
+        <el-row :gutter="20" class="footer-info">
+            <el-col :xs="24" :sm="4" >
                 <el-image :src="picload" alt="图片加载失败"
                           class="ui rounded image" style="width: 110px"/>
             </el-col>
-            <el-col :span="7">
+            <el-col :xs="24" :sm="7">
                 <h4 class="ui inverted header m-text-spaced ">最新博客</h4>
                 <div id="newblog-container">
                     <div class="recommend-blog l-text list" v-for="blog in footerList" :key="blog.id">
@@ -14,14 +14,14 @@
                     </div>
                 </div>
             </el-col>
-            <el-col :span="5">
+            <el-col :xs="24" :sm="5">
                 <h4 class="ui inverted header m-text-spaced ">联系我</h4>
                 <div class="ui inverted link list">
                     <p class="item">Email：2569757226@qq.com</p>
                     <p class="item">QQ：2569757226</p>
                 </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :xs="24" :sm="8">
                 <div class="seven wide column">
                     <h4 class="ui inverted header m-text-spaced">博客简介</h4>
                     <p class="m-text-thin m-text-spaced m-opacity-mini" >
@@ -73,8 +73,6 @@ export default {
         background-color: #545c64;
     }
     .footer-info{
-        display: flex;
-        align-items: flex-start;
         line-height: 15px;
         color: rgba(255,255,255,.5);
         a{
@@ -93,6 +91,7 @@ export default {
             color: white;
         }
         .el-image{
+            margin: 0 auto;
             opacity: 0.8;
         }
         .el-image:hover{

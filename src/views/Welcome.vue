@@ -103,8 +103,5 @@ export default {
         transition: opacity 1s;
     }
 
-    .el-main {
-        background-color: #f5f6f7;
-    }
 
 </style>

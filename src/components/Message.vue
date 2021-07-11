@@ -42,9 +42,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-    .el-container{
-        flex-wrap: wrap;
-    }
     .img{
         width: 300px;
         margin: 20px;
