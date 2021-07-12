@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../components/Login";
+import Login from "../components/login/Login";
 import Welcome from "../views/Welcome";
 import Index from "../components/Index";
 import About from "../components/About";
@@ -16,6 +16,8 @@ import Types from "../components/admin/Types";
 import Users from "../components/admin/Users";
 import AdminIndex from "../components/admin/AdminIndex";
 import Comments from "../components/admin/Comments";
+import Essays from "../components/admin/Essays";
+import Projects from "../components/admin/Projects";
 
 Vue.use(VueRouter)
 
@@ -60,6 +62,8 @@ const routes = [
             {path: '/admin/types', component: Types},
             {path: '/admin/tags', component: Tags},
             {path: '/admin/comments', component: Comments},
+            {path: '/admin/essays', component: Essays},
+            {path: '/admin/projects', component: Projects},
         ]
     }
 ]

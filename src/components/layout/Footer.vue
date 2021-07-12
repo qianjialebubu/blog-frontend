@@ -2,11 +2,11 @@
     <div class="footer-wrap">
         <!--    center aligned居中-->
         <el-row :gutter="20" class="footer-info">
-            <el-col :xs="24" :sm="4" >
+            <el-col class="ewm" :xs="24" :sm="4" >
                 <el-image :src="picload" alt="图片加载失败"
                           class="ui rounded image" style="width: 110px"/>
             </el-col>
-            <el-col :xs="24" :sm="7">
+            <el-col class="new-blog" :xs="24" :sm="7">
                 <h4 class="ui inverted header m-text-spaced ">最新博客</h4>
                 <div id="newblog-container">
                     <div class="recommend-blog l-text list" v-for="blog in footerList" :key="blog.id">
@@ -14,14 +14,14 @@
                     </div>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="5">
+            <el-col class="connect" :xs="24" :sm="5">
                 <h4 class="ui inverted header m-text-spaced ">联系我</h4>
                 <div class="ui inverted link list">
                     <p class="item">Email：2569757226@qq.com</p>
                     <p class="item">QQ：2569757226</p>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="8">
+            <el-col class="intro" :xs="24" :sm="8">
                 <div class="seven wide column">
                     <h4 class="ui inverted header m-text-spaced">博客简介</h4>
                     <p class="m-text-thin m-text-spaced m-opacity-mini" >
@@ -100,5 +100,11 @@ export default {
     }
     .author{
         color: rgba(255,255,255,.5);
+    }
+
+    @media only screen and (max-width: 480px) {
+        .ewm,.new-blog,.intro,.connect{
+            display: none;
+        }
     }
 </style>

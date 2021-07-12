@@ -28,7 +28,7 @@
             </el-menu>
         </div>
 
-        <div class="menu-expend"  @click="menuExpend">
+        <div class="menu-expend" @click="menuExpend">
             <i class="el-icon-menu"></i>
         </div>
         <div class="search_input">
@@ -49,7 +49,7 @@
             </ul>
         </div>
 
-        <el-button v-if="userInfo===null" @click="loginDialogFormVisible = true" size="mini" round type="primary" plain>
+        <el-button v-if="logined" @click="loginDialogFormVisible = true" size="mini" round type="primary" plain style="margin-right: 50px">
             点击登录
         </el-button>
         <div v-else class="loginInfo">
@@ -60,38 +60,24 @@
                 <p class="logout" @click="logout">退出登录</p>
             </div>
         </div>
-        <el-dialog class="login_dialog" title="请登录" :visible.sync="loginDialogFormVisible" width="400px" center>
-            <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
-                <!--        用户名-->
-                <el-form-item prop="username">
-                    <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user">
-                    </el-input>
-                </el-form-item>
-                <!--        密码-->
-                <el-form-item prop="password">
-                    <el-input type="password" v-model="loginForm.password"
-                              prefix-icon="iconfont icon-3702mima"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="resetLoginForm">取消</el-button>
-                <el-button type="primary" @click="userLogin">登录</el-button>
-            </div>
-        </el-dialog>
+        <login :vis="loginDialogFormVisible" v-on:cancel="loginDialogFormVisible = false" v-on:login="userLogined()"></login>
     </el-header>
 </template>
 
 <script>
+import Login from "../login/Login";
 
 export default {
-
+    components: {
+        Login
+    },
     data() {
         return {
             queryInfo: {
                 query: '',
                 timer: null
             },
-            shade:0,
+            shade: 0,
             scrollFlag: false,
             searchList: [],
             searching: false,
@@ -133,35 +119,17 @@ export default {
                 '7': 'iconfont icon-baobiao'
             },
             isCollapse: false,
-            login: false,
-            userInfo: {
-                avatar: '',
-                type: -1
-            },
+            userInfo: null,
             loginDialogFormVisible: false,
-            // 表单数据绑定对象
-            loginForm: {
-                username: '',
-                password: ''
-            },
             administrator: false,
             menuHiddenVisiable: false,
-            // 表单验证规则对象
-            loginFormRules: {
-                // 验证用户是否合法
-                username: [
-                    // 必填，提示消息，鼠标焦点消失时触发
-                    {required: true, message: "请输入用户名", trigger: "blur"},
-                    {min: 2, max: 10, message: "长度在2-10个字符之间"}
-                ],
-                // 验证密码是否合法
-                password: [
-                    {required: true, message: "请输入密码", trigger: "blur"},
-                    {min: 6, max: 10, message: "长度在 6 到 10 个字符", trigger: "blur"}
-                ]
-            },
             headerBottom: 0
         };
+    },
+    computed:{
+       logined(){
+           return this.userInfo === null
+       }
     },
     watch: {
         'queryInfo.query': {
@@ -179,38 +147,16 @@ export default {
     mounted() {
         window.addEventListener('scroll', this.handleScroll)
         this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
+        if (this.userInfo!==null&& this.userInfo.type === 1) {
+            this.administrator = true
+        }
     },
     methods: {
-        resetLoginForm() {
-            this.$refs.loginFormRef.resetFields()
+        // 登录后获取用户信息
+        userLogined(){
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
             this.loginDialogFormVisible = false
         },
-        // 用户登录
-        userLogin() {
-            this.$refs.loginFormRef.validate(async valid => {
-                if (!valid) return;
-                let username = this.loginForm.username
-                let password = this.$md5(this.loginForm.password)
-                const {data: res} = await this.$blog.post('/login', {
-                    username: username,
-                    password: password
-                });
-                if (res.code !== 200) return this.$message.error("登录失败")
-                console.log(res)
-                this.loginDialogFormVisible = false
-                this.$refs.loginFormRef.resetFields()
-                this.$message({message: '登录成功', type: 'success', customClass: 'zZindex', offset: 80});
-                this.userInfo = res.data.user
-                // 如果该用户是管理员，显示跳到后台管理的按钮
-                if (this.userInfo.type === 1){
-                    this.administrator = true
-                }
-                this.login = true
-                window.sessionStorage.setItem("token", res.data.token);
-                window.sessionStorage.setItem("user", JSON.stringify(res.data.user));
-            })
-        },
-
         checkInput() {
             this.searching = this.queryInfo.query !== '';
         },
@@ -245,7 +191,6 @@ export default {
         logout() {
             window.sessionStorage.clear()
             this.userInfo = null
-            this.login = false
             this.$message({message: '退出登录成功', type: 'success', customClass: 'zZindex', offset: 80});
         },
         // 进入管理界面
@@ -256,7 +201,7 @@ export default {
         menuExpend() {
             console.log("展开")
             this.menuHiddenVisiable = !this.menuHiddenVisiable
-            if (this.menuHiddenVisiable === true){
+            if (this.menuHiddenVisiable === true) {
                 this.headerBottom = 280
             } else {
                 this.headerBottom = 0
@@ -277,12 +222,16 @@ export default {
 
 <style scoped lang="less">
     .navActive {
-        opacity: 0.5;
+        opacity: 0.5 !important;
     }
 
-    .el-header{
+    .el-header {
         transition: .9s;
     }
+    .el-header:hover{
+        opacity: 1 !important;
+    }
+
 
     .search_input {
         position: relative;

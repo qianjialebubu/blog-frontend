@@ -36,7 +36,6 @@ const picture = axios.create({ // 图片服务器api地址
 
 Vue.prototype.$blog = blog
 Vue.prototype.$picture = picture
-Vue.prototype.$user = null
 
 Vue.config.productionTip = false
 Vue.use(Element)

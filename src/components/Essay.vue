@@ -1,22 +1,11 @@
 <template>
     <el-container>
         <el-timeline>
-            <el-timeline-item timestamp="2018/4/12" placement="top">
-                <el-card>
-                    <h4>博客第一版发布啦</h4>
-                    <el-image :src="pic"></el-image>
-                </el-card>
-            </el-timeline-item>
-            <el-timeline-item timestamp="2018/4/3" placement="top">
-                <el-card>
-                    <h4>更新 Github 模板</h4>
-                    <p>王小虎 提交于 2018/4/3 20:46</p>
-                </el-card>
-            </el-timeline-item>
-            <el-timeline-item timestamp="2018/4/2" placement="top">
-                <el-card>
-                    <h4>更新 Github 模板</h4>
-                    <p>王小虎 提交于 2018/4/2 20:46</p>
+            <el-timeline-item v-for="essay in essayList" timestamp="2018/4/12" placement="top">
+                <el-card style="letter-spacing: 1px">
+                    <h2 v-if="essay.title">{{essay.title}}</h2>
+                    <p v-if="essay.content">{{essay.content}}</p>
+                    <el-image v-if="essay.image" :src="essay.image"></el-image>
                 </el-card>
             </el-timeline-item>
         </el-timeline>
@@ -25,9 +14,22 @@
 
 <script>
 export default {
-    data(){
+    data() {
         return {
-            pic:  require('../assets/images/aboutme.jpeg'),
+            essayList: []
+        }
+    },
+    created() {
+        this.getEssayList()
+    },
+    methods:{
+        async getEssayList(){
+            const {data: res} = await this.$blog.get('/essays')
+            if (res.code === 200){
+                this.essayList = res.data.sort((a, b) => {
+                    return b.createTime.localeCompare(a.createTime)
+                })
+            }
         }
     }
 }
@@ -35,10 +37,11 @@ export default {
 
 <style scoped lang="less">
 
-    .el-timeline{
+    .el-timeline {
         width: 80%;
         margin-left: 40px;
-        .el-image{
+
+        .el-image {
             width: 200px;
         }
     }

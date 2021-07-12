@@ -84,8 +84,29 @@ a:hover {
     background-color: #f5f6f7;
 }
 
+.el-header{
+    border: none;
+    box-sizing: border-box;
+    /*margin: 0 auto;*/
+    padding-right: 0 !important;
+    padding-left: 20px !important;
+}
+
+.el-timeline{
+    margin-left: 0 !important;
+}
+
+@media screen and (max-width: 480px) {
+    .el-main {
+        padding: 0;
+    }
+}
 
 @media screen and (max-width: 768px) {
+    .el-timeline{
+        padding-left: 20px;
+    }
+
 
     .el-main {
         width: 100%;
@@ -93,13 +114,16 @@ a:hover {
 
     .el-container {
         width: 100%;
-        margin: 0;
         flex-direction: column;
     }
 
     .el-card {
         width: 100%;
+        box-sizing: border-box;
+        box-shadow: none;
+        border: none;
         padding: 0;
+        border-radius: 0 !important;
     }
     .el-card__header{
         padding: 10px;
@@ -108,33 +132,52 @@ a:hover {
         padding: 10px;
     }
 
+
     #el-popover-5964{
         width: 200px !important;
     }
 
+    .el-header{
+        position: relative !important;
+        opacity: 1 !important;
+    }
+    .navActive {
+        opacity: 1 !important;
+    }
+
+
+    .menu-expend {
+        position: absolute !important;
+        left: 120px !important;
+    }
+
+
+
+
 }
 
-@media only screen and (min-width: 320px) {
+/*@media only screen and (min-width: 320px) {*/
+/*    html {*/
+/*        font-size: 62.5% !important;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (min-width: 360px) {*/
+/*    html {*/
+/*        font-size: 72.5% !important;*/
+/*    }*/
+/*}*/
+
+@media only screen and (max-width: 400px) {
     html {
-        font-size: 62.5% !important;
+        font-size: 80% !important;
     }
 }
 
-@media only screen and (min-width: 360px) {
+@media only screen and (max-width: 480px) {
     html {
-        font-size: 72.5% !important;
+        font-size: 85% !important;
     }
-}
 
-@media only screen and (min-width: 400px) {
-    html {
-        font-size: 82.5% !important;
-    }
-}
-
-@media only screen and (min-width: 480px) {
-    html {
-        font-size: 94% !important;
-    }
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container style="width: 100%;max-width: 100%;">
         <el-aside :width="isCollapse ? '64px' : '150px'">
             <el-menu
                     :default-active="activePath"
@@ -13,7 +13,7 @@
                 </el-menu-item>
             </el-menu>
         </el-aside>
-        <el-container>
+        <el-container style="width: 100%;max-width: 100%">
             <el-header>
                 <div class="toggle-button" @click="toggleCollapse">|||
                 </div>
@@ -47,6 +47,8 @@ export default {
                 {id: 4, path: '/admin/types', authName: '分类管理'},
                 {id: 5, path: '/admin/tags', authName: '标签管理'},
                 {id: 6, path: '/admin/comments', authName: '评论管理'},
+                {id: 7, path: '/admin/essays', authName: '随笔管理'},
+                {id: 8, path: '/admin/projects', authName: '项目管理'},
             ],
             iconsObj: {
                 '0': 'el-icon-s-home',
@@ -55,7 +57,9 @@ export default {
                 '3': 'iconfont icon-shangpin',
                 '4': 'iconfont icon-danju',
                 '5': 'iconfont icon-user',
-                '6': 'iconfont icon-user'
+                '6': 'iconfont icon-user',
+                '7': 'iconfont icon-user',
+                '8': 'iconfont icon-user',
             },
             isCollapse: false,
             // 被激活的动态地址
@@ -214,5 +218,15 @@ export default {
         }
     }
 
+    @media screen and (max-width: 768px) {
+        .el-aside{
+            position: absolute;
+            z-index: 2000;
+            top: 60px;
+            visibility: hidden;
+            /*display: none;*/
+        }
+
+    }
 
 </style>

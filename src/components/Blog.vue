@@ -16,7 +16,7 @@
                 </div>
             </div>
             <el-image class="blog-pic" :src="blog.firstPicture"></el-image>
-            <hr />
+            <hr/>
             <h2 class="blog-title header">{{blog.title}}
                 <el-tag effect="plain" type="warning" style="font-weight: bold; font-size: small; margin-left: 20px">
                     {{blog.flag}}
@@ -64,88 +64,202 @@
                 <div class="header">
                     评论
                 </div>
-                <div class="comment">
-                    <el-avatar class="avatar" :src="blog.user.avatar" size="small"></el-avatar>
-                    <div class="right-con">
-                        <div class="comment-title">
-                            <a class="comment-author">
-                                <span>{{blog.user.nickname}}</span>
-                                <span>博主</span>
-                            </a>
-                            <div class="comment-data">
-                                <span class="date">Today at 5:42PM</span>
-                            </div>
-                        </div>
-                        <div class="comment-content">
-                            1111你好
-                        </div>
-                        <div class="reply">回复</div>
+
+                <div v-for="cmt in rootCmtTree">
+                    <comment :cmt="cmt" :parent-id="-1" :rp-active-id="rpActiveId"></comment>
+                    <reply style="margin-left: 40px" v-if="rpActiveId === cmt.id" :id="cmt.id" :blog-id="blog.id"
+                           v-on:quit="cancel" v-on:newCmt="replyComp"></reply>
+
+                    <span v-else class="reply" @click="rpActiveId = cmt.id">回复</span>
+                    <span v-if="administrator || cmt.userId === userInfo.id" class="delete" @click="deleteComment(cmt.id)">删除</span>
+                    <div style="margin-left: 40px" v-for="rp in cmt.children">
+                        <comment :cmt="rp" :parent-id="cmt.id" :rp-active-id="rpActiveId"></comment>
+                        <reply style="margin-left: 40px" v-if="rpActiveId === rp.id" :id="rp.id" :blog-id="blog.id"
+                               v-on:quit="cancel" v-on:newCmt="replyComp"></reply>
+                        <span v-else class="reply" @click="rpActiveId = rp.id">回复</span>
+                        <span v-if="administrator || rp.userId === userInfo.id" class="delete" @click="deleteComment(rp.id)">删除</span>
                     </div>
                 </div>
-                <div class="comment">
-                    <el-avatar class="avatar" :src="blog.user.avatar" size="small"></el-avatar>
-                    <div class="right-con">
-                        <div class="comment-title">
-                            <a class="comment-author">
-                                <span>{{blog.user.nickname}}</span>
-                                <span>博主</span>
-                            </a>
-                            <div class="comment-data">
-                                <span class="date">Today at 5:42PM</span>
-                            </div>
-                        </div>
-                        <div class="comment-content">
-                            1111你好
-                        </div>
-                        <div class="reply">回复</div>
-                    </div>
-                </div>
+
             </el-card>
-            <el-form class="commmet-reply" :model="comment">
-                <el-form-item>
-                    <el-input v-model="comment.content" type="textarea" class="write-commmet" :rows="6">
+            <el-form class="commmet-reply" :model="commentForm" :rules="commentFormRules" ref="commentFormRef">
+                <el-form-item prop="content">
+                    <el-input v-model="commentForm.content" :validate-event="false" type="textarea"
+                              class="write-commmet" :rows="6">
                     </el-input>
                 </el-form-item>
                 <div class="submit">
-                    <el-button prefix-icon="el-icon-submit" type="primary" class="item">
+                    <el-button prefix-icon="el-icon-submit" type="primary" class="item" @click="submitCmt()">
                         <i class="el-icon-edit"></i> 提交
                     </el-button>
                 </div>
             </el-form>
         </el-card>
+        <login :vis="loginDialogFormVisible" v-on:cancel="loginDialogFormVisible = false"
+               v-on:login="userLogined()"></login>
     </el-container>
 </template>
 
 <script>
 import Prism from '../plugins/prism'
+import Login from "./login/Login";
+import Comment from "./comment/Comment";
+import Reply from "./comment/Reply";
 
 export default {
+    components: {
+        Login, Prism, Comment, Reply
+    },
     data() {
         return {
             blog: {
                 user: {}
             },
+            replyForm: {
+                content: ''
+            },
+            replyFormRules: {
+                content: [
+                    {required: true, message: "评论内容不能为空！"},
+                    {min: 0, max: 100, message: "评论内容不超过100字！"}
+                ]
+            },
+            rpActiveId: -1,
             blogId: 0,
             wechart: 'http://hikari.top/images/weixinzhifu.png',
             alipay: 'http://hikari.top/images/zhifubao.jpg',
-            comment: {
+            commentForm: {
                 content: ''
-            }
+            },
+            userInfo: null,
+            administrator: false,
+            loginDialogFormVisible: false,
+            commentFormRules: {
+                content: [
+                    {required: true, message: "评论内容不能为空！"},
+                    {min: 0, max: 100, message: "评论内容不超过100字！"}
+                ]
+            },
+            rootCmtTree: []
         }
     },
     created() {
         this.getBlogInfomation()
+        this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
+        if (this.userInfo !== null && this.userInfo.type === 1) {
+            this.administrator = true
+        }
     },
     methods: {
+        replyComp(val) {
+            this.$message({message: "评论发表成功", type: 'success', offset: 80});
+            this.rpActiveId = -1
+            this.getBlogInfomation()
+        },
+        cancel(val) {
+            console.log(val)
+            this.rpActiveId = val
+        },
+        // 登录后获取用户信息
+        userLogined() {
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
+            this.loginDialogFormVisible = false
+        },
+        // 获取博客详情信息
         async getBlogInfomation() {
-            console.log(this.$route.params.id)
             const {data: res} = await this.$blog.get(`/blog/${this.$route.query.id}`)
             this.blog = res.data
             this.blogId = this.$route.params.id
+            let parents = this.blog.comments.filter(value => value.parentComment === null).sort((a, b) => {
+                return a.createTime.localeCompare(b.createTime)
+            })
+            let children = this.blog.comments.filter(value => value.parentComment !== null)
+            let translator = (parents, children) => {
+                parents.forEach(parent => {
+                    children.forEach((child, index) => {
+                        if (child.parentComment.id === parent.id) {
+                            let temp = JSON.parse(JSON.stringify(children))
+                            temp.splice(index, 1)
+                            translator([child], temp)
+                            typeof parent.children != 'undefined' ? parent.children.push(child) : parent.children = [child]
+                        }
+                    })
+                })
+            }
+            translator(parents, children)
+
+            let getChildList = (children) => {
+                let cds = []
+                let dfs = (children) => {
+                    if (children === undefined) return
+                    children.forEach((child) => {
+                        cds.push(child)
+                        if (child.children === undefined) return
+                        dfs(child.children)
+                    })
+                }
+                dfs(children)
+                return cds.sort((a, b) => {
+                    return a.createTime.localeCompare(b.createTime)
+                })
+            }
+            parents.forEach((parent) => {
+                parent.children = getChildList(parent.children)
+            })
+            this.rootCmtTree = parents
+
             setTimeout(() => {
                 Prism.highlightAll()
             }, 0)
         },
+
+        // 提交评论
+        submitCmt() {
+            this.$refs.commentFormRef.validate(valid => {
+                if (!valid) return
+                this.submit(-1)
+            })
+        },
+        async submit() {
+            let comment = {}
+            comment.content = this.commentForm.content
+            comment.blogId = this.blog.id
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
+            if (this.userInfo === null) {
+                this.loginDialogFormVisible = true
+            } else {
+                const {data: res} = await this.$blog.post('comments', {
+                    content: comment.content,
+                    blogId: comment.blogId,
+                    userId: this.userInfo.id,
+                    parentId: -1
+                })
+                if (res.code === 200) {
+                    this.getBlogInfomation()
+                    console.log(this.blog.comments)
+                    this.$message({message: res.message, type: 'success', offset: 80});
+                } else {
+                    this.$message({message: "评论发表失败！", type: 'error', offset: 80});
+                }
+            }
+        },
+        // 回复博客
+        reply(parentId) {
+            this.$refs.replyFormRef.validate(valid => {
+                if (!valid) return
+                this.submit(parentId)
+            })
+        },
+        // 删除评论
+        async deleteComment(id) {
+            const {data: res} = await this.$blog.get(`/comments/${id}/delete`)
+            if (res.code === 200) {
+                this.getBlogInfomation()
+                this.$message({message: res.message, type: 'success', offset: 80});
+            } else {
+                this.$message({message: "删除评论失败！", type: 'error', offset: 80});
+            }
+        }
     },
 
 }
@@ -186,7 +300,8 @@ export default {
             position: absolute;
             left: 0;
         }
-        .submit{
+
+        .submit {
             text-align: center;
         }
 
@@ -290,50 +405,29 @@ export default {
         border-top: 2px solid #409EFF;
         text-align: left;
 
-        .comment {
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-            display: flex;
-            align-items: flex-start;
+        .reply {
+            margin-left: 40px;
             font-size: 12px;
-
-            .avatar {
-                margin-right: 15px;
-                margin-top: 5px;
-            }
-
-            .comment-title {
-                color: black;
-                display: flex;
-
-                .comment-author {
-                    font-weight: bold;
-
-                    span {
-                        padding-right: 5px;
-                    }
-                }
-
-                .comment-data {
-                    color: rgba(0, 0, 0, .5);
-                }
-            }
-
-            .reply {
-                color: rgba(0, 0, 0, .5);
-            }
-
-            .reply:hover {
-                color: rgba(0, 0, 0, 1);
-                cursor: pointer;
-            }
-
-            .comment-content {
-                font-size: 14px;
-                letter-spacing: 2px;
-                font-family: "微软雅黑", Arial, sans-serif;
-            }
+            color: rgba(0, 0, 0, .5);
         }
+
+        .reply:hover {
+            color: rgba(0, 0, 0, 1);
+            cursor: pointer;
+        }
+
+        .delete {
+            margin-left: 10px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .delete:hover {
+            color: rgba(0, 0, 0, 1);
+            cursor: pointer;
+        }
+
+
 
         .header {
             font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -343,6 +437,9 @@ export default {
         }
 
     }
+
+
+
 
     .write-commmet {
         margin-top: 20px;
@@ -387,14 +484,26 @@ export default {
     }
 
     @media screen and (max-width: 768px) {
-        .tags{
+        .tags {
             margin-left: 0;
         }
+
         hr {
             display: none;
         }
+
         .comment-content {
             font-size: 12px !important;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        h2 {
+            font-weight: normal;
+        }
+
+        code, pre {
+            font-size: 13px !important;
         }
     }
 </style>

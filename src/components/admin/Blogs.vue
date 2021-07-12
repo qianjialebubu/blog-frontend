@@ -30,7 +30,7 @@
                                     <el-card shadow="never" style="height: 250px">
                                         <div class="firstPicture">
                                             <h1 style="margin: 5px auto">博客首图</h1>
-                                            <el-image class="img" :src="scope.row.firstPicture"></el-image>
+                                            <el-image @click="editPic(scope.row)" class="img" :src="scope.row.firstPicture"></el-image>
                                         </div>
                                     </el-card>
                                 </el-col>
@@ -149,6 +149,30 @@
                     <el-button type="primary" @click="changeTypeSubmit">提交修改</el-button>
                 </div>
             </el-dialog>
+            <el-dialog class="pic_dialog" title="修改文章首图" center :visible.sync="editPicDialogFormVisible" style="width: 800px;margin: 0 auto">
+                <el-form  ref="editTypeFormRef" :model="editPicForm"
+                         class="edit_pic_form">
+                    <el-form-item style="text-align: center">
+                        <el-upload
+                                ref="upload"
+                                action="http://127.0.0.1:8090/upload"
+                                list-type="picture-card"
+                                :limit="1"
+                                :on-preview="handlePictureCardPreview"
+                                :on-remove="handleRemove"
+                                :on-success="handleSuccess">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                        <el-dialog :visible.sync="dialogVisible">
+                            <img width="100%" :src="dialogImageUrl" alt="">
+                        </el-dialog>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="backPage2">取消</el-button>
+                    <el-button type="primary" @click="changePicSubmit">确定</el-button>
+                </div>
+            </el-dialog>
         </el-card>
     </div>
 </template>
@@ -172,6 +196,7 @@ export default {
             editTypeForm: {
                 typeId: null
             },
+            blog:null,
             editTypeDialogFormVisible: false,
             editTypeFormRules: {
                 type: [
@@ -181,6 +206,10 @@ export default {
             type: '',
             inputValue: '',
             inputVisible: false,
+            editPicDialogFormVisible:false,
+            dialogVisible:false,
+            dialogImageUrl:'',
+            editPicForm:''
         }
     },
     created() {
@@ -189,6 +218,44 @@ export default {
         this.getFullTagList()
     },
     methods: {
+        handleRemove() {
+            this.dialogImageUrl = ''
+            // console.log(file, fileList);
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+        async handleSuccess(res) {
+            this.dialogImageUrl = res.data
+        },
+        // 点击取消按钮
+        backPage2() {
+            this.editPicDialogFormVisible = false
+            this.$refs.upload.clearFiles()
+            this.$refs.editPicFormRef.resetFields()
+        },
+        // 修改博客首图
+        async changePicSubmit(){
+            this.blog.firstPicture = this.dialogImageUrl
+            const {data: res} = await this.$blog.post('/admin/blogs', {
+                blog: this.blog
+            })
+            // console.log(res)
+            if (res.code === 200) {
+                this.editPicDialogFormVisible = false
+
+                return this.$message.success('修改首图成功！')
+            } else {
+                this.editPicDialogFormVisible = false
+                return this.$message.error('修改首图失败！')
+            }
+        },
+        editPic(row){
+            this.blog = row
+            console.log(this.blog)
+            this.editPicDialogFormVisible = true
+        },
         // 跳转到博客详情页
         getBlogInfo(blogId) {
             this.$router.push({path: '/blogInfo', query: {id: blogId}});

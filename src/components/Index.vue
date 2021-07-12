@@ -10,14 +10,14 @@
                         </div>
                         <span>共 <span style="color: #3a8ee6; font-size: 20px">{{totalcount}}</span> 篇</span>
                     </div>
-                    <el-row :gutter="20" v-for="blog in blogList" :key="blog.id"
+                    <el-row type="flex" align="middle" style="flex-wrap: wrap"  :gutter="20" v-for="blog in blogList" :key="blog.id"
                             shadow="never" class="animate__animated animate__fadeInLeft blog-content">
-                        <el-col class="img" :xs="24" :sm="8">
+                        <el-col  class="img" :xs="24" :sm="8">
                             <el-image :src="blog.firstPicture"></el-image>
                         </el-col>
                         <el-col :xs="24" :sm="16">
                             <div @click="getBlogInfo(blog.id)">
-                                <h3>{{blog.title}}</h3>
+                                <h3 >{{blog.title}}</h3>
                                 <p class="description">{{blog.description}}</p>
                                 <div class="blog-info">
                                     <div class="user-info">
@@ -54,7 +54,7 @@
             <el-col :xs="24" :sm="8">
                 <el-card class="animate__animated animate__fadeInUp right-item">
                     <div slot="header" class="attributes">
-                        <span>分类</span>
+                        <b>分类</b>
                     </div>
                     <ul>
                         <li class="animate__animated animate__fadeInUp blog-type" v-for="type in typeList"
@@ -76,7 +76,7 @@
                 </el-card>
                 <el-card class="animate__animated animate__fadeInUp right-item">
                     <div slot="header" class="attributes">
-                        <span>标签</span>
+                        <b>标签</b>
                     </div>
                     <div class="tags">
                         <div class="animate__animated animate__fadeInUp tag-item" v-for="tag in tagList"
@@ -477,6 +477,8 @@ export default {
         height: auto;
         border-bottom: 1px solid rgba(34, 36, 38, .15);
         transition: .3s;
+
+
 
         .el-image {
             border-radius: 5px;
