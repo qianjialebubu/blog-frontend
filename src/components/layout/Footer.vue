@@ -1,7 +1,7 @@
 <template>
-    <div class="footer-wrap">
+    <div class="animate__animated animate__fadeInUp footer-wrap">
         <!--    center aligned居中-->
-        <el-row :gutter="20" class="footer-info">
+        <el-row :gutter="20" class=" footer-info">
             <el-col class="ewm" :xs="24" :sm="4" >
                 <el-image :src="picload" alt="图片加载失败"
                           class="ui rounded image" style="width: 110px"/>
@@ -71,6 +71,7 @@ export default {
         font-size: 14px;
         text-align: center;
         background-color: #545c64;
+        transition: .2s;
     }
     .footer-info{
         line-height: 15px;

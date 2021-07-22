@@ -1,5 +1,10 @@
 <template>
     <div>
+        <!--    面包屑导航区-->
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>标签管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <el-card shadow="never">
             <el-button type="primary" style="margin-bottom: 20px" @click="createTagDialogFormVisible = true">新建标签</el-button>
             <el-row :gutter="20">
@@ -11,7 +16,7 @@
                             <i @click="deleteTagById(tag.id)" class="el-icon-delete" style="color: red"></i>
                         </div>
                         <b> 标签名称 <span style="color: #3a8ee6">{{tag.name}}</span></b> <br>
-                        <p style="margin-bottom: 0"> 博客数量 <span style="color: #2ac06d">{{tag.blogs.length}}</span></p>
+                        <p style="margin-bottom: 0">博客数量 <span style="color: #2ac06d">{{tag.blogs.length}}</span></p>
                     </el-card>
                 </el-col>
             </el-row>

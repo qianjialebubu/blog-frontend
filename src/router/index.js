@@ -13,11 +13,14 @@ import Blogs from "../components/admin/Blogs";
 import Blog_input from "../components/admin/Blog_input";
 import Tags from "../components/admin/Tags";
 import Types from "../components/admin/Types";
-import Users from "../components/admin/Users";
 import AdminIndex from "../components/admin/AdminIndex";
 import Comments from "../components/admin/Comments";
 import Essays from "../components/admin/Essays";
 import Projects from "../components/admin/Projects";
+import Administrator from "../components/admin/Administrator";
+import Users from "../components/admin/Users";
+import Error from "../components/Error";
+import Pictures from "../components/admin/Pictures";
 
 Vue.use(VueRouter)
 
@@ -25,6 +28,10 @@ const routes = [
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/error',
+        component: Error
     },
     {
         path: '/',
@@ -36,7 +43,7 @@ const routes = [
             {path: '/blogInfo', component: Blog},
             {path: '/project', component: Project},
             {path: '/message', component: Message},
-            {path: '/essay', component: Essay}
+            {path: '/essay', component: Essay},
         ]
     },
     {
@@ -48,9 +55,15 @@ const routes = [
             // from 代表从哪个路径跳转而来
             // next 是一个函数，表示放行
             // next() 放行  next('login') 强制跳转
-            const tokenStr = window.sessionStorage.getItem('token')
-            console.log(tokenStr)
-            if (!tokenStr) return next('/login')
+            const userInfo = JSON.parse(window.sessionStorage.getItem('user'))
+            console.log(userInfo)
+            if (!userInfo) return next('/error')
+            else {
+                const type = userInfo.type
+                console.log(type)
+                if (type !== '1') return next('/error')
+                next()
+            }
             next()
         },
         redirect: '/admin/index',
@@ -58,12 +71,14 @@ const routes = [
             {path: '/admin/index', component: AdminIndex},
             {path: '/admin/blogs', component: Blogs},
             {path: '/admin/blog-input', component: Blog_input},
-            {path: '/admin/users', component: Users},
+            {path: '/admin/administrator', component: Administrator},
             {path: '/admin/types', component: Types},
             {path: '/admin/tags', component: Tags},
             {path: '/admin/comments', component: Comments},
             {path: '/admin/essays', component: Essays},
             {path: '/admin/projects', component: Projects},
+            {path: '/admin/users', component: Users},
+            {path: '/admin/pictures', component: Pictures}
         ]
     }
 ]

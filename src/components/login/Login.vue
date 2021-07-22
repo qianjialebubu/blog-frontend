@@ -1,5 +1,5 @@
 <template>
-    <el-dialog class="login_dialog" title="请登录" :visible.sync="visiable" width="400px" center>
+    <el-dialog class="login_dialog" title="请登录" :visible.sync="loginFormVisiable" @close="resetLoginForm" width="400px" center>
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
             <!--        用户名-->
             <el-form-item prop="username">
@@ -20,11 +20,19 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 
 export default {
-    props: ['vis'],
     data() {
         return {
+            user:{
+                username:'',
+                password:'',
+                loginProvince:'陕西省',
+                loginCity:'咸阳市',
+                loginLat:34.27, //纬度
+                loginLng:108.08, //经度
+            },
             // 表单数据绑定对象
             loginForm: {
                 username: '',
@@ -44,42 +52,51 @@ export default {
                     {min: 6, max: 10, message: "长度在 6 到 10 个字符", trigger: "blur"}
                 ]
             },
-            visiable: false
         }
     },
-    watch:{
-       'vis':{
-           handler(value){
-               this.visiable = value
-           }
-       }
+    computed:{
+       ...mapState([
+           'loginFormVisiable'
+       ])
     },
     methods: {
         resetLoginForm() {
+            this.$store.commit('cancelLFV')
             this.$refs.loginFormRef.resetFields()
-            this.$emit('cancel')
         },
         // 用户登录
         userLogin() {
             this.$refs.loginFormRef.validate(async valid => {
                 if (!valid) return;
-                let username = this.loginForm.username
-                let password = this.$md5(this.loginForm.password)
+                this.user.username = this.loginForm.username
+                this.user.password = this.$md5(this.loginForm.password)
+                let local = await this.getLocalCity()
+                this.user.loginProvince = local.result.ad_info.province
+                this.user.loginCity = local.result.ad_info.city
+                this.user.loginLat = local.result.location.lat
+                this.user.loginLng = local.result.location.lng
                 const {data: res} = await this.$blog.post('/login', {
-                    username: username,
-                    password: password
+                    user:this.user
                 });
-                if (res.code !== 200) return this.$message.error("登录失败")
-                console.log(res)
-                this.loginDialogFormVisible = false
+                if (res.code !== 200) return this.$message({message: '用户名或密码错误', type: 'error', offset: 80})
+                this.$message({message: '登录成功', type: 'success', offset: 80});
                 this.$refs.loginFormRef.resetFields()
-                this.$message({message: '登录成功', type: 'success', customClass: 'zZindex', offset: 80});
-                window.sessionStorage.setItem("token", res.data.token);
+                window.sessionStorage.setItem("token", JSON.stringify(res.data.token));
                 window.sessionStorage.setItem("user", JSON.stringify(res.data.user));
-                this.$emit('login')
-                this.$emit('cancel')
+                this.$store.commit('getUserInfo')
+                this.$store.commit('cancelLFV')
             })
         },
+        async getLocalCity(){
+            let data = {
+                key: 'IUTBZ-UHAKU-PD6VI-BZEEY-N3YT3-SCB6J',
+                output:'jsonp'
+            }
+            let url = 'https://apis.map.qq.com/ws/location/v1/ip'
+            // console.log(this.$jsonp(url, data))
+            const res = await this.$jsonp(url, data)
+            return res
+        }
     }
 }
 </script>

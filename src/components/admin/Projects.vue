@@ -1,11 +1,25 @@
 <template>
     <div>
+        <!--    面包屑导航区-->
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>项目管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <el-card shadow="hover" >
             <el-form label-position="left" label-width="80px" style="text-align: left" ref="publishFormRef"
                      :model="publishForm"
                      class="publish_form">
                 <el-form-item label="项目名称" prop="title">
                     <el-input v-model="publishForm.title"></el-input>
+                </el-form-item>
+                <el-form-item label="项目类型" prop="type">
+                    <el-select v-model="publishForm.type">
+                        <el-option v-for="item in types"
+                                   :value="item.id"
+                                   :label="item.name"
+                                   :key="item.id">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="项目描述" prop="content">
                     <el-input v-model="publishForm.content" type="textarea" placeholder="请输入内容"></el-input>
@@ -49,12 +63,17 @@ export default {
                 title: "",
                 pic_url: "",
                 url: "",
+                type:0,
                 techs:""
             },
             dialogImageUrl: '',
             publishDialogFormVisible: false,
             publishForm: {},
-            dialogVisible:false
+            dialogVisible:false,
+            types:[
+                {id: 0,name: '完整项目'},
+                {id: 1,name: '小练习'}
+            ]
         }
     },
     methods: {
@@ -81,6 +100,7 @@ export default {
             this.project.content = this.publishForm.content
             this.project.url = this.publishForm.url
             this.project.techs = this.publishForm.techs
+            this.project.type = this.publishForm.type
             const {data: res} = await this.$blog.post('/admin/project', {
                 project: this.project
             })

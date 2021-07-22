@@ -93,7 +93,7 @@ export default {
             });
             this.rotateX();
             this.rotateY();
-            // console.log(this.randerList)
+            console.log(this.randerList)
             // requestAnimationFrame(this.animate);
         },
 

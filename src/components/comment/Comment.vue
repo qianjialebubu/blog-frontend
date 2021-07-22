@@ -1,5 +1,5 @@
 <template>
-    <div class="comment">
+    <div class="comment" >
         <el-avatar class="avatar" :src="rp.avatar" size="small"></el-avatar>
         <div class="right-con">
             <div class="comment-title">
@@ -10,9 +10,11 @@
                     <span v-if="rp.parentComment!=null&&rp.parentComment.id!==parentId"> {{rp.parentComment.nickname}}</span>
                 </a>
                 <div class="comment-data">
-                    <span class="date">{{rp.createTime | dataFormat}}</span>
+                    <span class="date">{{rp.createTime | dataFormat3}}</span>
                 </div>
             </div>
+<!--            <div v-highlight class="typo typo-selection m-padded-lr-responsive m-padded-tb-large js-toc-content comment-content"-->
+<!--                 v-html="rp.content"></div>-->
             <div class="comment-content">
                 {{rp.content}}
             </div>

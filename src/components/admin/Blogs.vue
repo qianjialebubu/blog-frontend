@@ -2,10 +2,10 @@
     <div>
         <!--    面包屑导航区-->
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>博客管理</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-card style="text-align: left">
+        <el-card shadow="never" style="text-align: left">
             <div class="el-card__header" style="text-align: left;padding: 0;">
                 <h1 style="margin: 0;">博客管理</h1>
             </div>
@@ -28,9 +28,9 @@
                             <el-row :gutter="20">
                                 <el-col class="left-item" :xs="24" :sm="6" :lg="8">
                                     <el-card shadow="never" style="height: 250px">
-                                        <div class="firstPicture">
-                                            <h1 style="margin: 5px auto">博客首图</h1>
-                                            <el-image @click="editPic(scope.row)" class="img" :src="scope.row.firstPicture"></el-image>
+                                        <div class="firstPicture" >
+                                            <h1 style="margin: 5px auto">博客首图 &nbsp;&nbsp;<el-button size="mini" circle type="primary" @click="editPic(scope.row)" ><i class="el-icon-edit"></i></el-button></h1>
+                                            <el-image class="img" :src="scope.row.firstPicture"></el-image>
                                         </div>
                                     </el-card>
                                 </el-col>
@@ -489,6 +489,14 @@ export default {
 
         .firstPicture {
             text-align: center;
+            h1{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .el-button{
+                    margin-left: 20px;
+                }
+            }
             /*padding-right: 20px;*/
             /*border-right: 1px dashed #999;*/
             /*box-sizing: border-box;*/

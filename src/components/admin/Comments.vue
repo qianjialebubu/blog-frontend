@@ -1,5 +1,10 @@
 <template>
     <div>
+        <!--    面包屑导航区-->
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>评论管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <el-card>
             <div class="el-card__header" style="text-align: left;padding: 0">
                 <h1 style="margin: 0;">评论管理</h1>
@@ -11,7 +16,7 @@
                         <div style="display: flex;justify-content: space-between;width: 100%">
                             <div class="nkname">
                                 <span class="name">{{cmt.nickname}} </span>
-                                <span class="date">{{cmt.createTime | dataFormat3}}前</span>
+                                <span class="date">{{cmt.createTime | dataFormat3}}</span>
                                 <span class="rp">回复了你的文章</span>
                                 <span @click="getBlogInfo(cmt.blog.id)" class="blog">{{cmt.blog.title}}</span>
                             </div>

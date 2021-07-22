@@ -1,5 +1,10 @@
 <template>
     <div>
+        <!--    面包屑导航区-->
+        <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>分类管理</el-breadcrumb-item>
+        </el-breadcrumb>
         <el-card shadow="never">
             <el-button type="primary" @click="createTypeDialogFormVisible = true">新建分类</el-button>
             <el-table :data="typeList" border stripe>

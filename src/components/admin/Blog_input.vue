@@ -2,8 +2,8 @@
     <div>
         <!--    面包屑导航区-->
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>博客发表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>撰写博客</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row :gutter="5">
             <el-col :span="21">
@@ -163,6 +163,7 @@ export default {
                 this.blog.firstPicture = this.dialogImageUrl
                 this.blog.tagIds = this.publishForm.tags.toString().replace(/\[|]/g, '');
                 this.blog.flag = this.publishForm.flag
+                console.log(this.blog.content)
                 this.blog.user = JSON.parse(window.sessionStorage.getItem('user'))
                 const {data: res} = await this.$blog.post('/admin/blogs', {
                     blog: this.blog

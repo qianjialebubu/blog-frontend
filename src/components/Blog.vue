@@ -1,6 +1,6 @@
 <template>
-    <el-container class="m-container-small m-padded-tb-big animate__animated animate__fadeIn ">
-        <el-card class="first-card">
+    <el-container class="animate__animated animate__fadeIn ">
+        <el-card style="background-color: rgba(255, 255, 255,1)" class="first-card">
             <div slot="header" class="total blog-info">
                 <div class="user-info">
                     <el-avatar size="small" :src="blog.user.avatar"></el-avatar>
@@ -22,8 +22,8 @@
                     {{blog.flag}}
                 </el-tag>
             </h2>
-            <div v-highlight class="typo typo-selection m-padded-lr-responsive m-padded-tb-large js-toc-content"
-                 v-html="blog.content"></div>
+            <div class="typo m-padded-lr-responsive m-padded-tb-large"
+                 v-html="blog.content" v-highlight></div>
             <div class="tags">
                 <div class="tag-item" v-for="tag in blog.tags">
                     <div class="sjx-outer">
@@ -71,16 +71,15 @@
                            v-on:quit="cancel" v-on:newCmt="replyComp"></reply>
 
                     <span v-else class="reply" @click="rpActiveId = cmt.id">回复</span>
-                    <span v-if="administrator || cmt.userId === userInfo.id" class="delete" @click="deleteComment(cmt.id)">删除</span>
+                    <span v-if="administrator || userInfo && cmt.userId === userInfo.id" class="delete" @click="deleteComment(cmt.id)">删除</span>
                     <div style="margin-left: 40px" v-for="rp in cmt.children">
                         <comment :cmt="rp" :parent-id="cmt.id" :rp-active-id="rpActiveId"></comment>
                         <reply style="margin-left: 40px" v-if="rpActiveId === rp.id" :id="rp.id" :blog-id="blog.id"
                                v-on:quit="cancel" v-on:newCmt="replyComp"></reply>
                         <span v-else class="reply" @click="rpActiveId = rp.id">回复</span>
-                        <span v-if="administrator || rp.userId === userInfo.id" class="delete" @click="deleteComment(rp.id)">删除</span>
+                        <span v-if=" administrator || userInfo && rp.userId === userInfo.id" class="delete" @click="deleteComment(rp.id)">删除</span>
                     </div>
                 </div>
-
             </el-card>
             <el-form class="commmet-reply" :model="commentForm" :rules="commentFormRules" ref="commentFormRef">
                 <el-form-item prop="content">
@@ -95,8 +94,6 @@
                 </div>
             </el-form>
         </el-card>
-        <login :vis="loginDialogFormVisible" v-on:cancel="loginDialogFormVisible = false"
-               v-on:login="userLogined()"></login>
     </el-container>
 </template>
 
@@ -105,6 +102,7 @@ import Prism from '../plugins/prism'
 import Login from "./login/Login";
 import Comment from "./comment/Comment";
 import Reply from "./comment/Reply";
+import {mapState} from 'vuex'
 
 export default {
     components: {
@@ -131,8 +129,6 @@ export default {
             commentForm: {
                 content: ''
             },
-            userInfo: null,
-            administrator: false,
             loginDialogFormVisible: false,
             commentFormRules: {
                 content: [
@@ -145,10 +141,12 @@ export default {
     },
     created() {
         this.getBlogInfomation()
-        this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-        if (this.userInfo !== null && this.userInfo.type === 1) {
-            this.administrator = true
-        }
+    },
+    computed:{
+        ...mapState([
+            'userInfo',
+            'administrator'
+        ])
     },
     methods: {
         replyComp(val) {
@@ -159,11 +157,6 @@ export default {
         cancel(val) {
             console.log(val)
             this.rpActiveId = val
-        },
-        // 登录后获取用户信息
-        userLogined() {
-            this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-            this.loginDialogFormVisible = false
         },
         // 获取博客详情信息
         async getBlogInfomation() {
@@ -224,19 +217,17 @@ export default {
             let comment = {}
             comment.content = this.commentForm.content
             comment.blogId = this.blog.id
-            this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-            if (this.userInfo === null) {
-                this.loginDialogFormVisible = true
+            if (this.$store.state.userInfo === null) {
+                this.$store.commit('showLFV')
             } else {
                 const {data: res} = await this.$blog.post('comments', {
                     content: comment.content,
                     blogId: comment.blogId,
-                    userId: this.userInfo.id,
+                    userId: this.$store.state.userInfo.id,
                     parentId: -1
                 })
                 if (res.code === 200) {
                     this.getBlogInfomation()
-                    console.log(this.blog.comments)
                     this.$message({message: res.message, type: 'success', offset: 80});
                 } else {
                     this.$message({message: "评论发表失败！", type: 'error', offset: 80});
