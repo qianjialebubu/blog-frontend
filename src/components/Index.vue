@@ -4,7 +4,7 @@
       <el-col :span="24" style="height: 100%">
         <el-card shadow="none" class="welcome">
           <h1 class="tit">
-            欢迎来到Hikari的个人博客
+            欢迎来到Hikariの个人博客
             <div class="border"></div>
           </h1>
 
@@ -133,12 +133,8 @@
 </template>
 
 <script>
-import Start from './layout/Start'
 
 export default {
-  components: {
-    Start
-  },
   data() {
     return {
       // pagSmall: false,
@@ -176,20 +172,6 @@ export default {
         return 'total, prev, pager, next, jumper'
       }
     }
-  },
-  watch: {
-    // 'screenWidth': {
-    //   handler(val) {
-    //     if (val < 768 && this.pagSmall === false) {
-    //       console.log('111')
-    //       this.pagSmall = true
-    //       this.pagLayout = 'prev, pager, next'
-    //     } else if (val > 768 && this.pagSmall === true) {
-    //       this.pagSmall = false
-    //       this.pagLayout = 'total, prev, pager, next, jumper'
-    //     }
-    //   }
-    // }
   },
   created() {
     this.getTypeList()

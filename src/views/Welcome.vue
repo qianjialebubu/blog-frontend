@@ -4,7 +4,7 @@
         <el-main>
             <router-view></router-view>
         </el-main>
-        <Footer></Footer>
+        <Footer v-show="pageName!=='about'"></Footer>
         <transition name="fade">
             <p id="back-top" v-if="backTopFlag" @click="scollTo(0)">
                 <span><i class="el-icon-arrow-up"></i></span>
@@ -17,6 +17,7 @@
 
 import NavBar from "../components/layout/NavBar";
 import Footer from "../components/layout/Footer";
+import {mapState} from 'vuex'
 
 export default {
     components: {Footer, NavBar},
@@ -28,6 +29,11 @@ export default {
             speed: 0.2,
             backTopFlag: false
         }
+    },
+    computed:{
+        ...mapState([
+            'pageName'
+        ]),
     },
     mounted() {
         window.addEventListener('scroll', this.getScroll);

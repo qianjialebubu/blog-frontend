@@ -10,13 +10,21 @@ export default new Vuex.Store({
     administrator:JSON.parse(window.sessionStorage.getItem('user'))!==null&&JSON.parse(window.sessionStorage.getItem('user')).type==='1',
     loginFormVisiable:false,
     registorFormVisiable:false,
+    pageName:'index',
   },
   mutations: {
+    // 改变页面
+    changePage(state,name){
+      state.pageName = name
+    },
+    // 获取用户信息
     getUserInfo(state){
       state.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
       state.token = JSON.parse(window.sessionStorage.getItem('token'))
       if (state.userInfo !== null && state.userInfo.type == '1') {
         state.administrator = true
+      } else {
+        state.administrator = false
       }
     },
     showLFV(state){

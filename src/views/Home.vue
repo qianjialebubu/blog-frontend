@@ -63,7 +63,7 @@ export default {
                 '7': 'iconfont icon-user',
                 '8': 'iconfont icon-user',
                 '9': 'iconfont icon-user',
-                '10': 'iconfont icon-user',
+                '10':'iconfont icon-user',
             },
             isCollapse: false,
             // 被激活的动态地址
