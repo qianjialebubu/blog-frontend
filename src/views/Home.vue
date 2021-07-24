@@ -1,10 +1,10 @@
 <template>
     <el-container style="width: 100%;max-width: 100%;">
-        <el-aside :width="isCollapse ? '64px' : '150px'">
+        <el-aside :width="calculateStyle+'px'">
             <el-menu
                     :default-active="activePath"
                     class="el-menu-vertical-demo" unique-opened :collapse="isCollapse"
-                    :collapse-transition="false" router background-color="#333744" text-color="#fff"
+                    :collapse-transition="false" router
                     active-text-color="#409FFF">
                 <!--            一级菜单-->
                 <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
@@ -53,33 +53,40 @@ export default {
                 {id: 10, path: '/admin/pictures', authName: '图片管理'},
             ],
             iconsObj: {
-                '0': 'el-icon-s-home',
-                '1': 'iconfont icon-baobiao',
-                '2': 'iconfont icon-tijikongjian',
-                '3': 'iconfont icon-shangpin',
-                '4': 'iconfont icon-danju',
-                '5': 'iconfont icon-user',
-                '6': 'iconfont icon-user',
-                '7': 'iconfont icon-user',
-                '8': 'iconfont icon-user',
-                '9': 'iconfont icon-user',
-                '10':'iconfont icon-user',
+                '0': 'iconfont icon-menu_home',
+                '1': 'iconfont icon-huaban',
+                '2': 'iconfont icon-guanyuwo1',
+                '3': 'iconfont icon-jilu',
+                '4': 'iconfont icon-leimupinleifenleileibie2',
+                '5': 'iconfont icon-biaoqian',
+                '6': 'iconfont icon-pinglun',
+                '7': 'iconfont icon-jilu2',
+                '8': 'iconfont icon-houtaiguanli',
+                '9': 'iconfont icon-gerenzhongxin1',
+                '10':'iconfont icon-jinengliang',
             },
             isCollapse: false,
             // 被激活的动态地址
             activePath: '',
             userInfo: {
                 avatar: ''
-            }
+            },
+            screenWidth : document.documentElement.clientWidth
         }
     },
     created() {
-        // this.getMenuList()
+        window.addEventListener('resize', this.screenAdapter)
         this.activePath = window.sessionStorage.getItem('activePath')
         this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-        console.log("进入管理界面" + this.userInfo)
     },
     methods: {
+        calculateStyle(){
+            if(this.expandFlag===true){
+                return '150'
+            } else {
+                return '64'
+            }
+        },
         logout() {
             window.sessionStorage.clear()
             this.$store.commit('getUserInfo')
@@ -89,9 +96,9 @@ export default {
         toggleCollapse() {
             this.isCollapse = !this.isCollapse
         },
-        saveNavState(activePath) {
-            window.sessionStorage.setItem('activePath', activePath)
-            this.activePath = activePath
+        // 屏幕尺寸变化的监听函数
+        screenAdapter(){
+            this.screenWidth = document.documentElement.clientWidth;
         }
     },
 
@@ -128,7 +135,7 @@ export default {
     }
 
     .el-aside {
-        transition: .2s;
+        transition: 1s;
         background-color: #333744;
         color: #304156;
         text-align: center;
@@ -138,6 +145,14 @@ export default {
 
         .el-menu {
             border: none;
+            background-color: #333744;
+            .el-menu-item{
+                color: white;
+                background-color: #333744;
+            }
+            .el-menu-item:hover{
+                background-color: #222222;
+            }
         }
     }
 
@@ -146,7 +161,6 @@ export default {
         color: #333;
         text-align: center;
         min-height: 100vh;
-        /*overflow: visible;*/
     }
 
     .iconfont {
@@ -167,7 +181,7 @@ export default {
         color: white;
         height: 60px;
         border: none;
-        width: 120px;
+        width: 160px;
         position: relative;
 
         .el-avatar {
@@ -223,14 +237,32 @@ export default {
     }
 
     @media screen and (max-width: 768px) {
+
         .el-aside{
             position: absolute;
             z-index: 2000;
             top: 60px;
-            visibility: hidden;
-            /*display: none;*/
+            transition: all .2s;
+            width: 100%;
+            min-height: 0;
+            background-color: transparent;
+            ::-webkit-scrollbar{
+                width: 0;
+            }
+            .el-menu{
+                width: 100%;
+                display: flex;
+                height: auto;
+                background-color: white;
+                .el-menu-item{
+                    color: #303133;
+                    background-color: white;
+                }
+            }
         }
-
+        .el-main{
+            padding-top: 80px;
+        }
     }
 
 </style>

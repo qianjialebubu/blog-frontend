@@ -56,11 +56,11 @@ const routes = [
             // next 是一个函数，表示放行
             // next() 放行  next('login') 强制跳转
             const userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-            console.log(userInfo)
+            // console.log(userInfo)
             if (!userInfo) return next('/error')
             else {
                 const type = userInfo.type
-                console.log(type)
+                // console.log(type)
                 if (type !== '1') return next('/error')
                 next()
             }

@@ -46,6 +46,7 @@ export default {
             margin-right: 15px;
             margin-top: 5px;
             flex-shrink: 0;
+            width: 100px;
         }
 
         .right-con {

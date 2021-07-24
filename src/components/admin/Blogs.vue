@@ -5,7 +5,7 @@
             <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>博客管理</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-card shadow="never" style="text-align: left">
+        <el-card class="card1" shadow="never" style="text-align: left">
             <div class="el-card__header" style="text-align: left;padding: 0;">
                 <h1 style="margin: 0;">博客管理</h1>
             </div>
@@ -21,52 +21,23 @@
             </el-select>
             <el-button @click="clearSearh">清除</el-button>
             <el-button type="primary" @click="getBlogList">搜索</el-button>
-            <el-table :data="blogList" border stripe @expand-change="getCommentList">
+            <el-table :data="blogList" border stripe >
                 <el-table-column type="expand">
                     <template slot-scope="scope">
                         <div class="blog-information">
                             <el-row :gutter="20">
-                                <el-col class="left-item" :xs="24" :sm="6" :lg="8">
-                                    <el-card shadow="never" style="height: 250px">
+                                <el-col class="left-item" :sm="12" :lg="8">
+                                    <el-card shadow="never" >
                                         <div class="firstPicture" >
                                             <h1 style="margin: 5px auto">博客首图 &nbsp;&nbsp;<el-button size="mini" circle type="primary" @click="editPic(scope.row)" ><i class="el-icon-edit"></i></el-button></h1>
                                             <el-image class="img" :src="scope.row.firstPicture"></el-image>
                                         </div>
                                     </el-card>
                                 </el-col>
-                                <el-col class="middle-item" :xs="24" :sm="6" :lg="8">
-                                    <el-card shadow="never" style="height: 250px">
+                                <el-col class="middle-item" :sm="12" :lg="8">
+                                    <el-card shadow="never">
                                         <h1 style="margin: 5px auto">描述</h1>
                                         <div style="word-break:break-all;">{{scope.row.description}}</div>
-                                    </el-card>
-                                </el-col>
-                                <el-col class="right-item" :xs="24" :sm="12" :lg="8">
-                                    <el-card shadow="never" style="height: 250px">
-                                        <div style="text-align: center">
-                                            <h1 style="margin: 5px auto">评论</h1>
-                                            <ul style="padding: 0; max-height: 200px;overflow: auto"
-                                                class="comment-list">
-                                                <li class="comment" v-for="cmt in commentList">
-                                                    <el-avatar :src="cmt.avatar"></el-avatar>
-                                                    <div class="content">
-                                                        <div style="display: flex;justify-content: space-between;width: 100%">
-                                                            <div class="nkname">
-                                                                <span class="name">{{cmt.nickname}} </span>
-                                                                <span class="date">{{cmt.createTime | dataFormat3}}前</span>
-                                                            </div>
-                                                            <div class="op">
-                                                                <span class="rep"
-                                                                      @click="replyCommentById(cmt.id)">回复</span> |
-                                                                <span class="del"
-                                                                      @click="deleteCommentById(cmt.id)">删除</span>
-                                                            </div>
-                                                        </div>
-                                                        <p class="reply">{{cmt.content}}</p>
-                                                    </div>
-                                                    <!--                    {{cmt}}-->
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </el-card>
                                 </el-col>
                             </el-row>
@@ -131,7 +102,7 @@
                     @current-change="handleCurrentChange"
                     :page-size="pagesize"
                     :current-page="pagenum"
-                    layout="total, prev, pager, next, jumper"
+                    :layout="pagLayout"
                     :total="totalcount">
             </el-pagination>
             <el-dialog class="publish_dialog" title="修改文章分类" :visible.sync="editTypeDialogFormVisible">
@@ -209,7 +180,17 @@ export default {
             editPicDialogFormVisible:false,
             dialogVisible:false,
             dialogImageUrl:'',
-            editPicForm:''
+            editPicForm:'',
+            screenWidth: document.documentElement.clientWidth,  //实时屏幕宽度
+        }
+    },
+    computed:{
+        pagLayout(){
+            if (this.screenWidth<768){
+                return 'prev, pager, next'
+            } else {
+                return 'total, prev, pager, next, jumper'
+            }
         }
     },
     created() {
@@ -253,7 +234,7 @@ export default {
         },
         editPic(row){
             this.blog = row
-            console.log(this.blog)
+            // console.log(this.blog)
             this.editPicDialogFormVisible = true
         },
         // 跳转到博客详情页
@@ -311,27 +292,11 @@ export default {
         },
         // 编辑博客
         editBlogByid(blog) {
-            console.log(blog)
+            // console.log(blog)
             this.$router.push({
                 path: "/admin/blog-input",
                 query: {blog: JSON.stringify(blog)}
             })
-        },
-        // 获取评论列表
-        async getCommentList() {
-            const {data: res} = await this.$blog.get('/admin/getCommentList')
-            console.log('评论' + res)
-            this.commentList = res.data
-        },
-        // 删除评论
-        async deleteCommentById(id) {
-            const {data: res} = await this.$blog.get('/admin/deleteCommentById', {
-                params: id
-            })
-            if (res.code !== 200) {
-                return this.$message.error('删除失败！')
-            }
-            return this.$message.error('删除成功！')
         },
         // 得到所有的分类
         async getFullTypeList() {
@@ -357,7 +322,7 @@ export default {
         async changeTypeSubmit() {
             let blog = this.editTypeForm.blog
             blog.type = this.typeList.find(item => item.id === this.editTypeForm.typeId)
-            console.log(blog)
+            // console.log(blog)
             const {data: res} = await this.$blog.post('/admin/blogs', {
                 blog: blog
             })
@@ -392,7 +357,7 @@ export default {
                 row.tagIds = row.tags.map(item => {
                     return item.id
                 }).toString().replace(/\[|]/g, '');
-                console.log(row)
+                // console.log(row)
                 const res = await this.uploadBlog(row)
                 if (res === true) {
                     row.inputValue = ''
@@ -444,7 +409,7 @@ export default {
         // 删除对应的参数可选项
         async handleClose(i, row) {
             let tag = row.tags[i]
-            console.log(tag)
+            // console.log(tag)
             row.tags.splice(i, 1)
             row.tagIds = row.tags.map(item => {
                 return item.id
@@ -593,6 +558,24 @@ export default {
     .change-type:hover {
         cursor: pointer;
         color: #409eff;
+    }
+
+    @media screen and (max-width: 748px){
+        .el-input,.el-select{
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+        .blog-information{
+            .left-item{
+                width: 40%;
+            }
+            .middle-item{
+                width: 30%;
+            }
+            .right-item{
+                width: 30%;
+            }
+        }
     }
 
 </style>

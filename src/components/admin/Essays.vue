@@ -115,7 +115,7 @@ export default {
     methods: {
         // 将图片上传到服务器，返回的地址替换到md中
         async imgAdd(pos,$file){
-            console.log($file)
+            // console.log($file)
             let formdata = new FormData();
             formdata.append('file', $file);
             const {data:res} = await this.$blog.post('/upload',formdata)
@@ -125,10 +125,10 @@ export default {
         },
         // 删除不需要的图片
         async imgDel(pos){
-            console.log(pos[0])
+            // console.log(pos[0])
             let len = pos[0].split('/').length
             let filename = pos[0].split('/')[len-1]
-            console.log(filename)
+            // console.log(filename)
             const {data:res} = await this.$picture.get(`/delete/${filename}`)
         },
         showEssay(esy) {
@@ -170,7 +170,7 @@ export default {
             this.essay.content = this.publishForm.content
             this.essay.color = this.publishForm.color
             // rgba(170, 64, 64, 1)
-            console.log(this.essay)
+            // console.log(this.essay)
             const {data: res} = await this.$blog.post('/admin/essay', {
                 essay: this.essay
             })

@@ -49,7 +49,7 @@ export default {
         // 获取评论列表
         async getCommentList(){
             const {data: res} = await this.$blog.get('/admin/getCommentList')
-            console.log(res)
+            // console.log(res)
             this.commentList = res.data
         },
         // 删除评论

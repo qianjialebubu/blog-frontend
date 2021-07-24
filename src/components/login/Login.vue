@@ -103,7 +103,6 @@ export default {
 
 <style lang="less" scoped>
 
-
     .login_form {
         width: 100%;
         padding: 0 20px;

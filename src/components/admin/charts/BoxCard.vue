@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card-component" style="margin-left:8px;margin-top: 14px" shadow="hover">
         <div slot="header" class="box-card-header">
-            <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png">
+            <img src="http://hikari.top/images/2dd8ee7b-3862-454f-b175-1174593ad114.jpg">
         </div>
         <div style="position:relative;">
             <div style="padding-top:35px;" class="progress-item">
@@ -42,9 +42,8 @@ export default {
     .box-card-component {
     .box-card-header {
         position: relative;
-        height: 220px;
+        height: 235px;
     img {
-        width: 100%;
         height: 100%;
         transition: all 0.2s linear;
     &:hover {

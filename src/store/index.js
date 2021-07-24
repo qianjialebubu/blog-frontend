@@ -10,7 +10,7 @@ export default new Vuex.Store({
     administrator:JSON.parse(window.sessionStorage.getItem('user'))!==null&&JSON.parse(window.sessionStorage.getItem('user')).type==='1',
     loginFormVisiable:false,
     registorFormVisiable:false,
-    pageName:'index',
+    pageName:'about',
   },
   mutations: {
     // 改变页面

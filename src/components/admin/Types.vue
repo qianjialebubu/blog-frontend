@@ -120,7 +120,7 @@ export default {
                 if (!valid) return
                 this.type.name = this.createTypeForm.name
                 this.type.pic_url = this.dialogImageUrl
-                console.log(this.type)
+                // console.log(this.type)
                 const {data: res} = await this.$blog.post('/admin/types', {
                     type: this.type
                 })
@@ -165,7 +165,7 @@ export default {
         },
         editBlogDialog(row) {
             this.type = row
-            console.log(this.type)
+            // console.log(this.type)
             if (row.pic_url!=''){
                 this.dialogImageUrl = row.pic_url
             }

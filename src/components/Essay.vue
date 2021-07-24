@@ -30,7 +30,7 @@ export default {
                     return b.createTime.localeCompare(a.createTime)
                 })
                 this.essayList.forEach( (essay) => {
-                    console.log(essay.content)
+                    // console.log(essay.content)
                     essay.content = this.$marked(essay.content)
                     essay.borderColor = essay.color.split(",")[0]+','+essay.color.split(",")[1]+ ','+essay.color.split(",")[2]+')'
                     essay.contentColor = essay.color.split(",")[0]+','+essay.color.split(",")[1]+ ','+essay.color.split(",")[2]+',0.1)'

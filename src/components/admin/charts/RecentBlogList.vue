@@ -49,7 +49,7 @@ export default {
       // 获取最新博客列表
       async getRecommendList() {
         const {data: res} = await this.$blog.get('/getRecommendBlogList')
-        console.log(res.data)
+        // console.log(res.data)
         this.list = res.data.slice(0,5)
         this.total = res.total
       },

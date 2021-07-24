@@ -5,50 +5,44 @@
         <img src="http://hikari.top/images/17a0dd9a-4898-413e-898e-678e2be068fa.png" title="Hikari">
       </div>
       <nav class="nav">
-        <a v-for="intro in introduceList" @click="showSection(intro.name)">{{intro.title}}</a>
+        <a v-for="intro in introduceList" @click="showSection(intro.name)"><i :class="intro.icon" style="margin-right: 10px"></i> {{intro.title}}</a>
       </nav>
     </aside>
     <main>
       <section class="animate__animated animate__fadeInRight" v-if="showSectionId === '#info'" id="info">
         <div class="wrap">
-          <h2 class="title">个人资料</h2>
+          <h2 class="title"><i class="iconfont icon-gerenzhongxin1"></i> 个人资料</h2>
           <el-row :gutter="20" class="row">
             <el-col :sm="8" :xs="24" class="col-l-4">
-              <p>姓名：Hikari</p>
-              <p>性别：女</p>
-              <p>年龄：22</p>
-              <p>学历：本科</p>
-              <p>QQ：2569757226</p>
-              <p>身高：168cm</p>
-              <p>体重：52kg</p>
-              <p>血腥：O型</p>
+              <p><i class="iconfont icon-name" style="margin-right: 5px"></i>姓名：Hikari</p>
+              <p><i class="iconfont icon-sex" style="margin-right: 5px"></i>性别：女</p>
+              <p><i class="iconfont icon-nianling" style="margin-right: 5px"></i>年龄：22</p>
+              <p><i class="iconfont icon-xueli" style="margin-right: 5px"></i>学历：本科</p>
+              <p><i class="iconfont icon-qq1" style="margin-right: 5px"></i>QQ：2569757226</p>
+              <p><i class="iconfont icon-shengao" style="margin-right: 5px"></i>身高：168cm</p>
+              <p><i class="iconfont icon-icon1" style="margin-right: 5px"></i>体重：52kg</p>
+              <p><i class="iconfont icon-shouye" style="margin-right: 5px"></i>血型：O型</p>
             </el-col>
             <el-col :sm="16" :xs="24" class="col-l-4">
-              <p>出生日期：1999-03-20</p>
-              <p>学校：XXXX大学</p>
-              <p>专业：计算机科学与技术</p>
-              <p>绩点：3.84 / 4</p>
-              <p>英语水平：六级</p>
-              <p>码云仓库：<a href="https://github.com">https://gitee.com/tyoubin_admin</a></p>
-              <p>CSDN博客：<a href="https://blog.csdn.net/weixin_44996854">https://blog.csdn.net/weixin_44996854</a></p>
-              <p>邮箱：<a href="mailto:2569757226@qq.com">2569757226@qq.com</a></p>
+              <p><i class="iconfont icon-chushengriqi" style="margin-right: 5px"></i>出生日期：1999-03-20</p>
+              <p><i class="iconfont icon-xuexiao1" style="margin-right: 5px"></i>学校：XXXX大学</p>
+              <p><i class="iconfont icon-zhuanye1" style="margin-right: 5px"></i>专业：计算机科学与技术</p>
+              <p><i class="iconfont icon-xuefen" style="margin-right: 5px"></i>绩点：3.84 / 4</p>
+              <p><i class="iconfont icon-yingyu" style="margin-right: 5px"></i>英语水平：六级</p>
+              <p><i class="iconfont icon-gitee-fill-round" style="margin-right: 5px"></i>码云仓库：<a href="https://github.com">https://gitee.com/tyoubin_admin</a></p>
+              <p><i class="iconfont icon-csdn1" style="margin-right: 5px"></i>CSDN博客：<a href="https://blog.csdn.net/weixin_44996854">https://blog.csdn.net/weixin_44996854</a></p>
+              <p><i class="iconfont icon-email" style="margin-right: 5px"></i>邮箱：<a href="mailto:2569757226@qq.com">2569757226@qq.com</a></p>
             </el-col>
-<!--            <el-col :sm="9" :xs="24" class="col-l-4">-->
-<!--              <p>兴趣爱好：网球，跑步，二次元，日语</p>-->
-<!--              <p>计算机专业大三学生，目前正在学习前端开发技术</p>-->
-<!--            </el-col>-->
           </el-row>
         </div>
       </section>
       <section class="animate__animated animate__fadeInRight" v-show="showSectionId === '#skills'" id="skills">
         <div class="wrap">
-          <h2 class="title">掌握的技能</h2>
+          <h2 class="title"><i class="iconfont icon-zhuanye"></i> 掌握的技能</h2>
           <el-row :gutter="40" class="row scrollable">
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-html5">
-                  1
-                </i>
+                <i class="iconfont icon-html"></i>
               </div>
               <div class="skills-title">
                 <h3>HTML5</h3>
@@ -57,7 +51,7 @@
             </el-col>
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-css3"></i>
+                <i class="iconfont icon-css1"></i>
               </div>
               <div class="skills-title">
                 <h3>CSS3</h3>
@@ -66,7 +60,7 @@
             </el-col>
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-code"></i>
+                <i class="iconfont icon-logo-javascript"></i>
               </div>
               <div class="skills-title">
                 <h3>JavaScript</h3>
@@ -75,7 +69,7 @@
             </el-col>
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-code"></i>
+                <i class="iconfont icon-Vue"></i>
               </div>
               <div class="skills-title">
                 <h3>Vue</h3>
@@ -84,9 +78,7 @@
             </el-col>
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-html5">
-                  1
-                </i>
+                <i class="iconfont icon-java"></i>
               </div>
               <div class="skills-title">
                 <h3>Java</h3>
@@ -95,7 +87,7 @@
             </el-col>
             <el-col :sm="8" :xs="24" class="center-fixed">
               <div class="skills-icon">
-                <i class="fa fa-css3"></i>
+                <i class="iconfont icon-shujujiegou-01"></i>
               </div>
               <div class="skills-title">
                 <h3>计算机专业基础</h3>
@@ -107,85 +99,45 @@
       </section>
       <section class="animate__animated animate__fadeInRight" v-show="showSectionId === '#works'" id="works">
         <div class="wrap">
-          <h2 class="title">个人作品</h2>
-          <el-row :gutter="20">
-            <el-col :xs="24" :sm="12"  v-for="work in workList" :key="work.id">
+          <h2 class="title"><i class="iconfont icon-zuopin1"></i>个人作品</h2>
+          <el-row :gutter="30">
+            <el-col :xs="24" :sm="12" :lg="8" v-for="work in workList" :key="work.id">
               <div class="works-item">
-                <el-image :src="work.pic_url"  />
-                <p>{{work.name}}</p>
+                <el-card class="works-item-front">
+                  <el-image :src="work.pic_url"/>
+                  <p>{{work.name}}</p>
+                </el-card>
+                <el-card class="works-item-back">
+                  <p>{{work.desp}}</p>
+                </el-card>
               </div>
             </el-col>
-<!--            <el-col :xs="24" :sm="12">-->
-<!--              <div class="works-item">-->
-<!--                <img src="" bk-image="active">-->
-<!--                <p>Vue商城管理系统</p>-->
-<!--              </div>-->
-<!--            </el-col>-->
-<!--            <el-col :xs="24" :sm="12">-->
-<!--              <div class="works-item">-->
-<!--                <img src="static/img/works/dream.jpg" bk-image="active">-->
-<!--                <p>梦想主题班会</p>-->
-<!--              </div>-->
-<!--            </el-col>-->
-<!--            <el-col :xs="24" :sm="12">-->
-<!--              <div class="works-item">-->
-<!--                <img src="static/img/works/kico-style.jpg" bk-image="active">-->
-<!--                <p>Kico Style 响应式框架</p>-->
-<!--              </div>-->
-<!--            </el-col>-->
-<!--            <el-col :xs="24" :sm="12">-->
-<!--              <div class="works-item">-->
-<!--                <img src="static/img/works/robots.jpg" bk-image="active">-->
-<!--                <p>小缤机器人</p>-->
-<!--              </div>-->
-<!--            </el-col>-->
           </el-row>
         </div>
       </section>
       <section class="animate__animated animate__fadeInRight" v-show="showSectionId === '#hobbys'" id="hobbys">
-        <div class="wrap">
-          <h2 class="title">个人经历</h2>
+          <h2 class="title"><i class="iconfont icon-xingquaihao"></i>我的爱好</h2>
           <div class="row">
-            <div class="col-m-8">
-              <ul class="timeline">
-                <li>2016.07.03：创立缤奇（Binkic）团队</li>
-                <li>2016.12.20：仿照某动漫官网编写模板，并搭建运营了一个动漫型社区</li>
-                <li>2017.05.30：带领团队进行招新，并发起了首个游戏项目：<a>色块冲刺</a></li>
-                <li>2017.08.17：为团队制作了首部宣传片：<a href="javascript:;" target="_blank">创意可以改变什么</a></li>
-                <li>2017.12.08：个人编写的前端响应式框架 <a href="javascript:;" target="_blank">Kico Style</a> 初现雏形</li>
-                <li>2018.03.01：基于 Kico Style 的第一个原创 <a href="javascript:;" target="_blank">缤奇团队官网</a> 正式上线</li>
-                <li>2018.04.27：使用前端技术编写的 <a href="javascript:;" target="_blank">梦想晨会</a> 制作完成</li>
-                <li>2018.06.07：参加“众创杯”创业大赛校园选拔赛，团队项目荣获三等奖</li>
-                <li>2018.06.17：动漫门户网站制作完成，内含一个自己设计的简单音乐播放器</li>
-                <li>2018.06.25：参加全国中职信息技术技能大赛微网站项目，荣获一等奖</li>
-                <li>2018.08.03：原创博客主题 <a href="javascript:;" target="_blank">Single</a> 发布，截至 2 月共有 66 Stars</li>
-                <li>2018.09.19：个人编写的播放器 <a href="javascript:;" target="_blank">Kico Player</a> 发布测试版</li>
-                <li>2018.12.12：基于 ES6 的时钟小工具 <a href="javascript:;" target="_blank">Kico Tools</a> 发布测试版</li>
-                <li>2018.12.18：第一个基于 PHP 的个人首页 <a href="javascript:;" target="_blank">Sweet</a> 发布正式版</li>
-                <li>2019.01.01：缤奇团队新<a href="javascript:;" target="_blank">官网</a>正式上线，后端采用 Typecho 驱动</li>
-                <li>2019.02.16：结合前后端制作了一个春节的<a href="javascript:;" target="_blank">问答红包</a>，使用正则判断答案</li>
-              </ul>
-            </div>
-            <div class="col-m-4 center-fixed">
-              <img src="static/img/story.png" bk-image="active">
-            </div>
-          </div>
+            <el-carousel :interval="2000" :type="cardOpen? 'card':''" height="350px">
+              <el-carousel-item v-for="hobby in hobbyList" :key="hobby.id">
+                <el-card class="hobby">
+                  <el-image style="width: 100%" :src="hobby.pic_url"></el-image>
+                  <h3 class="tit">{{hobby.name}}</h3>
+                  <p>{{hobby.desp}}</p>
+                </el-card>
+              </el-carousel-item>
+            </el-carousel>
         </div>
       </section>
-      <section class="animate__animated animate__fadeInRight" v-show="showSectionId === '#summary'" id="team">
+      <section class="animate__animated animate__fadeInRight" v-show="showSectionId === '#summary'" id="summary">
         <div class="wrap">
-          <h2 class="title">我的团队</h2>
+          <h2 class="title"><i class="iconfont icon-ziwopingjia"></i>自我评价</h2>
           <div class="row">
-            <div class="col-m-6">
-              <p>我的团队 -
-                缤奇团队由一群热爱科技创新的年轻人所组成，做到了“实际”与“创新”的结合。奇思妙想不乏真正落实。集思广益，生动有趣的创意，尽在缤奇。缤奇团队如今有超过30名成员，各个部门互帮互助，同为一个目标而努力进取着。</p>
-              <p>缤奇团队致力于开发原创游戏、动漫等项目。目前我们已完成项目有手机游戏“色块冲刺”、聊天娱乐项目“小缤机器人”等。正在创作项目有解密游戏“月亮湖的秘密”、VR 项目“梦想码头”等。缤奇官网 &amp;
-                社区已陆续开放。网站采用团队成员自主编写的 CSS3 自适应框架，针对移动设备有布局优化，缤奇团队有着丰富的网站建设技术能力、有独立的画师以及文编。</p>
-              <p>团队官网：<a href="http://www.wangdahai.cn">http://www.wangdahai.cn</a></p>
-            </div>
-            <div class="col-m-6 center">
-              <img src="static/img/team.png" bk-image="active">
-            </div>
+            <ul>
+              <li>一个对一切未知的事物都会抱有好奇心的人</li>
+              <li>一个希望用自己所有的精力将事情做到最尽可能完美的人</li>
+              <li>一个喜欢拥抱不确定性，爱折腾，去见不同的人，感受不同的环境，不喜欢一成不变的人</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -197,62 +149,145 @@
 export default {
   data() {
     return {
+      screenWidth: document.documentElement.clientWidth,  //实时屏幕宽度,
       showSectionId: '#info',
       introduceList: [
         {
           id: 0,
           title: '资料',
-          name: '#info'
+          name: '#info',
+          icon:'iconfont icon-zhuanye1'
         },
         {
           id: 1,
           title: '技能',
-          name: '#skills'
+          name: '#skills',
+          icon:'iconfont icon-jinengliang-xian'
         },
         {
           id: 2,
           title: '作品',
-          name: '#works'
+          name: '#works',
+          icon:'iconfont icon-zuopin'
         },
         {
           id: 3,
           title: '爱好',
-          name: '#hobbys'
+          name: '#hobbys',
+          icon:'iconfont icon-xingquaihao'
         },
         {
           id: 4,
           title: '评价',
-          name: '#summary'
+          name: '#summary',
+          icon:'iconfont icon-ziwopingjia'
         },
       ],
       workList:[
         {
           id:0,
           name:'个人博客',
+          desp:'一个简单的个人博客项目，分为前台展示和后台管理系统，前台展示部分实现了博客的浏览，查找，分类，标签，评论，留言等功能，后台管理系统实现了博客发表，博客管理，用户管理等功能。',
           pic_url:'http://hikari.top/images/343142d0-8c6d-4749-989c-fca4f2019185.jpg'
         },
         {
           id:1,
           name:'Vue商城管理系统',
+          desp:'实现了商城后台管理用户账号(登录，退出，用户管理，权限管理)，商品管理(商品分类，分类参数，商品信息，订单)，数据统计等功能',
           pic_url:'http://hikari.top/images/8109e106-b876-4679-bf75-407632e8caaa.jpg'
         },
         {
           id:2,
           name:'移动Web餐厅小游戏',
+          desp:'一个餐厅经营模拟类游戏，实现了厨师、顾客等角色的关键操作，完成从顾客等位、点菜、烹饪、用餐、支付的一系列状态变更的数据、信息、交互、展现的变化及处理。',
           pic_url:'http://hikari.top/images/86c0d3a1-77a0-47ce-ba70-042c0b6118e8.png',
         },
         {
           id:3,
           name:'高级个人简历',
-          pic_url:'http://hikari.top/images/86c0d3a1-77a0-47ce-ba70-042c0b6118e8.png'
+          desp:'使用原生HTML,CSS,JavaScript实现的一款高级个人简历',
+          pic_url:'http://hikari.top/images/ed8d9603-b3b9-4604-ba46-41b8d9a5a718.jpg'
         },
-      ]
+        {
+          id:4,
+          name:'Java吃豆人小游戏',
+          desp:'使用JavaSwing实现了吃豆人游戏，游戏分为单人，双人和联机模式，用户通过操控吃豆人移动，吃掉屏幕上的豆字，同时躲避怪物，追踪豆字吃完后获得胜利',
+          pic_url:'http://hikari.top/images/6c0ed07b-3faf-4ccf-a024-5a98deffcffa.jpg'
+        },
+        {
+          id:5,
+          name:'OpenGL天空盒',
+          desp:'采用了天空盒的方法，通过一系列处理，如光源，摄影机的设置，键盘交互的设置等，在codeblocks中用c++语言实现了在天空盒中的漫游以及雾气的实现与消除，并且能够在场景中导入obj模型并赋予其材质，并实现了打开场景时播放背景音乐的效果。',
+          pic_url:'http://hikari.top/images/12d91c7b-0da9-4aea-baf7-ea7b3ce8b04b.png'
+        },
+      ],
+      hobbyList:[
+        {
+          id: 0,
+          name:'网球',
+          pic_url:'http://hikari.top/images/ab058900-9c31-4818-9f51-61a60f64f63c.jpeg',
+          desp:'网球是从大一开始学的一项运动，也是大学坚持最久的运动之一，技术一般般，但水平不高的比赛还是可以上场的，希望工作之后还有时间继续打球'
+        },
+        {
+          id: 1,
+          name:'跑步',
+          pic_url:'http://hikari.top/images/a7e5f1a4-bd29-4e80-aa9f-793342014120.jpeg',
+          desp:'跑步是从大一那年的冬天开始的，最长的记录是19年跑完了半程马拉松的21.0975km，这是一项不管我年龄多大都想坚持下去的运动'
+        },
+        {
+          id: 2,
+          name:'二次元',
+          pic_url:'http://hikari.top/images/10985f8b-91aa-429a-a515-5b1e9a5db40f.jpeg',
+          desp:'海贼，火影，网球王子，柯南，妖尾，进击的巨人......，从初中开始，基本上把长篇都看遍啦，二次元给我的生活天机了不少乐趣'
+        },
+        {
+          id: 3,
+          name:'日语',
+          pic_url:'http://hikari.top/images/8429f6ed-7094-453e-96ab-b574cdfa2514.jpeg',
+          desp:'喜欢看动漫和听日语歌，所以就自然开始喜欢日语了，现在还只会基础，希望之后能有时间好好学学过N2吧'
+        },
+        {
+          id: 4,
+          name:'听音乐',
+          pic_url:'http://hikari.top/images/1b9c534a-f097-4281-a15f-17727f364c27.jpeg',
+          desp:'这个不用多说，各种各样的音乐我都喜欢，而且喜欢边学习边听，哈哈'
+        },
+        {
+          id: 5,
+          name:'看电影',
+          pic_url:'http://hikari.top/images/33705908-8614-4a9d-a6f6-39fe406a2c1b.jpeg',
+          desp:'比较喜欢科幻片，虽然因为没钱，没在电影院没看过几部，但这也算一个爱好吧'
+        },
+        {
+          id: 6,
+          name:'骑车',
+          pic_url:'http://hikari.top/images/b05702ea-673b-46ff-8f03-17db351c3845.jpeg',
+          desp:'虽然我大学才雪会骑车，但看着别人出去远距离骑行也是挺羡慕的，希望有时间可以去试试'
+        },
+        {
+          id: 7,
+          name:'旅游',
+          pic_url:'http://hikari.top/images/420f8f32-eff3-4062-85d0-92d8b68f62eb.jpeg',
+          desp:'这只能算一个美好的愿望，等我有钱了，要去各种各样的地方玩，体验不一样的生活'
+        },
+      ],
     }
   },
-
+  computed:{
+    cardOpen(){
+      return this.screenWidth >= 748;
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.screenAdapter)
+  },
   methods: {
     showSection(name) {
       this.showSectionId = name
+    },
+    // 屏幕尺寸变化的监听函数
+    screenAdapter(){
+      this.screenWidth = document.documentElement.clientWidth;
     }
   }
 }
@@ -342,7 +377,15 @@ export default {
       border: 3px dashed rgba(0, 0, 0, 0.3);
       border-radius: 20px;
       padding: 20px;
-
+      .title{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        i{
+          font-size: larger;
+          margin-right: 10px;
+        }
+      }
       a{
         text-decoration: none;
       }
@@ -362,9 +405,7 @@ export default {
     }
 
     #info {
-
       .warp {
-
         .row {
           display: flex;
           justify-content: space-between;
@@ -409,23 +450,137 @@ export default {
 
     }
     #works{
+      .el-card /deep/ .el-card__body{
+        padding: 0;
+      }
+
       .works-item{
-        background-color: white;
-        text-align: center;
-        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        .works-item-front,.works-item-back{
+          background-color: white;
+          text-align: center;
+          border-radius: 5px;
+          box-shadow: 0 0 5px 0 #ccc;
+          border: 1px solid #5d5d5d;
+          transition: all 1s;
+          backface-visibility: hidden;
+          width: 100%;
+          height: 100%;
+        }
+        .works-item-front{
+          .el-image{
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 5px 5px 0 0;
+          }
+          p{
+            margin-top: 2px;
+            margin-bottom: 2px;
+            color: #303133;
+          }
+        }
+        .works-item-back{
+          box-sizing: border-box;
+          padding: 20px;
+          position: absolute;
+          top: 0;
+          background: rgba(255, 255, 255, 0.8);
+          transform: rotateY(180deg);
+        }
+      }
+      .works-item:hover {
+       .works-item-back{
+          transform: rotateY(0deg);
+        }
+        .works-item-front{
+          transform: rotateY(180deg);
+        }
+      }
+    }
+
+    #hobbys{
+      .el-card /deep/ .el-card__body{
+        padding: 0;
+        height: 350px;
+      }
+      .hobby{
+        opacity: 0.9;
+        background-color: rgba(255,255,255,0.9);
+        box-shadow: none;
+        margin-bottom: 20px;
+        border-radius: 20px;
         .el-image{
-          max-width: 100%;
-          max-height: 180px;
-          border-radius: 5px 5px 0 0;
-          box-shadow: 0 0 2px 0 #ccc;
+          width: 100%;
+          max-height: 200px;
+        }
+        .tit{
+          margin: 0 auto;
+          line-height: 20px;
+          text-align: center;
         }
         p{
-          margin-top: 0;
-          color: #303133;
+          margin: 0;
+          padding: 20px;
+          font-size: medium;
+        }
+      }
+    }
+    #summary{
+      ul{
+        li{
+          line-height: 50px;
+          border-bottom: 2px dashed #63a35c;
+          background-color: rgba(0,0,0,0.1);
+          margin-bottom: 20px;
+          border-radius: 9999px;
+          list-style-type: circle;
         }
       }
     }
   }
 
+
+  @media screen and (max-width: 768px){
+    .sidebar{
+      position: relative;
+      top: 0;
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      .avatar{
+        margin: 1rem auto;
+        width: 100px;
+        height: 100px;
+      }
+      nav{
+        background-color: rgba(255,255,255,0.1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+    }
+    main{
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+      section{
+        border-radius: 0;
+        border: none;
+      }
+      #summary{
+        ul{
+          li{
+            border-radius: 0;
+            border-bottom: none;
+            background-color: transparent;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
 
 </style>

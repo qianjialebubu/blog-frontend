@@ -119,7 +119,7 @@ export default {
     },
     created(){
       this.blog = JSON.parse(this.$route.query.blog)
-      console.log(this.blog)
+      // console.log(this.blog)
     },
     methods: {
         // 获取博客类型列表
@@ -163,7 +163,7 @@ export default {
                 this.blog.firstPicture = this.dialogImageUrl
                 this.blog.tagIds = this.publishForm.tags.toString().replace(/\[|]/g, '');
                 this.blog.flag = this.publishForm.flag
-                console.log(this.blog.content)
+                // console.log(this.blog.content)
                 this.blog.user = JSON.parse(window.sessionStorage.getItem('user'))
                 const {data: res} = await this.$blog.post('/admin/blogs', {
                     blog: this.blog

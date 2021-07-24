@@ -79,12 +79,12 @@ export default {
             this.imageUrl = res.data
         },
         async setAvatar() {
-            console.log(this.imageUrl)
+            // console.log(this.imageUrl)
             const {data: res} = await this.$blog.post('/admin/setAvatar', {
                 pic_url: this.imageUrl,
                 user_id: this.userInfo.id
             })
-            console.log(res.data)
+            // console.log(res.data)
             this.userInfo = res.data
             window.sessionStorage.setItem('user', JSON.stringify(this.userInfo))
             window.location.reload()

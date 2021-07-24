@@ -82,7 +82,7 @@ export default {
                 }]
             }
             this.chartInstance.setOption(dataOption)
-            console.log(this.data)
+            // console.log(this.data)
         }
     }
 }

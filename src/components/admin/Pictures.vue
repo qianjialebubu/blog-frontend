@@ -51,12 +51,6 @@ export default {
   created() {
     this.getPicList()
   },
-  // mounted() {
-  //   this.waterfall_box_width = document.getElementById('waterfall_box').offsetWidth
-  //   this.waterfall_col_num = Math.floor(this.waterfall_box_width / this.img_width) || 1
-  //   this.waterfall_col_height_list = new Array(this.waterfall_col_num).fill(0)
-  //   this.img_margin_right = (this.waterfall_box_width - this.waterfall_col_num * this.img_width) / (this.waterfall_col_num - 1);
-  // },
   computed:{
     itemWidth(){
       return 270 // #rem布局 计算宽度
@@ -73,15 +67,15 @@ export default {
       this.dialogImageUrl = ''
     },
     async handleSuccess(res) {
-      console.log(res.data)
+      // console.log(res.data)
       this.dialogImageUrl = res.data
     },
     scroll(scrollData){
-      console.log(scrollData)
+      // console.log(scrollData)
     },
     switchCol(col){
       this.col = col
-      console.log(this.col)
+      // console.log(this.col)
     },
     loadmore(index){
       this.data = this.data.concat(this.data)
@@ -107,41 +101,13 @@ export default {
     },
     async getPicList() {
       const {data: res} = await this.$picture.get('/get_all')
-      // let imgList = []
-      // for (const img_item of res){
-      //   const item = await this.checkImgWidth(img_item)
-      //   const img = {width:item.width,height:item.height,url:img_item}
-      //   imgList.push(img)
-      // }
       this.pictureList = res
-      // return await this.getRenderList()
     },
-    // async getRenderList(){
-    //   const temp_waterfall_list = []
-    //   for (const img of this.pictureList) {
-    //     const minIndex = this.finMinHeightIndex();
-    //     const img_obj = {
-    //       url: img.url,
-    //       width: this.img_width,
-    //       height: Math.floor((this.img_width / img.width) * img.height),//图片等比例缩放
-    //       top: this.waterfall_col_height_list[minIndex],
-    //       left: minIndex * (this.img_margin_right + this.img_width)
-    //     }
-    //     temp_waterfall_list.push(img_obj);
-    //     this.waterfall_col_height_list[minIndex] += img_obj.height + this.img_margin_bottom;
-    //     this.waterfall_box_height = this.waterfall_col_height_list[minIndex]
-    //   }
-    //   this.renderList = temp_waterfall_list
-    //   console.log(this.renderList)
-    // },
-    // finMinHeightIndex() {
-    //   return this.waterfall_col_height_list.indexOf(Math.min.call(null, ...this.waterfall_col_height_list))
-    // },
     async deletePic(url,idx) {
       const str = url.split('/')
       const len = str.length
       const filename = str[len-1]
-      console.log(str[len-1])
+      // console.log(str[len-1])
       // 弹出对话框
       const confirmResult = await this.$confirm(
           '确定要删除该图片吗',

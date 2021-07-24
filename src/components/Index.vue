@@ -8,7 +8,7 @@
             <div class="border"></div>
           </h1>
 
-          <h2 class="intro">这是我的个人博客、会分享关于编程，开发以及其他方面的一些内容，希望可以对您有所帮助...</h2>
+          <h2 class="intro">{{intro}}</h2>
           <div class="bounce down" @click="startRead">
             <i class="el-icon-arrow-down" style="color: white"></i>
           </div>
@@ -17,7 +17,7 @@
     </el-row>
     <el-container id="index" class="animate__animated animate__fadeInUp">
       <el-row :gutter="12">
-        <el-col :xs="24" :sm="16">
+        <el-col :xs="24" :sm="17">
           <el-card style="background-color: rgba(255,255,255,0.9)" class="left-item">
             <div slot="header" class="total">
               <div class="title">
@@ -68,7 +68,7 @@
                   :total="totalcount">
           </el-pagination>
         </el-col>
-        <el-col :xs="24" :sm="8">
+        <el-col :xs="24" :sm="7">
           <el-card style="background-color: rgba(255,255,255,0.9)"
                    class="animate__animated animate__fadeInUp right-item">
             <div slot="header" class="attributes">
@@ -145,6 +145,7 @@ export default {
         pagenum: 1,
         pagesize: 8
       },
+      intro:'',
       blogList: [],
       typeList: [],
       tagList: [],
@@ -165,6 +166,7 @@ export default {
     pagSmall(){
       return this.screenWidth <= 768;
     },
+    // 计算分页栏样式
     pagLayout(){
       if (this.screenWidth<768){
         return 'prev, pager, next'
@@ -181,6 +183,20 @@ export default {
     window.addEventListener('resize', this.screenAdapter)
   },
   mounted() {
+    let str = '这是我的个人博客、会分享关于编程，开发以及其他方面的一些内容，希望可以对您有所帮助...';
+    let idx = 0;
+    let that = this
+    let timer = setTimeout( function fn() {
+      // console.log(this.intro)
+      that.intro = that.intro+ str.substring(idx,idx+1)
+      idx++
+      if (idx>str.length){
+       that.intro = ''
+        idx = 0
+      }
+      setTimeout(fn,200)
+    },2000)
+
     this.screenWidth =  document.documentElement.clientWidth
   },
   methods: {
@@ -231,7 +247,7 @@ export default {
     },
     // 跳转到博客详情页
     getBlogInfo(blogId) {
-      console.log(blogId.id)
+      // console.log(blogId.id)
       this.$router.push({path: '/blogInfo', query: {id: blogId}});
     },
     // 修改当前页码
@@ -248,7 +264,7 @@ export default {
     async selectType(id) {
       this.typeId = id
       const {data: res} = await this.$blog.get(`/types/${this.typeId}`)
-      console.log(res)
+      // console.log(res)
       this.blogList = res.data.content
       this.totalcount = res.data.totalElements
       this.selectMethod = '分类: ' + this.typeList.find(item => item.id === this.typeId).name

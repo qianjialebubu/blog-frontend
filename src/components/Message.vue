@@ -111,7 +111,7 @@ export default {
         },
         async getAllPicList() {
             const {data: res} = await this.$picture.get('/pic_paths/get_all/')
-            console.log(res)
+            // console.log(res)
             this.picList = res
         },
 

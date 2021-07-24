@@ -36,7 +36,7 @@
       <div class="search_input">
         <el-input
                 @focus="checkInput"
-                @blur="searching = false"
+                @blur="notSearching()"
                 class="search"
                 placeholder="请输入内容"
                 prefix-icon="el-icon-search"
@@ -122,13 +122,11 @@ export default {
         },
       ],
       iconsObj: {
-        '1': 'iconfont icon-user',
-        '2': 'iconfont icon-tijikongjian',
-        '3': 'iconfont icon-shangpin',
-        '4': 'iconfont icon-danju',
-        '5': 'iconfont icon-baobiao',
-        '6': 'iconfont icon-baobiao',
-        '7': 'iconfont icon-baobiao'
+        '1': 'iconfont icon-menu_home',
+        '2': 'iconfont icon-jilu2',
+        '3': 'iconfont icon-xiangmu1',
+        '4': 'iconfont icon-liuyan',
+        '5': 'iconfont icon-gerenzhongxin1',
       },
       isCollapse: false,
       menuHiddenVisiable: false,
@@ -163,8 +161,14 @@ export default {
 
   methods: {
 
+    notSearching(){
+      setTimeout( () => {
+        this.searching = false
+      },100)
+
+    },
     changePage(name) {
-      console.log(name)
+      // console.log(name)
       this.$store.commit('changePage',name)
     }
     ,
@@ -193,7 +197,6 @@ export default {
       // console.log(res.data.content)
       this.searchList = res.data.content.slice(0, 5)
       if (this.searchList.length !== 0) {
-        // console.log(this.searchList)
         this.searching = true
       }
     }
@@ -201,6 +204,7 @@ export default {
 
 // 跳转到博客详情页
     getBlogInfo(blogId) {
+      this.$store.commit('changeBlogKey')
       this.$router.push({path: '/blogInfo', query: {id: blogId}});
     }
     ,

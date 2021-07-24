@@ -91,7 +91,7 @@ export default {
     },
     methods: {
         async handleSuccess(res) {
-            console.log(res.data)
+            // console.log(res.data)
             this.dialogImageUrl = res.data
         },
         handleRemove() {
@@ -130,7 +130,7 @@ export default {
                     user: this.user
                 })
                 if (res.code !== 200) return this.$message.error("注册失败")
-                console.log(res)
+                // console.log(res)
                 this.$refs.FormRef.resetFields()
                 this.$message({message: '注册成功', type: 'success', offset: 80});
                 window.sessionStorage.setItem("token", JSON.stringify(res.data.token));
