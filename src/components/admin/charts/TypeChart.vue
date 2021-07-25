@@ -19,17 +19,21 @@ export default {
         this.initChart()
         this.getData()
         window.addEventListener('resize', this.screenAdapter)
-    },
-    screenAdapter() {
-        this.chartInstance.resize()
+        this.screenAdapter()
     },
     methods: {
+        screenAdapter() {
+            this.chartInstance.resize()
+        },
         initChart() {
             this.chartInstance = this.$echarts.init(this.$refs.type_ref, this.theme)
             const initOption = {
+                title:{
+                    text: '分类数据'
+                },
                 tooltip: {
                     trigger: 'item',
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    formatter: '{b} : {c} ({d}%)'
                 },
                 legend: {
                     left: 'center',

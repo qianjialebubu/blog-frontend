@@ -73,7 +73,6 @@
 import BlogChart from "./charts/BlogChart";
 import TagChart from "./charts/TagChart";
 import TypeChart from "./charts/TypeChart";
-import VisitChart from "./charts/VisitChart";
 import RecentBlogList from "./charts/RecentBlogList";
 import CommentList from "./charts/CommentList";
 import BoxCard from "./charts/BoxCard";
@@ -81,7 +80,7 @@ import VisitorMap from "./charts/VisitorMap";
 
 export default {
   components: {
-    VisitorMap, BlogChart, TagChart, TypeChart, VisitChart, RecentBlogList, CommentList, BoxCard
+    VisitorMap, BlogChart, TagChart, TypeChart,RecentBlogList, CommentList, BoxCard
   },
   data() {
     return {

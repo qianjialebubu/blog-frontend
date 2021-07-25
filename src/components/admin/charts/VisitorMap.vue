@@ -30,13 +30,28 @@ export default {
     },
     async initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.visit_ref, this.theme)
-      const ret = await this.$http.get('http://127.0.0.1:8080/static/map/china.json')
-      this.$echarts.registerMap('china', ret.data)
+      const res = require('@/assets/map/china.json')
+      this.$echarts.registerMap('china', res)
       const initOption = {
+        title:{
+          text: '用户来源'
+        },
         geo: {
           type: 'map',
           roam: true, // 鼠标滑动放大缩小
           map: 'china',
+        },
+        // '<img src="'+lt.avatar+'"/>'
+        tooltip: {
+          trigger: 'item',
+          formatter: function (params) {
+            let html = ''
+            if (!params.data) return html
+            for (const lt of params.data.users){
+              html+='<div style="display: flex;align-items: center"><img style="width: 18px;border-radius: 50%" src="'+lt.avatar+'"/><span style="font-size: x-small;margin-left: 5px">'+lt.nickname+'</span></div> '
+            }
+            return html
+          }
         },
         legend: {
           left: '5%',
@@ -94,13 +109,13 @@ export default {
         let list = {}
         res.data.forEach((item) => {
           if (typeof list[item.loginProvince] === 'undefined') {
-            list[item.loginProvince] = 1
+            list[item.loginProvince] = [item]
           } else {
-            list[item.loginProvince]++
+            list[item.loginProvince].push(item)
           }
         })
         Object.entries(list).forEach((item) => {
-          this.allData.push({name: item[0], value: item[1]})
+          this.allData.push({name: item[0], value: item[1].length,users:item[1]})
         })
         setTimeout(() => {
           this.updateChart()
@@ -134,6 +149,5 @@ export default {
     height: 100%;
     overflow: hidden;
   }
-
 
 </style>

@@ -65,7 +65,7 @@ export default {
         width: 70px!important;
         position: absolute!important;
         top: -45px;
-        left: 0px;
+        left: 0;
         border: 5px solid #ffffff;
         background-color: #fff;
         margin: auto;

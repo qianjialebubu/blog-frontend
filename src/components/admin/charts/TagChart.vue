@@ -1,5 +1,6 @@
 <template>
     <div class="com-container">
+        <h3 class="title">标签数据</h3>
         <div class="com-chart" ref="tag_ref">
             <div class="tag" v-for="tag in randerList"
                  :style="{left:tag.x+'px',top:tag.y+'px',color:tag.color,opacity:tag.opacity,filter:tag.filter,fontSize:tag.fontSize+'px',transform: tag.transform}">
@@ -94,7 +95,7 @@ export default {
             this.rotateX();
             this.rotateY();
             // console.log(this.randerList)
-            // requestAnimationFrame(this.animate);
+            requestAnimationFrame(this.animate);
         },
 
         rotateX() {
@@ -148,6 +149,13 @@ export default {
     .tag:hover {
         background-color: rgba(0, 0, 0, 0.2);
         border-radius: 5px;
+    }
+
+    .title{
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
     }
 
     canvas {

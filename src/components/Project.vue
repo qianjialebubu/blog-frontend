@@ -117,7 +117,6 @@ export default {
 
   .el-card:hover {
     cursor: pointer;
-    color: white;
   }
 
   .el-image {

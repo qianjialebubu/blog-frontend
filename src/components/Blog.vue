@@ -64,7 +64,6 @@
         <div class="header">
           评论
         </div>
-
         <div v-for="cmt in rootCmtTree">
           <comment :cmt="cmt" :parent-id="-1" :rp-active-id="rpActiveId"></comment>
           <reply style="margin-left: 40px" v-if="rpActiveId === cmt.id" :id="cmt.id" :blog-id="blog.id"
@@ -126,8 +125,8 @@ export default {
       },
       rpActiveId: -1,
       blogId: 0,
-      wechart: 'http://hikari.top/images/weixinzhifu.png',
-      alipay: 'http://hikari.top/images/zhifubao.jpg',
+      wechart: 'http://hikari.top/images/0e6e1994-37ed-4d75-a3d4-0bdd0f39c2f7.jpg',
+      alipay: 'http://hikari.top/images/f28cb94b-eedc-475a-8833-bee7824a5a27.jpg',
       commentForm: {
         content: ''
       },

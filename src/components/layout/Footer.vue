@@ -3,7 +3,7 @@
         <!--    center aligned居中-->
         <el-row :gutter="20" class=" footer-info">
             <el-col class="ewm" :xs="24" :sm="4" >
-                <el-image :src="picload" alt="图片加载失败"
+                <el-image src="http://hikari.top/images/d20db05f-2d0b-4fc4-b52c-4478bb9fc655.png" alt="图片加载失败"
                           class="ui rounded image" style="width: 110px"/>
             </el-col>
             <el-col class="new-blog" :xs="24" :sm="7">
@@ -43,7 +43,6 @@ export default {
     data(){
         return {
             footerList: [],
-            picload:   require('../../assets/images/wechat.jpg')
         }
     },
     created(){

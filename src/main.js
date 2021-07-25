@@ -7,7 +7,6 @@ import mavonEditor from 'mavon-editor'
 import marked from 'marked'
 import axios from 'axios'
 import {VueJsonp} from 'vue-jsonp'
-import BaiduMap from 'vue-baidu-map'
 import './assets/fonts/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import './plugins/element.js'
@@ -26,7 +25,6 @@ Vue.prototype.$marked = marked
 Vue.prototype.$http = axios
 Vue.prototype.$echarts = echarts
 Vue.prototype.$jsonp = VueJsonp
-Vue.prototype.$baidumap = BaiduMap
 
 
 const blog = axios.create({ // 博客后台api地址
@@ -51,9 +49,6 @@ Vue.use(mavonEditor)
 Vue.use(VueJsonp)
 Vue.use(vcolorpicker)
 Vue.use(waterfall)
-Vue.use(BaiduMap,{
-    ak:'1yBeCdKm1zD4PxO06kMSSuQjWXKs6GBG'
-})
 
 Vue.filter('dataFormat', function (originVal) {
     const dt = new Date(originVal)
