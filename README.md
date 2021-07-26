@@ -1,9 +1,13 @@
 
-## 我的博客地址
-项目上线地址：[http://hikari.top](http://hikari.top)
+## 博客上线地址：
+欢迎访问我的博客！[http://hikari.top](http://hikari.top) 
 ## 项目介绍
 实现了一个简单的个人博客系统，技术栈为后端SpringBoot+JPA+MySQL,前端Vue+ElementUI+Echarts系统分为前台展示和后台管理两个部分，前台部分主要分为了引导页，首页，随笔，项目，留言和关于我页面，使用响应式布局，能够自适应移动端，后台有首页，博客管理，撰写博客，用户管理，分类管理，标签管理，评论管理，随笔管理，项目管理，个人中心，图片管理。
 ## 项目开源地址：
+博客前端：[https://gitee.com/tyoubin_admin/myblog-frontend.git](https://gitee.com/tyoubin_admin/myblog-frontend.git)
+博客后端：[https://gitee.com/tyoubin_admin/myblog-backend.git](https://gitee.com/tyoubin_admin/myblog-backend.git)
+
+*本项目将长期更新与维护，欢迎拉取和star！*
 
 ## 项目截图及亮点
 **博客引导页**：随机二次元背景，透明菜单栏，环绕边框动画，动态简介，动态下拉按钮。点击顶部半透明导航栏相应菜单可进行页面切换，博客搜索，用户登录和注册。
@@ -40,3 +44,5 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/0a78b25ef39c4081a50c1c2d88a01d41.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
 **后台图片管理**：懒加载，流式布局
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/8fd3bcb84cfc4748b144708dac14dd4e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+## 项目数据库表设计
+![请添加图片描述](https://img-blog.csdnimg.cn/398c8a7881494291a7dda9b09814aa52.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
