@@ -28,7 +28,7 @@ Vue.prototype.$jsonp = VueJsonp
 
 
 const blog = axios.create({ // 博客后台api地址
-    baseURL: 'http://127.0.0.1:8090'
+    baseURL: 'http://hikari.top:8090'
 })
 
 const picture = axios.create({ // 图片服务器api地址

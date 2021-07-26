@@ -1,114 +1,42 @@
-# 项目开发日志—2021-07-11
 
-```shell
-import 'element-ui/lib/theme-chalk/index.css'
-import './assets/css/global.css'这两个文件顺序不能改变
-```
+## 我的博客地址
+项目上线地址：[http://hikari.top](http://hikari.top)
+## 项目介绍
+实现了一个简单的个人博客系统，技术栈为后端SpringBoot+JPA+MySQL,前端Vue+ElementUI+Echarts系统分为前台展示和后台管理两个部分，前台部分主要分为了引导页，首页，随笔，项目，留言和关于我页面，使用响应式布局，能够自适应移动端，后台有首页，博客管理，撰写博客，用户管理，分类管理，标签管理，评论管理，随笔管理，项目管理，个人中心，图片管理。
+## 项目开源地址：
 
-el-row 的 display不能是flex
-
-### 问题：适配手机端后，el-pagination区域太宽影响美观
-
-### 解决方案：监控屏幕宽度，改变el-pagination的部分属性
-
-data():
-
-```javascript
-screenWidth: document.documentElement.clientWidth,  //实时屏幕宽度
-```
-
-
-watch:
-
-```javascript
-'screenWidth':{
-    handler (val) {
-        if (val<768 && this.pagSmall === false){
-            this.pagSmall = true
-            this.pagLayout = 'prev, pager, next'
-        } else if (val>768 && this.pagSmall === true){
-            this.pagSmall = false
-            this.pagLayout = 'total, prev, pager, next, jumper'
-        }
-    }
-}
-```
-
-created():
-
-```javascript
-window.addEventListener('resize', this.screenAdapter)
-```
-
-methods:
-
-```javascript
-// 屏幕尺寸变化的监听函数
-screenAdapter(){
-    this.screenWidth = document.documentElement.clientWidth;
-}
-```
-
-### el-row中的图片水平垂直居中
-
-```js
-type="flex" align="middle"
-```
-
-### 博客系统评论功能的实现
-
-由于后端传来的评论数据是列表的形式，而前端要实现将评论按层级展示，直观地看出评论的回复情况。
-
-同时为了兼顾功能和美观，要将子评论显示级数限定在二级，而三级之后的评论通过显示回复的评论者的名字来找出其父评论。
-
-思路：
-
-1. 通过parent_id的将返回的评论列表转为子树的形式，父子之间通过children属性来关联
-2. 将二层之后的子节点转为其父节点的兄弟节点。
-3. 将所有子评论按时间顺序排列
-
-列表转换为子树的代码如下：
-
-```js
-let parents = this.blog.comments.filter(value => value.parentComment === null).sort((a, b) => {
-                return a.createTime.localeCompare(b.createTime)
-            })
-            let children = this.blog.comments.filter(value => value.parentComment !== null)
-            let translator = (parents, children) => {
-                parents.forEach(parent => {
-                    children.forEach((child, index) => {
-                        if (child.parentComment.id === parent.id) {
-                            let temp = JSON.parse(JSON.stringify(children))
-                            temp.splice(index, 1)
-                            translator([child], temp)
-                            typeof parent.children != 'undefined' ? parent.children.push(child) : parent.children = [child]
-                        }
-                    })
-                })
-            }
-translator(parents, children)
-```
-
-二级之后子树打平代码如下：
-
-```javascript
-let getChildList = (children) => {
-    let cds = []
-    let dfs = (children) => {
-        if (children === undefined) return
-        children.forEach((child) => {
-            cds.push(child)
-            if (child.children === undefined) return
-            dfs(child.children)
-        })
-    }
-    dfs(children)
-    return cds.sort((a, b) => {
-        return a.createTime.localeCompare(b.createTime)
-    })
-}
-parents.forEach((parent) => {
-    parent.children = getChildList(parent.children)
-})
-```
-
+## 项目截图及亮点
+**博客引导页**：随机二次元背景，透明菜单栏，环绕边框动画，动态简介，动态下拉按钮。点击顶部半透明导航栏相应菜单可进行页面切换，博客搜索，用户登录和注册。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/87f2a1fb3eac43748e099d025de87b47.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**博客首页**：博客，分类，标签以及最新推荐。博客分页显示，点击下方分页可进行页面切换，点击分类和标签可以对博客进行筛选。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4e08e9f3eaa04bc2bae180e7d50167b6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**随笔页**：边框颜色后台获取，markdown文本格式展示
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4a405863fbe440c0b637d725fb9e4883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**项目页**：根据项目的完整程度等因素，分为完整项目和小练习两部分，均为部署上线的项目，点击可以跳转显示。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d9823983af964e0cbd7d6df96fa11085.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**留言版**：可匿名发表留言，也可登录后发表。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/270f06819237477794ea0668b004ca0b.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**关于我**：展示我的资料，技能，作品，爱好以及自我评价，使用了卡片翻转，轮播图等动画效果。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8d2b3ef815884a9ea5092fffed96d69b.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台管理系统首页**：Echarts博客后台数据展示，标签3D球体标签云动画，地图展示不同地区用户数量。鼠标移动到地图块可显示该地区用户的 头像和昵称。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a128410598a84826bfff2336d22d945a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台博客管理**：可直接修改博客的分类，添加或删除标签，点击展开栏可修改博客的首图，点击修改按钮可跳转到博客撰写页面修改博客的标题和内容。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8fee71816f1647cc90fa850c34346d08.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台用户管理**：可查找用户，修改用户的管理权限，删除用户。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2f1ed058679540e3822f69ec2097bff2.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台博客撰写**：可编辑博客，选择博客分类，标签，上传博客首图，发布文章
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7476da1497c046ba85cd3b02a429ef62.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台分类管理**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7405788adbab410fb4619583a0ae3326.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台标签管理**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b60eb0c945314e4fa3b9ff0e9a335656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台个人中心**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fc06abdf16114d259a99f3175baef45e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台评论管理**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ddbdfca0db624c41b14dc0aad1f96578.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台随笔管理**：添加颜色选择器，自定义前台随笔边框颜色
+![在这里插入图片描述](https://img-blog.csdnimg.cn/30653b7f5fc242e2aeb3214c16081ccb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台项目管理**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/0a78b25ef39c4081a50c1c2d88a01d41.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)
+**后台图片管理**：懒加载，流式布局
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8fd3bcb84cfc4748b144708dac14dd4e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDk5Njg1NA==,size_16,color_FFFFFF,t_70)

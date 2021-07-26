@@ -22,7 +22,7 @@
                 <el-upload
                         class="avatar-uploader"
                         ref="upload"
-                        action="http://127.0.0.1:8090/upload"
+                        action="http://hikari.top:8090/upload"
                         :limit="1"
                         :show-file-list="false"
                         :on-remove="handleRemove"

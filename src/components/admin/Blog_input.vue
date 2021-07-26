@@ -50,7 +50,7 @@
                 <el-form-item label="文章首图">
                     <el-upload
                             ref="upload"
-                            action="http://127.0.0.1:8090/upload"
+                            action="http://hikari.top:8090/upload"
                             list-type="picture-card"
                             :limit="1"
                             :on-preview="handlePictureCardPreview"

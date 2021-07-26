@@ -39,7 +39,7 @@
             <el-upload
                     v-if="uploading"
                     class="avatar-uploader"
-                    action="http://127.0.0.1:8090/upload"
+                    action="http://hikari.top:8090/upload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess">
                 <img v-if="imageUrl" :src="imageUrl" class="new-avatar">

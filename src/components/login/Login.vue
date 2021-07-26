@@ -3,13 +3,13 @@
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
             <!--        用户名-->
             <el-form-item prop="username">
-                <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user">
+                <el-input v-model="loginForm.username" label="账号">
                 </el-input>
             </el-form-item>
             <!--        密码-->
             <el-form-item prop="password">
                 <el-input type="password" v-model="loginForm.password"
-                          prefix-icon="iconfont icon-3702mima"></el-input>
+                          label="密码"></el-input>
             </el-form-item>
             <el-form-item style="text-align: right">
                 <el-button @click="resetLoginForm">取消</el-button>
