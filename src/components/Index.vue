@@ -99,6 +99,7 @@
             </div>
             <div class="tags">
               <div class="animate__animated animate__fadeInUp tag-item" v-for="tag in tagList"
+                   :key="tag.id"
                    @click="selectTag(tag.id)"
                    :class="tag.id === tagId? 'activeTag':''">
                 <div class="sjx-outer">
@@ -137,8 +138,6 @@
 export default {
   data() {
     return {
-      // pagSmall: false,
-      // pagLayout: 'total, prev, pager, next, jumper',
       totalcount: 100,
       queryInfo: {
         query: '',
@@ -176,13 +175,13 @@ export default {
     }
   },
   created() {
+    window.addEventListener('resize', this.screenAdapter)
+  },
+  mounted() {
     this.getTypeList()
     this.getBlogList()
     this.getTagList()
     this.getRecommendList()
-    window.addEventListener('resize', this.screenAdapter)
-  },
-  mounted() {
     let str = '这是我的个人博客、会分享关于编程，开发以及其他方面的一些内容，希望可以对您有所帮助...';
     let idx = 0;
     let that = this
@@ -258,7 +257,6 @@ export default {
     // 修改当前页大小
     handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize
-      this.getGoodsList()
     },
     // 按分类筛选博客
     async selectType(id) {
@@ -487,46 +485,50 @@ export default {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      margin-left: 10px;
+      margin-left: 5px;
+      margin-right: 5px;
       margin-bottom: 10px;
-    }
-
-    .tag {
-      background-color: #ecf5ff;
-      display: inline-block;
-      height: 22px;
-      padding: 0 10px;
-      line-height: 20px;
-      font-size: 10px;
-      color: #409eff;
-      border-radius: 4px;
       box-sizing: border-box;
-      white-space: nowrap;
-      border: 1px solid #409eff;
-      transition: .2s;
+      .tag {
+        background-color: #ecf5ff;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 22px;
+        padding: 0 10px;
+        line-height: 22px;
+        font-size: 10px;
+        color: #409eff;
+        border-radius: 4px;
+        white-space: nowrap;
+        border: 1px solid #409eff;
+        transition: .2s;
+      }
+
+      .sjx-outer {
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid #409eff;
+        position: relative;
+        transition: .2s;
+      }
+
+      .sjx-inner {
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid #ecf5ff;
+        top: -6px;
+        left: 1px;
+        position: absolute;
+        transition: .2s;
+      }
     }
 
-    .sjx-outer {
-      width: 0;
-      height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-right: 6px solid #409eff;
-      position: relative;
-      transition: .2s;
-    }
 
-    .sjx-inner {
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-right: 6px solid #ecf5ff;
-      top: -6px;
-      left: 1px;
-      position: absolute;
-      transition: .2s;
-    }
 
     .tag-item:hover, .activeTag {
+      box-sizing: border-box;
       .tag {
         color: white;
         background-color: #409eff;

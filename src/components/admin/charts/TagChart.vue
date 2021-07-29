@@ -2,7 +2,7 @@
     <div class="com-container">
         <h3 class="title">标签数据</h3>
         <div class="com-chart" ref="tag_ref">
-            <div class="tag" v-for="tag in randerList"
+            <div class="tag" v-for="tag in randerList" :key="tag.id"
                  :style="{left:tag.x+'px',top:tag.y+'px',color:tag.color,opacity:tag.opacity,filter:tag.filter,fontSize:tag.fontSize+'px',transform: tag.transform}">
                 {{tag.name}}
             </div>

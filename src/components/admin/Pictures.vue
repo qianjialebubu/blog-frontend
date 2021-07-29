@@ -11,7 +11,7 @@
     </el-upload>
     <waterfall id="waterfall_box" :width="itemWidth" :gutterWidth="gutterWidth" :col="col" :data="pictureList">
       <template>
-        <div v-for="(pic,idx) in pictureList" class="waterfall_item" :key="idx">
+        <div v-for="(pic,idx) in pictureList" class="waterfall_item" :key="pic">
           <el-card class="imgs" >
             <div style="width: 100%;height: 100%">
               <img class="images" v-if="pic" :lazy-src="pic" @click="showImg(pic)"/>

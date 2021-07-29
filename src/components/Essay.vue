@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-timeline class="animate__animated animate__fadeInLeft">
-            <el-timeline-item :color="essay.borderColor" v-for="essay in essayList" :timestamp="essay.createTime| dataFormat" placement="top">
+            <el-timeline-item :color="essay.borderColor" v-for="essay in essayList" :key="essay.id" :timestamp="essay.createTime| dataFormat" placement="top">
                 <el-card style="letter-spacing: 1px;" :style="calcuteStyle(essay)">
                     <h2 v-if="essay.title">{{essay.title}}</h2>
                     <div class="typo" v-html="essay.content"></div>

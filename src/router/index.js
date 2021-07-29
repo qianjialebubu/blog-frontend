@@ -1,34 +1,63 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../components/login/Login";
-import Welcome from "../views/Welcome";
-import Index from "../components/Index";
-import About from "../components/About";
-import Blog from "../components/Blog";
-import Project from "../components/Project";
-import Message from "../components/Message";
-import Essay from "../components/Essay";
-import Home from "../views/Home";
-import Blogs from "../components/admin/Blogs";
-import Blog_input from "../components/admin/Blog_input";
-import Tags from "../components/admin/Tags";
-import Types from "../components/admin/Types";
-import AdminIndex from "../components/admin/AdminIndex";
-import Comments from "../components/admin/Comments";
-import Essays from "../components/admin/Essays";
-import Projects from "../components/admin/Projects";
-import Administrator from "../components/admin/Administrator";
-import Users from "../components/admin/Users";
-import Error from "../components/Error";
-import Pictures from "../components/admin/Pictures";
+// import Login from "../components/login/Login";
+// import Welcome from "../views/Welcome";
+// import Index from "../components/Index";
+// import About from "../components/About";
+// import Blog from "../components/Blog";
+// import Project from "../components/Project";
+// import Message from "../components/Message";
+// import Essay from "../components/Essay";
+// import Home from "../views/Home";
+// import Blogs from "../components/admin/Blogs";
+// import Blog_input from "../components/admin/Blog_input";
+// import Tags from "../components/admin/Tags";
+// import Types from "../components/admin/Types";
+// import AdminIndex from "../components/admin/AdminIndex";
+// import Comments from "../components/admin/Comments";
+// import Essays from "../components/admin/Essays";
+// import Projects from "../components/admin/Projects";
+// import Administrator from "../components/admin/Administrator";
+// import Users from "../components/admin/Users";
+// import Error from "../components/Error";
+// import Pictures from "../components/admin/Pictures";
+
+// 路由懒加载
+const Welcome = () => import(/* webpackChunkName: "Welcome" */ '../views/Welcome')
+const Index = () => import(/* webpackChunkName: "Welcome" */ '../components/Index')
+const About = () => import(/* webpackChunkName: "Welcome" */ '../components/About')
+const Project = () => import(/* webpackChunkName: "Welcome" */ '../components/Project')
+const Message = () => import(/* webpackChunkName: "Welcome" */ '../components/Message')
+const Essay = () => import(/* webpackChunkName: "Welcome" */ '../components/Essay')
+
+const Blog = () => import(/* webpackChunkName: "Blog" */ '../components/Blog')
+
+const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home')
+const AdminIndex = () => import(/* webpackChunkName: "Home" */ '../components/admin/AdminIndex')
+
+const Blogs = () => import(/* webpackChunkName: "Blog_Home" */ '../components/admin/Blogs')
+const Blog_input = () => import(/* webpackChunkName: "Blog_Home" */ '../components/admin/Blog_input')
+
+const Tags = () => import(/* webpackChunkName: "Tags" */ '../components/admin/Tags')
+const Types = () => import(/* webpackChunkName: "Types" */ '../components/admin/Types')
+
+const Essays = () => import(/* webpackChunkName: "Essay" */ '../components/admin/Essays')
+
+const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/admin/Projects')
+
+const Comments = () => import(/* webpackChunkName: "Comment" */ '../components/admin/Comments')
+
+const Administrator = () => import(/* webpackChunkName: "Admin" */ '../components/admin/Administrator')
+const Users = () => import(/* webpackChunkName: "User" */ '../components/admin/Users')
+
+const Error = () => import(/* webpackChunkName: "Error" */ '../components/Error')
+const Pictures = () => import(/* webpackChunkName: "Pictures" */ '../components/admin/Pictures')
+
+
 
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/login',
-        component: Login
-    },
     {
         path: '/error',
         component: Error

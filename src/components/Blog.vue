@@ -25,7 +25,7 @@
       <div class="typo m-padded-lr-responsive m-padded-tb-large"
            v-html="blog.content" v-highlight></div>
       <div class="tags">
-        <div class="tag-item" v-for="tag in blog.tags">
+        <div class="tag-item" v-for="tag in blog.tags" :key="tag.id">
           <div class="sjx-outer">
             <div class="sjx-inner"></div>
           </div>
@@ -64,7 +64,7 @@
         <div class="header">
           评论
         </div>
-        <div v-for="cmt in rootCmtTree">
+        <div v-for="cmt in rootCmtTree" :key="cmt.id">
           <comment :cmt="cmt" :parent-id="-1" :rp-active-id="rpActiveId"></comment>
           <reply style="margin-left: 40px" v-if="rpActiveId === cmt.id" :id="cmt.id" :blog-id="blog.id"
                  v-on:quit="cancel" v-on:newCmt="replyComp"></reply>
@@ -72,7 +72,7 @@
           <span v-else class="reply" @click="rpActiveId = cmt.id">回复</span>
           <span v-if="administrator || userInfo && cmt.userId === userInfo.id" class="delete"
                 @click="deleteComment(cmt.id)">删除</span>
-          <div style="margin-left: 40px" v-for="rp in cmt.children">
+          <div style="margin-left: 40px" v-for="rp in cmt.children" :key="rp.id">
             <comment :cmt="rp" :parent-id="cmt.id" :rp-active-id="rpActiveId"></comment>
             <reply style="margin-left: 40px" v-if="rpActiveId === rp.id" :id="rp.id" :blog-id="blog.id"
                    v-on:quit="cancel" v-on:newCmt="replyComp"></reply>

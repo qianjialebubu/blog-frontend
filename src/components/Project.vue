@@ -6,7 +6,7 @@
       </el-col>
       <!--      <el-col :span="24">-->
       <div class="animate__animated animate__fadeInLeft"
-           v-for="(project) in projectList">
+           v-for="(project) in projectList" :key="project.id">
         <a :href="project.url" style="text-decoration: none" target="_blank">
           <el-card class="project">
             <el-image class="image" :src="project.pic_url"></el-image>
@@ -25,7 +25,7 @@
         <h2 style="color: white;background-color: rgba(0,0,0,0.15)">小练习</h2>
       </el-col>
       <el-row class="demo-container" :gutter="20">
-        <el-col :xs="24" :sm="12" :lg="6" v-for="(project) in demoList">
+        <el-col :xs="24" :sm="12" :lg="6" v-for="(project) in demoList" :key="project.id">
           <a :href="project.url" style="text-decoration: none;" target="_blank">
             <el-card shadow="hover"
                      :style="'background-image: url('+project.pic_url+');'"

@@ -23,7 +23,7 @@
 
         <el-card v-if="messageList.length>0" class="animate__animated animate__fadeInLeft">
             <ul style="padding: 0;" class="comment-list">
-                <li class="comment" v-for="ms in messageList">
+                <li class="comment" v-for="ms in messageList" :key="ms.id">
                     <el-avatar v-if="ms.avatar!==''" :src="ms.avatar" ></el-avatar>
                     <el-avatar v-else  icon="el-icon-user-solid"></el-avatar>
                     <div class="content">
@@ -67,12 +67,7 @@ export default {
         }
     },
     created() {
-        // this.getAllPicList()
         this.getMessageList()
-        // this.userInfo = JSON.parse(window.sessionStorage.getItem('user'))
-        // if (this.userInfo !== null && this.userInfo.type === 1) {
-        //     this.administrator = true
-        // }
     },
     computed:{
         ...mapState([

@@ -10,7 +10,7 @@
                 <h1 style="margin: 0;">评论管理</h1>
             </div>
             <ul style="padding: 0;" class="comment-list">
-                <li class="comment" v-for="cmt in commentList" >
+                <li class="comment" v-for="cmt in commentList" :key="cmt.id">
                     <el-avatar :src="cmt.avatar"></el-avatar>
                     <div class="content">
                         <div style="display: flex;justify-content: space-between;width: 100%">
@@ -21,13 +21,11 @@
                                 <span @click="getBlogInfo(cmt.blog.id)" class="blog">{{cmt.blog.title}}</span>
                             </div>
                             <div class="op">
-                                <span class="rep" @click="replyCommentById(cmt.id)">回复</span> | <span class="del" @click="deleteCommentById(cmt.id)">删除</span>
+                                <span class="del" @click="deleteCommentById(cmt.id)">删除</span>
                             </div>
                         </div>
-
                         <p class="reply">{{cmt.content}}</p>
                     </div>
-<!--                    {{cmt}}-->
                 </li>
             </ul>
         </el-card>
@@ -54,17 +52,25 @@ export default {
         },
         // 删除评论
         async deleteCommentById(id){
-            const {data: res} = await this.$blog.get('/admin/deleteCommentById',{
-                params: id
-            })
+            // 弹出对话框
+            const confirmResult = await this.$confirm(
+                    '此操作将永久删除该评论, 是否继续',
+                    '提示',
+                    {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }
+            ).catch(err => err)
+            if (confirmResult !== 'confirm') {
+                return this.$message.info('已取消删除')
+            }
+            const {data: res} = await this.$blog.get(`/comments/${id}/delete`)
             if (res.code !== 200){
                return  this.$message.error('删除失败！')
             }
-            return  this.$message.error('删除成功！')
-        },
-        // 回复评论
-        async replyCommentById(id){
-
+            await this.getCommentList()
+            return  this.$message.success('删除成功！')
         },
         // 跳转到博客详情页
         getBlogInfo(blogId) {
@@ -104,6 +110,7 @@ export default {
             .blog{
                 color: #349edf;
                 margin-left: 10px;
+                cursor: pointer;
             }
         }
         .reply{

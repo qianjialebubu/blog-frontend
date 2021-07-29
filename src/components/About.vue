@@ -5,7 +5,7 @@
         <img src="http://hikari.top/images/17a0dd9a-4898-413e-898e-678e2be068fa.png" title="Hikari">
       </div>
       <nav class="nav">
-        <a v-for="intro in introduceList" @click="showSection(intro.name)"><i :class="intro.icon" style="margin-right: 10px"></i> {{intro.title}}</a>
+        <a v-for="intro in introduceList" @click="showSection(intro.name)" :key="intro.id"><i :class="intro.icon" style="margin-right: 10px"></i> {{intro.title}}</a>
       </nav>
     </aside>
     <main>

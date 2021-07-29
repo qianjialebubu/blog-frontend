@@ -57,7 +57,7 @@
                 </el-table-column>
                 <el-table-column label="标签" prop="tags" width="250px">
                     <template slot-scope="scope">
-                        <el-tag size="medium" v-for="(tag, i) in scope.row.tags" :key="i" closable
+                        <el-tag size="medium" v-for="(tag, i) in scope.row.tags" :key="tag.id" closable
                                 @close="handleClose(i,scope.row)">{{tag.name}}
                         </el-tag>
                         <el-input size="small" style="width: 100px;" class="input-new-tag" v-if="scope.row.inputVisible"
@@ -121,7 +121,7 @@
                 </div>
             </el-dialog>
             <el-dialog class="pic_dialog" title="修改文章首图" center :visible.sync="editPicDialogFormVisible" style="width: 800px;margin: 0 auto">
-                <el-form  ref="editTypeFormRef" :model="editPicForm"
+                <el-form  ref="editPicFormRef"
                          class="edit_pic_form">
                     <el-form-item style="text-align: center">
                         <el-upload
@@ -180,7 +180,6 @@ export default {
             editPicDialogFormVisible:false,
             dialogVisible:false,
             dialogImageUrl:'',
-            editPicForm:'',
             screenWidth: document.documentElement.clientWidth,  //实时屏幕宽度
         }
     },

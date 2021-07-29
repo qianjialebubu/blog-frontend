@@ -7,18 +7,20 @@ import mavonEditor from 'mavon-editor'
 import marked from 'marked'
 import axios from 'axios'
 import {VueJsonp} from 'vue-jsonp'
+import NProgress from 'nprogress'
 import './assets/fonts/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css'
-import './plugins/element.js'
 import '@/assets/css/animate.css'
 import '@/assets/css/typo.css';
 import '@/assets/css/prism.css'
 import 'mavon-editor/dist/css/index.css'
 import '@/assets/css/global.css'
+import 'nprogress/nprogress.css'
 import waterfall from 'vue-waterfall2'
 import vcolorpicker from 'vcolorpicker'
 import * as echarts from 'echarts'
 import md5 from 'js-md5'
+
 
 Vue.prototype.$md5 = md5;
 Vue.prototype.$marked = marked
@@ -28,7 +30,7 @@ Vue.prototype.$jsonp = VueJsonp
 
 
 const blog = axios.create({ // 博客后台api地址
-    baseURL: 'http://hikari.top:8090'
+    baseURL: 'http://localhost:8090'
 })
 
 const picture = axios.create({ // 图片服务器api地址
@@ -36,7 +38,13 @@ const picture = axios.create({ // 图片服务器api地址
 })
 
 blog.interceptors.request.use(config => {
+    NProgress.start()
     config.headers.token = window.sessionStorage.getItem('token')
+    return config
+})
+
+blog.interceptors.response.use(config => {
+    NProgress.done()
     return config
 })
 
@@ -57,8 +65,6 @@ Vue.filter('dataFormat', function (originVal) {
     const d = (dt.getDate() + '').padStart(2, '0')
     return `${y}-${m}-${d}`
 })
-
-
 
 Vue.filter('dataFormat2', function (originVal) {
     const dt = new Date(originVal)

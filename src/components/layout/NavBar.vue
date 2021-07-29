@@ -71,6 +71,7 @@
 </template>
 
 <script>
+
 import Login from "../login/Login";
 import Register from "../login/Register";
 import {mapState} from "vuex";

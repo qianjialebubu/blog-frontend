@@ -1,15 +1,14 @@
 <template>
     <el-dialog class="login_dialog" title="请登录" :visible.sync="loginFormVisiable" @close="resetLoginForm" width="400px" center>
-        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
+        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="60px" class="login_form">
             <!--        用户名-->
-            <el-form-item prop="username">
-                <el-input v-model="loginForm.username" label="账号">
+            <el-form-item prop="username" label="账号">
+                <el-input v-model="loginForm.username">
                 </el-input>
             </el-form-item>
             <!--        密码-->
-            <el-form-item prop="password">
-                <el-input type="password" v-model="loginForm.password"
-                          label="密码"></el-input>
+            <el-form-item prop="password" label="密码">
+                <el-input type="password" v-model="loginForm.password"></el-input>
             </el-form-item>
             <el-form-item style="text-align: right">
                 <el-button @click="resetLoginForm">取消</el-button>

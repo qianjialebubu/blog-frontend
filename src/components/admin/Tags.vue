@@ -8,7 +8,7 @@
         <el-card shadow="never">
             <el-button type="primary" style="margin-bottom: 20px" @click="createTagDialogFormVisible = true">新建标签</el-button>
             <el-row :gutter="20">
-                <el-col :sm="8" :lg="6" v-for="tag in tagList" style="margin-bottom: 20px;">
+                <el-col :sm="8" :lg="6" v-for="tag in tagList" style="margin-bottom: 20px;" :key="tag.id">
                     <el-card shadow="hover" style="position:relative;border: 2px solid #eee;text-align: left">
                         <div class="op" style="position: absolute;right: 5px;top: 5px">
                             <i @click="editTagById(tag.id)" class="el-icon-edit"
@@ -98,6 +98,19 @@ export default {
         },
         // 根据id删除标签
         async deleteTagById(id) {
+            // 弹出对话框
+            const confirmResult = await this.$confirm(
+                    '此操作将永久删除该标签, 是否继续',
+                    '提示',
+                    {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }
+            ).catch(err => err)
+            if (confirmResult !== 'confirm') {
+                return this.$message.info('已取消删除')
+            }
             const {data: res} = await this.$blog.get(`/admin/tags/${id}/delete`)
             // console.log(res)
             if (res.code === 200) {
@@ -116,7 +129,6 @@ export default {
 
         selectCard(id) {
             this.selectedCard = id
-            // console.log(this.selectedCard)
         },
         backPage() {
             this.createTagDialogFormVisible = false

@@ -71,19 +71,19 @@ export default {
             label: '>= 50',
             color: '#FF7C32'
           }, {
-            gte: 40,
+            gte: 30,
             lte: 49,
-            label: '40 - 49',
+            label: '30 - 49',
             color: '#FDCC1A'
           }, {
-            gte: 20,
-            lte: 39,
-            label: '20 - 39',
+            gte: 10,
+            lte: 29,
+            label: '10 - 29',
             color: '#5AD7D8'
           }, {
             gte: 1,
-            lte: 19,
-            label: '1 - 19',
+            lte: 9,
+            label: '1 - 9',
             color: '#4174fe'
           }, {
             gte: 0,

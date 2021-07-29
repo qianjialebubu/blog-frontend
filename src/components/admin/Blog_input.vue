@@ -25,14 +25,14 @@
                 <el-form-item label="文章分类" prop="type">
                     <el-select size="small" v-model="publishForm.type" placeholder="请选择文章分类" style="margin-right: 10px"
                                @change="setBlogType">
-                        <el-option v-for="type in typeList" :label="type.name" :value="type.id"></el-option>
+                        <el-option v-for="type in typeList" :label="type.name" :value="type.id" :key="type.id"></el-option>
                     </el-select>
                     <el-button size="small">+ 新建分类</el-button>
                 </el-form-item>
                 <el-form-item label="文章标签" prop="tags">
                     <el-card shadow="never" style="height: 120px; overflow: auto">
                         <el-checkbox-group v-model="publishForm.tags">
-                            <el-checkbox v-for="tag in tagList" :label="tag.id">{{tag.name}}</el-checkbox>
+                            <el-checkbox v-for="tag in tagList" :label="tag.id" :key="tag.id">{{tag.name}}</el-checkbox>
                         </el-checkbox-group>
                         <el-button size="mini">+ 新建标签</el-button>
                     </el-card>
@@ -118,8 +118,9 @@ export default {
         }
     },
     created(){
-      this.blog = JSON.parse(this.$route.query.blog)
-      // console.log(this.blog)
+      if (typeof this.$route.query.blog !== 'undefined'){
+          this.blog = JSON.parse(this.$route.query.blog)
+      }
     },
     methods: {
         // 获取博客类型列表
