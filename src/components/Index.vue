@@ -30,7 +30,7 @@
                     :key="blog.id"
                     shadow="never" class="animate__animated animate__fadeInUp blog-content">
               <el-col class="img" :xs="24" :sm="8">
-                <el-image :src="blog.firstPicture"></el-image>
+                <el-image lazy :src="blog.firstPicture"></el-image>
               </el-col>
               <el-col :xs="24" :sm="16">
                 <div @click="getBlogInfo(blog.id)">
@@ -80,7 +80,7 @@
                   @click="selectType(type.id)"
                   :class="type.id === typeId? 'activeType':''">
                 <div style="display: flex;align-items: center">
-                  <el-image :src="type.pic_url"
+                  <el-image lazy :src="type.pic_url"
                             style="width: 28px;height: 28px; border-radius: 50%; margin-right: 10px"></el-image>
                   {{type.name}}
                 </div>
