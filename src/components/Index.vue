@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="height: 90vh">
+    <el-row style="height: 95vh">
       <el-col :span="24" style="height: 100%">
         <el-card shadow="none" class="welcome">
           <h1 class="tit">

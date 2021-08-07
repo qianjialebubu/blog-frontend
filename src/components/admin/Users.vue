@@ -23,7 +23,7 @@
                     <template slot-scope="scope">{{scope.row.createTime | dataFormat }}</template>
                 </el-table-column>
                 <el-table-column label="最近登录" prop="loginTime">
-                    <template slot-scope="scope">{{scope.row.lastLoginTime | dataFormat3 }}</template>
+                    <template slot-scope="scope">{{scope.row.lastLoginTime===null?scope.row.createTime:scope.row.lastLoginTime | dataFormat3 }}</template>
                 </el-table-column>
                 <el-table-column label="地址">
                     <template slot-scope="scope">{{scope.row.loginProvince +' '+ scope.row.loginCity }}</template>

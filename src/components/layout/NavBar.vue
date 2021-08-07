@@ -89,7 +89,8 @@ export default {
       },
       key: 0,
       shade: 0,
-      bgUrl: "url(\"http://www.dmoe.cc/random.php\")",
+      // bgUrl: 'url("http://www.dmoe.cc/random.php")',
+      // bgUrl: 'http://hikari.top/images/bg_1.jpg',
       scrollFlag: false,
       navClass: '',
       searchList: [],
@@ -155,9 +156,13 @@ export default {
       }
     }
   },
-
+  created() {
+    const idx = Math.floor(Math.random()*12+1);
+    this.bgUrl = `url("http://hikari.top/images/bg_${idx}.jpg")`
+    console.log(this.bgUrl)
+  },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll);
   },
 
   methods: {
