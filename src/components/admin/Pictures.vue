@@ -1,14 +1,19 @@
 <template>
   <div>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>图片管理</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-upload
             class="upload-demo"
             drag
-            action="http://hikari.top:8090/upload"
+            action="http://175.24.197.233:8090/uploadPictureManage"
             multiple>
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      <i class="el-icon-upload" ></i>
+      <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
       <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
+    <el-button @click="getPicList" type="info" plain>刷新</el-button>
     <waterfall id="waterfall_box" :width="itemWidth" :gutterWidth="gutterWidth" :col="col" :data="pictureList">
       <template>
         <div v-for="(pic,idx) in pictureList" class="waterfall_item" :key="pic">
@@ -16,17 +21,46 @@
             <div style="width: 100%;height: 100%">
               <img class="images" v-if="pic" :lazy-src="pic" @click="showImg(pic)"/>
               <span>{{pic}}</span>
+
               <el-button size="mini" type="danger" circle @click="deletePic(pic,idx)">
                 <i class="el-icon-delete"></i>
               </el-button>
+
             </div>
           </el-card>
         </div>
       </template>
       <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
+<!--        <img width="100%" :src=dialogImageUrl alt="">-->
+        <img width="100%" :src=dialogImageUrl >
+        显示图片
       </el-dialog>
     </waterfall>
+
+
+
+<!--    测试修复功能-->
+<!--    <el-upload-->
+<!--        class="upload-demo"-->
+<!--        drag-->
+<!--        action="http://192.168.3.184:8090/uploadPictureManageFixPic"-->
+<!--        :on-success="uploadSuccess"-->
+<!--        multiple>-->
+<!--      <i class="el-icon-upload" ></i>-->
+<!--      <div class="el-upload__text" >将待修复拖到此处，或<em>点击上传</em></div>-->
+<!--      <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
+<!--    </el-upload>-->
+
+<!--    <el-button @click="testPython">上传</el-button>-->
+<!--    <el-button @click="fixPic">开始修复</el-button>-->
+<!--    <el-button @click="clearPic">清空</el-button>-->
+    <br>
+    <img width="20%" :src=show_fix_before_pic.data @click="showImg(show_fix_before_pic.data)">
+    <template>
+      <div>
+        <img width="20%" :src=show_fix_after_pic.url_pic @click="showImg(show_fix_after_pic.url_pic)">
+      </div>
+    </template>
   </div>
 
 </template>
@@ -46,6 +80,9 @@ export default {
       img_margin_bottom: 20,
       dialogVisible: false,
       dialogImageUrl: '',
+      from_python: '没有返回',
+      show_fix_after_pic: '',
+      show_fix_before_pic: ''
     }
   },
   created() {
@@ -62,7 +99,14 @@ export default {
       return Math.floor(document.documentElement.clientWidth/270)
     }
   },
+
   methods: {
+    uploadSuccess(response){
+      this.show_fix_before_pic = response
+    },
+    refresh:function () {
+      location.reload();
+    },
     handleRemove() {
       this.dialogImageUrl = ''
     },
@@ -100,10 +144,11 @@ export default {
       })
     },
     async getPicList() {
-      const {data: res} = await this.$picture.get('/get_all')
+      const {data: res} = await this.$picture.get('/pic/get_all')
       this.pictureList = res
     },
     async deletePic(url,idx) {
+
       const str = url.split('/')
       const len = str.length
       const filename = str[len-1]
@@ -121,8 +166,31 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      const {data:res} = await this.$picture.get(`/delete/${filename}`)
+      // alert(filename)
+      const {data:res} = await this.$picture.get(`/pic/delete/${filename}`)
       this.$message.success('删除成功！')
+      //强制刷新当前界面
+      // location.reload();
+      this.getPicList()
+    },
+    async testPython(){
+      const {data: res} = await this.$picture.get('http://127.0.0.1:8000/')
+      this.from_python = res
+    },
+
+    async fixPic(){
+      const {data: res} = await this.$picture.post('http://175.24.197.233:8000/fixPic',this.show_fix_before_pic)
+      this.show_fix_after_pic = res
+    },
+    // async fixPic(){
+    //   const {data: res} = await this.$picture.get('http://127.0.0.1:8000/fixPic')
+    //   this.from_python1 = res
+    // },
+    async clearPic(){
+      this.from_python = ''
+      this.from_python1 = ''
+      this.show_fix_before_pic = ''
+      this.show_fix_after_pic = ''
     }
   }
 }

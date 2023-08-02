@@ -34,7 +34,6 @@ export default {
       this.$echarts.registerMap('china', res)
       const initOption = {
         title:{
-          text: '用户来源'
         },
         geo: {
           type: 'map',

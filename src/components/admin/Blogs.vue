@@ -126,7 +126,7 @@
                     <el-form-item style="text-align: center">
                         <el-upload
                                 ref="upload"
-                                action="http://hikari.top:8090/upload"
+                                action="http://175.24.197.233:8090/upload"
                                 list-type="picture-card"
                                 :limit="1"
                                 :on-preview="handlePictureCardPreview"

@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card-component" style="margin-left:8px;margin-top: 14px" shadow="hover">
         <div slot="header" class="box-card-header">
-            <img src="http://hikari.top/images/2dd8ee7b-3862-454f-b175-1174593ad114.jpg">
+            <img src="https://blog-bu.oss-cn-beijing.aliyuncs.com/blog/2023/06/20/1dff9ead-09e4-431f-b60a-d41b05f0236c.jpg">
         </div>
         <div style="position:relative;">
             <div style="padding-top:35px;" class="progress-item">

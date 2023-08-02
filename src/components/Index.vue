@@ -4,7 +4,7 @@
       <el-col :span="24" style="height: 100%">
         <el-card shadow="none" class="welcome">
           <h1 class="tit">
-            欢迎来到Hikariの个人博客
+            欢迎来到QJL的个人博客
             <div class="border"></div>
           </h1>
 
@@ -127,6 +127,21 @@
               <a>{{blog.title}}</a>
             </div>
           </el-card>
+
+<!--          友链的首页显示-->
+          <el-card style="background-color: rgba(231, 242, 200,0.9)"
+                   class="animate__animated animate__fadeInUp right-item">
+            <div slot="header" class="attributes">
+              <span>相关链接</span>
+            </div>
+            <div class="animate__animated animate__fadeInUp recommend-blog l-text" v-for="friend in friendList"
+                 :key="friend.id"
+                 @click="getFriendListInfo(friend.id)">
+              <template v-if="friend.state ==='1'">
+                <a :href="friend.link" target="_blank" class="buttonText">{{friend.blogName }}</a>
+              </template>
+            </div>
+          </el-card>
         </el-col>
       </el-row>
     </el-container>
@@ -149,6 +164,7 @@ export default {
       typeList: [],
       tagList: [],
       recommendList: [],
+      friendList: [],
       selectMethod: '全部博客',
       typeId: -1,
       tagId: -1,
@@ -182,6 +198,7 @@ export default {
     this.getBlogList()
     this.getTagList()
     this.getRecommendList()
+    this.getFriendListInfo()
     let str = '这是我的个人博客、会分享关于编程，开发以及其他方面的一些内容，希望可以对您有所帮助...';
     let idx = 0;
     let that = this
@@ -215,6 +232,12 @@ export default {
         let value2 = b[property].length;
         return value2 - value1;
       }
+    },
+    // 获取友链推荐表
+    async getFriendListInfo(){
+      const {data: res} = await this.$blog.get('/admin/friend/getFriendList')
+      this.friendList=res.data
+      // alert(this.friendList)
     },
     // 获取推荐博客列表
     async getRecommendList() {

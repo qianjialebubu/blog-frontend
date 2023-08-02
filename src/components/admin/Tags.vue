@@ -21,7 +21,19 @@
                 </el-col>
             </el-row>
         </el-card>
-        <el-dialog title="分类修改" :visible.sync="createTagDialogFormVisible">
+        <el-dialog title="标签修改" :visible.sync="createTagDialogFormVisible">
+            <el-form style="text-align: left" ref="createTagFormRef" :model="createTagForm"
+                     :rules="createTagFormRules" label-width="80px">
+                <el-form-item label="标签名称" prop="name">
+                    <el-input v-model="createTagForm.name"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="backPage">取消</el-button>
+                <el-button tag="primary" @click="createTag">提交</el-button>
+            </div>
+        </el-dialog>
+        <el-dialog title="标签新增/修改" :visible.sync="createTagDialogFormVisible">
             <el-form style="text-align: left" ref="createTagFormRef" :model="createTagForm"
                      :rules="createTagFormRules" label-width="80px">
                 <el-form-item label="标签名称" prop="name">

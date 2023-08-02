@@ -1,0 +1,359 @@
+{
+  "id": "4193246",
+  "name": "blog",
+  "font_family": "iconfontadd",
+  "css_prefix_text": "iconadd-",
+  "description": "个人博客项目v2.0新增图标",
+  "glyphs": [
+    {
+      "icon_id": "26346781",
+      "name": "招聘求职",
+      "font_class": "zhaopinqiuzhi",
+      "unicode": "ffdf",
+      "unicode_decimal": 65503
+    },
+    {
+      "icon_id": "36717549",
+      "name": "招聘求职-copy",
+      "font_class": "zhaopinqiuzhi-copy",
+      "unicode": "ffe1",
+      "unicode_decimal": 65505
+    },
+    {
+      "icon_id": "36717552",
+      "name": "招聘求职-copy",
+      "font_class": "zhaopinqiuzhi-copy1",
+      "unicode": "ffe2",
+      "unicode_decimal": 65506
+    },
+    {
+      "icon_id": "36717554",
+      "name": "招聘求职-copy-copy",
+      "font_class": "zhaopinqiuzhi-copy-copy",
+      "unicode": "ffe3",
+      "unicode_decimal": 65507
+    },
+    {
+      "icon_id": "5978731",
+      "name": "neural-network",
+      "font_class": "shenjingwangluo",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "1189645",
+      "name": "求职意向",
+      "font_class": "qiuzhiyixiang",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "8760187",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "30417646",
+      "name": "功能栏-项目科研课题中心",
+      "font_class": "gongnenglan-xiangmukeyanketizhongxin",
+      "unicode": "e748",
+      "unicode_decimal": 59208
+    },
+    {
+      "icon_id": "35679377",
+      "name": "科研项目",
+      "font_class": "keyanxiangmu",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "15188483",
+      "name": "nodejs",
+      "font_class": "nodejs",
+      "unicode": "e703",
+      "unicode_decimal": 59139
+    },
+    {
+      "icon_id": "15378319",
+      "name": "elasticsearch",
+      "font_class": "elasticsearch",
+      "unicode": "eb85",
+      "unicode_decimal": 60293
+    },
+    {
+      "icon_id": "15378732",
+      "name": "rabbitmq",
+      "font_class": "rabbitmq",
+      "unicode": "ec75",
+      "unicode_decimal": 60533
+    },
+    {
+      "icon_id": "18005108",
+      "name": "elasticsearch-Elasticsearch",
+      "font_class": "elasticsearch-Elasticsearch",
+      "unicode": "e8a2",
+      "unicode_decimal": 59554
+    },
+    {
+      "icon_id": "21053820",
+      "name": "虚拟机",
+      "font_class": "xuniji",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "23864784",
+      "name": "pom文件",
+      "font_class": "pomwenjian",
+      "unicode": "e6d7",
+      "unicode_decimal": 59095
+    },
+    {
+      "icon_id": "26267572",
+      "name": "gitee",
+      "font_class": "gitee",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "30287885",
+      "name": "mangodb",
+      "font_class": "mangodb",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "36608823",
+      "name": "redis",
+      "font_class": "redis",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "77156",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "981325",
+      "name": "Kafka",
+      "font_class": "Kafka",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "1305097",
+      "name": "IP",
+      "font_class": "IP",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "1305117",
+      "name": "安全",
+      "font_class": "anquan",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "3141925",
+      "name": "mongo2",
+      "font_class": "mongo",
+      "unicode": "e7b0",
+      "unicode_decimal": 59312
+    },
+    {
+      "icon_id": "3876424",
+      "name": "docker",
+      "font_class": "docker",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "4807117",
+      "name": "人工智能",
+      "font_class": "rengongzhineng",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "4936947",
+      "name": "ant-cloud",
+      "font_class": "ant-cloud",
+      "unicode": "e879",
+      "unicode_decimal": 59513
+    },
+    {
+      "icon_id": "4936970",
+      "name": "Gitlab",
+      "font_class": "Gitlab",
+      "unicode": "e87f",
+      "unicode_decimal": 59519
+    },
+    {
+      "icon_id": "5583410",
+      "name": "oss 对象存储OSS",
+      "font_class": "ossduixiangcunchuOSS",
+      "unicode": "e8b1",
+      "unicode_decimal": 59569
+    },
+    {
+      "icon_id": "6195884",
+      "name": "icon-xlsx",
+      "font_class": "icon-xlsx",
+      "unicode": "e7cf",
+      "unicode_decimal": 59343
+    },
+    {
+      "icon_id": "6986761",
+      "name": "dns",
+      "font_class": "dns",
+      "unicode": "e88e",
+      "unicode_decimal": 59534
+    },
+    {
+      "icon_id": "7130825",
+      "name": "hbase",
+      "font_class": "hbase",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "7141643",
+      "name": "npm",
+      "font_class": "npm",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "8218579",
+      "name": "用户并发请求",
+      "font_class": "yonghubingfaqingqiu",
+      "unicode": "e6c2",
+      "unicode_decimal": 59074
+    },
+    {
+      "icon_id": "10793037",
+      "name": "swagger",
+      "font_class": "swagger",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11770090",
+      "name": "Ribbon",
+      "font_class": "Ribbon",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "12266706",
+      "name": "gateway",
+      "font_class": "gateway",
+      "unicode": "e7b9",
+      "unicode_decimal": 59321
+    },
+    {
+      "icon_id": "12317214",
+      "name": "APP",
+      "font_class": "APP",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "13743932",
+      "name": "gitee-fill-round",
+      "font_class": "gitee-fill-round",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "18169761",
+      "name": "数据库,数据",
+      "font_class": "database",
+      "unicode": "e940",
+      "unicode_decimal": 59712
+    },
+    {
+      "icon_id": "1467354",
+      "name": "git",
+      "font_class": "git",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "3826841",
+      "name": "计算机水平",
+      "font_class": "jisuanjishuiping",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "6496026",
+      "name": "Vue",
+      "font_class": "Vue",
+      "unicode": "e799",
+      "unicode_decimal": 59289
+    },
+    {
+      "icon_id": "8987278",
+      "name": "微服务",
+      "font_class": "weifuwu",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "10784920",
+      "name": "bxl-vuejs",
+      "font_class": "bxl-vuejs",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    },
+    {
+      "icon_id": "14310657",
+      "name": "虚拟机",
+      "font_class": "xuniji1",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "20784477",
+      "name": "JAVA开发",
+      "font_class": "JAVAkaifa",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "27365169",
+      "name": "linux",
+      "font_class": "linux",
+      "unicode": "ec0e",
+      "unicode_decimal": 60430
+    },
+    {
+      "icon_id": "29771906",
+      "name": "集成开发环境",
+      "font_class": "jichengkaifahuanjing",
+      "unicode": "e6bf",
+      "unicode_decimal": 59071
+    },
+    {
+      "icon_id": "21053781",
+      "name": "MySQL",
+      "font_class": "MySQL",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "12600749",
+      "name": "java",
+      "font_class": "java",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    }
+  ]
+}

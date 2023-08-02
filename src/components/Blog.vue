@@ -51,8 +51,11 @@
               <p>支付宝</p>
             </div>
           </div>
-          <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>
+<!--          <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>-->
+
+<!--          <el-button class="zanshang" slot="reference" type="danger" round plain>赞赏</el-button>-->
         </el-popover>
+        <el-button class="zanshang" type="danger" round plain @click="appreciationBlog">点赞</el-button>
       </div>
       <div class="author">
         <ul>
@@ -155,6 +158,18 @@ export default {
     ])
   },
   methods: {
+    // 给文章进行点赞
+    async appreciationBlog(){
+      const {data: res} = await this.$blog.post(`/blog/appreciationBlog`,{
+        blogId : this.blog.id
+      })
+      // const {data: res} = await this.$blog.post('comments', {
+      //   content: comment.content,
+      //   blogId: comment.blogId,
+      //   userId: this.$store.state.userInfo.id,
+      //   parentId: -1
+      // })
+    },
     replyComp(val) {
       this.$message({message: "评论发表成功", type: 'success', offset: 80});
       this.rpActiveId = -1

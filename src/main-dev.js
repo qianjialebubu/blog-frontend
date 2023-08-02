@@ -10,6 +10,7 @@ import {VueJsonp} from 'vue-jsonp'
 import NProgress from 'nprogress'
 import './assets/fonts/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css'
+import './assets/fonts/iconfontadd/iconfont.css'
 import '@/assets/css/animate.css'
 import '@/assets/css/typo.css';
 import '@/assets/css/prism.css'
@@ -30,11 +31,13 @@ Vue.prototype.$jsonp = VueJsonp
 
 
 const blog = axios.create({ // 博客后台api地址
-    baseURL: 'http://hikari.top:8090'
+    baseURL: 'http://175.24.197.233:8090'
+    // baseURL: 'http://hikari.top:8090'
 })
 
 const picture = axios.create({ // 图片服务器api地址
-    baseURL: 'http://hikari.top/pic_server'
+    baseURL: 'http://175.24.197.233:8090'
+    // baseURL: 'http://hikari.top/pic_server'
 })
 
 blog.interceptors.request.use(config => {

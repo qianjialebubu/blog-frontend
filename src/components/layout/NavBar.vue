@@ -3,7 +3,8 @@
   <div>
     <div class="animate__animated animate__fadeIn title" :key="key" :style="{'background-image': bgUrl}"></div>
     <el-header :style="'margin-bottom:'+ headerBottom +'px'" class="animate__animated animate__fadeIn">
-      <h2 class="animate__animated animate__swing logo" :key="shade" @click="shade++">Hikari</h2>
+      <h2 class="animate__animated animate__swing logo" :key="shade" @click="shade++">QLL</h2>
+<!--      <h2 class="animate__animated animate__swing logo" :key="shade" @click="shade++">Hikari</h2>-->
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="rgba(0,0,0,0)"
                style="border: none;"
                router text-color="#fff" active-text-color="#ffd04b">
@@ -29,7 +30,7 @@
           </el-menu-item>
         </el-menu>
       </div>
-
+<!--      对于文章标题的搜索-->
       <div class="menu-expend" @click="menuExpend">
         <i class="el-icon-menu"></i>
       </div>
@@ -50,6 +51,25 @@
           </li>
         </ul>
       </div>
+
+<!--      对于文章内容的搜索-->
+<!--      <div class="search_input">-->
+<!--        <el-input-->
+<!--                @focus="checkInput"-->
+<!--                @blur="notSearching()"-->
+<!--                class="search"-->
+<!--                placeholder="请输入博客搜索内容"-->
+<!--                prefix-icon="el-icon-search"-->
+<!--                v-model="queryInfoDe.query"-->
+<!--                size="mini">-->
+<!--        </el-input>-->
+<!--        <ul v-if="searching">-->
+<!--          <li class="animate__animated animate__fadeInDown search-blog" v-for="blog in searchListDe" :key="blog.id"-->
+<!--              @click="getBlogInfoDe(blog.id)">-->
+<!--            <a>{{blog.title}}</a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
 
       <div v-if="logined" style="margin-right: 50px">
         <el-button size="mini" effect="light" type="primary" @click="showLFV">登录</el-button>
@@ -87,6 +107,10 @@ export default {
         query: '',
         timer: null
       },
+      queryInfoDe: {
+        query: '',
+        timer: null
+      },
       key: 0,
       shade: 0,
       // bgUrl: 'url("http://www.dmoe.cc/random.php")',
@@ -94,6 +118,7 @@ export default {
       scrollFlag: false,
       navClass: '',
       searchList: [],
+      searchListDe: [],
       searching: false,
       activeIndex: '1',
       menulist: [
@@ -157,8 +182,11 @@ export default {
     }
   },
   created() {
-    const idx = Math.floor(Math.random()*12+1);
-    this.bgUrl = `url("http://hikari.top/images/bg_${idx}.jpg")`
+    const idx = Math.floor(Math.random()*5+1);
+    this.bgUrl = `url("https://blog-bu.oss-cn-beijing.aliyuncs.com/blog_static_resource/background_${idx}.PNG")`
+    // this.bgUrl = `url("http://hikari.top/images/bg_${idx}.jpg")`
+    // this.bgUrl = "url(\"https://blog-bu.oss-cn-beijing.aliyuncs.com/blog_static_resource/background_1.PNG\")"
+
     console.log(this.bgUrl)
   },
   mounted() {
@@ -179,7 +207,8 @@ export default {
     }
     ,
     showLFV() {
-      this.bgUrl = "url(\"http://www.dmoe.cc/random.php\")"
+      // this.bgUrl = "url(\"http://www.dmoe.cc/random.php\")"
+      this.bgUrl = "url(\"https://blog-bu.oss-cn-beijing.aliyuncs.com/%E8%83%8C%E6%99%AF.PNG?Expires=1678352146&OSSAccessKeyId=TMP.3KjHAY2b9EewNDepwm46AjxGfodwdZssiPRX7W8EmGF6qcFzx3aX1RzJjUgJ3mYirJWcCCqw8w6tqEqpCyYr9ZURpPPnvA&Signature=paRVHa9XmiKOH0OkmRFJueImBSM%3D\")"
       this.$store.commit('showLFV')
     }
     ,
@@ -210,6 +239,11 @@ export default {
 
 // 跳转到博客详情页
     getBlogInfo(blogId) {
+      this.$store.commit('changeBlogKey')
+      this.$router.push({path: '/blogInfo', query: {id: blogId}});
+    }
+    ,
+    getBlogInfoDe(blogId) {
       this.$store.commit('changeBlogKey')
       this.$router.push({path: '/blogInfo', query: {id: blogId}});
     }

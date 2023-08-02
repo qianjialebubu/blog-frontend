@@ -7,7 +7,7 @@
         </p>
       </template>
     </el-table-column>
-    <el-table-column label="类型" width="100" align="center">
+    <el-table-column label="类型" width="200" align="center">
       <template slot-scope="scope">
         {{ scope.row.type.name }}
       </template>

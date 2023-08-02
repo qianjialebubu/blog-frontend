@@ -24,12 +24,12 @@
               </el-select>
             </el-form-item>
             <el-form-item label="项目描述" prop="content">
-              <el-input v-model="publishForm.content" type="textarea" placeholder="请输入内容"></el-input>
+              <el-input v-model="publishForm.content" type="textarea" placeholder=" 请输入内容"></el-input>
             </el-form-item>
             <el-form-item label="项目图片">
               <el-upload
                       ref="upload"
-                      action="http://hikari.top:8090/upload"
+                      action="http://175.24.197.233:8090/upload"
                       list-type="picture-card"
                       :limit="1"
                       :on-preview="handlePictureCardPreview"
@@ -87,7 +87,7 @@
                 </el-button>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <!--            删除按钮-->
                 <el-button

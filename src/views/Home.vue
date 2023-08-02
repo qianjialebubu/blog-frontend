@@ -49,8 +49,10 @@ export default {
                 {id: 6, path: '/admin/comments', authName: '评论管理'},
                 {id: 7, path: '/admin/essays', authName: '随笔管理'},
                 {id: 8, path: '/admin/projects', authName: '项目管理'},
-                {id: 9, path: '/admin/administrator', authName: '个人中心'},
-                {id: 10, path: '/admin/pictures', authName: '图片管理'},
+                {id: 9, path: '/admin/pictures', authName: '图片管理'},
+                {id: 10, path: '/admin/friends',authName: '友链管理'},
+                {id: 11, path: '/admin/administrator', authName: '个人中心'},
+
             ],
             iconsObj: {
                 '0': 'iconfont icon-menu_home',
@@ -62,8 +64,9 @@ export default {
                 '6': 'iconfont icon-pinglun',
                 '7': 'iconfont icon-jilu2',
                 '8': 'iconfont icon-houtaiguanli',
-                '9': 'iconfont icon-gerenzhongxin1',
-                '10':'iconfont icon-jinengliang',
+                '9':'iconfont icon-jinengliang',
+                '10':'iconfont icon-shoucang1',
+                '11': 'iconfont icon-gerenzhongxin1'
             },
             isCollapse: false,
             // 被激活的动态地址

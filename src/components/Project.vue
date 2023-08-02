@@ -9,7 +9,9 @@
            v-for="(project) in projectList" :key="project.id">
         <a :href="project.url" style="text-decoration: none" target="_blank">
           <el-card class="project">
-            <el-image class="image" lazy :src="project.pic_url"></el-image>
+            <el-image class="image" :src="project.pic_url"></el-image>
+            <!--            <el-image class="image" src="project.pic_url"></el-image>-->
+<!--            <el-image class="image" lazy :src="project.pic_url"></el-image>-->
             <div class="pro-info">
               <h3>{{project.title}}</h3>
               <p class="info">{{project.content}}</p>

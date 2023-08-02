@@ -3,22 +3,24 @@
         <!--    center aligned居中-->
         <el-row :gutter="20" class=" footer-info">
             <el-col class="ewm" :xs="24" :sm="4" >
-                <el-image src="http://hikari.top/images/d20db05f-2d0b-4fc4-b52c-4478bb9fc655.png" alt="图片加载失败"
+                <el-image src="https://blog-bu.oss-cn-beijing.aliyuncs.com/blog_static_resource/portrait_programmer_20230308114752.jpg" alt="图片加载失败"
                           class="ui rounded image" style="width: 110px"/>
             </el-col>
             <el-col class="new-blog" :xs="24" :sm="7">
                 <h4 class="ui inverted header m-text-spaced ">最新博客</h4>
+
                 <div id="newblog-container">
                     <div class="recommend-blog l-text list" v-for="blog in footerList" :key="blog.id">
                         <a class="item" href="#" target="_blank">{{blog.title}}</a>
+
                     </div>
                 </div>
             </el-col>
             <el-col class="connect" :xs="24" :sm="5">
                 <h4 class="ui inverted header m-text-spaced ">联系我</h4>
                 <div class="ui inverted link list">
-                    <p class="item">Email：2569757226@qq.com</p>
-                    <p class="item">QQ：2569757226</p>
+                    <p class="item">Email：2077103562@qq.com</p>
+                    <p class="item">QQ：2077103562</p>
                 </div>
             </el-col>
             <el-col class="intro" :xs="24" :sm="8">
@@ -31,8 +33,11 @@
         </el-row>
         <el-row>
             <div class="author">
-                <p class="m-text-thin m-text-spaced m-opacity-mini">Copright©2018-2022 taiyonoyoni Designed by
-                    taiyonoyoni</p>
+<!--                <p class="m-text-thin m-text-spaced m-opacity-mini">Copright©2018-2022 taiyonoyoni Designed by-->
+<!--                    taiyonoyoni</p>-->
+              <a href="https://beian.miit.gov.cn/" target="_blank">备案号:</a>
+              <a href="https://beian.miit.gov.cn/" target="_blank">津ICP备2023001661号-1</a>
+              <p>Copyright © 2023<span v-if="getda"> - {{year}}</span> qjl. All rights reserved.</p>
             </div>
         </el-row>
     </div>
@@ -40,15 +45,36 @@
 
 <script>
 export default {
-    data(){
+  mounted() {
+    // 调用获取年
+    this.getCurrentYear()
+  },
+  data(){
+
         return {
-            footerList: [],
+          // 当前年
+          year:'',
+          // 默认隐藏
+          getda:false,
+          footerList: [],
         }
     },
     created(){
         this.getfooterList()
     },
     methods: {
+      // 版权 获取当前年
+      getCurrentYear() {
+        let date = new Date();
+        let y = date.getFullYear();
+        this.time = y;
+        this.year = y;
+        if (y > 2023 ) {
+          this.getda = true
+        } else {
+          this.getda = false
+        }
+      },
         async getfooterList() {
             const {data: res} = await this.$blog.get('/footer/newblog')
             this.footerList = res.data

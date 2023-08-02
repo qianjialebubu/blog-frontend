@@ -11,8 +11,13 @@
                 <el-input type="password" v-model="loginForm.password"></el-input>
             </el-form-item>
             <el-form-item style="text-align: right">
+                <el-form-item>
+                  <el-checkbox v-model="rememberMe">记住我</el-checkbox>
+                </el-form-item>
                 <el-button @click="resetLoginForm">取消</el-button>
                 <el-button type="primary" @click="userLogin">登录</el-button>
+
+
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -24,6 +29,7 @@ import {mapState} from 'vuex'
 export default {
     data() {
         return {
+
             user:{
                 username:'',
                 password:'',
@@ -31,6 +37,8 @@ export default {
                 loginCity:'咸阳市',
                 loginLat:34.27, //纬度
                 loginLng:108.08, //经度
+                rememberMe: false,
+
             },
             // 表单数据绑定对象
             loginForm: {
@@ -59,9 +67,13 @@ export default {
        ])
     },
     methods: {
+
         resetLoginForm() {
             this.$store.commit('cancelLFV')
             this.$refs.loginFormRef.resetFields()
+          //强制刷新当前界面
+            location.reload();
+
         },
         // 用户登录
         userLogin() {
@@ -74,6 +86,7 @@ export default {
                 this.user.loginCity = local.result.ad_info.city
                 this.user.loginLat = local.result.location.lat
                 this.user.loginLng = local.result.location.lng
+
                 const {data: res} = await this.$blog.post('/login', {
                     user:this.user
                 });
@@ -116,5 +129,7 @@ export default {
     .login_dialog{
         opacity: 1;
     }
+
+
 
 </style>

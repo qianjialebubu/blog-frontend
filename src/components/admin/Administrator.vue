@@ -9,7 +9,9 @@
           </div>
         </div>
         <div class="info">
-          <h1 class="nickname">{{userInfo.nickname}} <span class="change-password" @click="changePassword()">修改密码</span>
+          <h1 class="nickname">{{userInfo.nickname}}
+            <span class="change-password" @click="changePassword">修改密码</span>
+<!--            <input v-model="userFrom.password">-->
           </h1>
           <p class="email">{{userInfo.email}}</p>
         </div>
@@ -20,7 +22,7 @@
       <el-form :data="userFrom" label-width="100px" label-position="left"
                style="text-align: left;width: 80%;margin-left: 30px;margin-top: 20px">
         <el-form-item label="用户类型">
-          <div style="margin-left: 10px">{{userFrom.type===1?'管理员':'普通用户'}}</div>
+          <div style="margin-left: 10px">{{userFrom.type==='1'?'管理员':'普通用户'}}</div>
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="userFrom.nickname"></el-input>
@@ -29,6 +31,7 @@
           <el-input v-model="userFrom.username"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
+<!--          <input v-model="userFrom.email">-->
           <el-input v-model="userFrom.email"></el-input>
         </el-form-item>
       </el-form>
@@ -39,13 +42,13 @@
       <el-upload
               v-if="uploading"
               class="avatar-uploader"
-              action="http://hikari.top:8090/upload"
+              action="http://175.24.197.233:8090/upload"
               :show-file-list="false"
               :on-success="handleAvatarSuccess">
         <img v-if="imageUrl" :src="imageUrl" class="new-avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-
+      <!--              action="http://192.168.3.184:8090/upload"-->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
         <el-button type="primary" @click="setAvatar()">确定</el-button>
@@ -64,7 +67,8 @@ export default {
       userFrom: {
         nickname: '',
         username: '',
-        email: ''
+        email: '',
+        password: ''
       },
       dialogVisible: false,
       avatarHover: false,
@@ -83,8 +87,12 @@ export default {
     this.getUserInfo()
   },
   methods: {
+    changePassword:function (){
+      this.changeUserInfo()
+    },
     getUserInfo() {
       this.userFrom = JSON.parse(window.sessionStorage.getItem('user'));
+      // alert(this.userFrom.email)
     },
     // 修改头像成功
     handleAvatarSuccess(res) {
@@ -102,6 +110,7 @@ export default {
       window.sessionStorage.setItem('user', JSON.stringify(this.userInfo))
       window.location.reload()
     },
+    // 保存修改结束的个人信息
     async changeUserInfo() {
       const {data: res} = await this.$blog.post('/admin/user', {
         user: this.userFrom

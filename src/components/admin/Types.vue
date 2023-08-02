@@ -7,9 +7,21 @@
         </el-breadcrumb>
         <el-card shadow="never">
             <el-button type="primary" @click="createTypeDialogFormVisible = true">新建分类</el-button>
+<!--            <el-button type="primary" @click="outPutData">导出数据</el-button>-->
+            <el-button type="primary" @click="showDialog">导出数据</el-button>
+            <el-dialog :visible.sync="dialogVisible" title="选择文件夹" @close="dialogClosed">
+              <div>
+                <el-input v-model="selectedPath" placeholder="选择导出本地路径" />
+              </div>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="handleFolderSelection">确定</el-button>
+              </span>
+            </el-dialog>
+<!--            <p v-if="selectedPath">选择的文件夹路径：{{ selectedPath }}</p>-->
             <el-table :data="typeList" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="图片" prop="pic_url" width="150px">
+                <el-table-column label="图片" prop="pic_url" width="150px"  class="type-image-style">
                     <template slot-scope="scope">
                         <el-image :src="scope.row.pic_url"></el-image>
                     </template>
@@ -47,7 +59,7 @@
                 <el-form-item label="封面图片">
                     <el-upload
                             ref="upload"
-                            action="http://hikari.top:8090/upload"
+                            action="http://175.24.197.233:8090/upload"
                             list-type="picture-card"
                             :limit="1"
                             :file-list="fileList"
@@ -70,9 +82,12 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'; // 导入Element UI的Message组件
 export default {
     data() {
         return {
+          dialogVisible: false,
+          selectedPath: "",
             typeList: [],
             createTypeDialogFormVisible: false,
             dialogImageUrl: '',
@@ -90,13 +105,36 @@ export default {
                 pic_url: ''
             },
             fileList: [],
-            dialogVisible: false
+
         }
     },
     created() {
         this.getFullTypeList();
     },
     methods: {
+      showDialog() {
+        this.dialogVisible = true;
+      },
+      dialogClosed() {
+        this.selectedPath = ""; // 清空选择的文件夹路径
+      },
+      handleFolderSelection() {
+        this.dialogVisible = false; // 关闭对话框
+        this.outPutData(this.selectedPath)
+        // 在这里可以根据需要，将数据返回到前端或进行其他处理
+      },
+      // 导出分类的数据
+      async outPutData(file){
+        const {data: res} = await this.$blog.post('/admin/excel/outTypes', {
+          data: file
+        })
+        // console.log(res.code)
+        if(res.code ===200){
+          console.log("导出分类数据成功")
+        }else if(res.code ===201){
+          console.log("导出分类数据失败，请检查路径是否合法")
+        }
+      },
 
         compare(property) {
             return function (a, b) {
@@ -177,6 +215,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
+.type-image-style{
+
+}
 
 </style>
